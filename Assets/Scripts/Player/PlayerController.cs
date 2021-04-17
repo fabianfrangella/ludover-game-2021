@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public int health;
-    public int mana;
-    public int stamina;
+    int health;
+    int mana;
+    int stamina;
     public int maxHealth;
     public int maxMana;
     public int maxStamina;
@@ -15,7 +15,9 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        this.health = maxHealth;
+        this.mana = maxMana;
+        this.stamina = maxStamina;
     }
 
     private void FixedUpdate()
