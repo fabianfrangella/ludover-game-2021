@@ -6,11 +6,14 @@ public class PlayerController : MonoBehaviour
 {
     int health;
     int mana;
-    int stamina;
+    // Lo dejo solo public para visualizar mientras pruebo
+    public int stamina;
+    int damage;
     public int maxHealth;
     public int maxMana;
     public int maxStamina;
     public event System.Action OnPlayerDeath;
+    public event System.Action OnAttacking;
 
     // Start is called before the first frame update
     void Start()
@@ -18,16 +21,39 @@ public class PlayerController : MonoBehaviour
         this.health = maxHealth;
         this.mana = maxMana;
         this.stamina = maxStamina;
+        this.damage = 20;
     }
 
     private void FixedUpdate()
     {
         CheckLife();
+        OnStaminaReceived(1); 
     }
     // Update is called once per frame
     void Update()
     {
-        
+        HandleAttack();
+    }
+
+    public bool CanAttack()
+    {
+        return stamina >= 40;
+    }
+
+    void HandleAttack() 
+    {
+        var isAttacking = Input.GetMouseButtonDown(0);
+        if (isAttacking)
+        {
+            if (OnAttacking != null)
+            {
+                OnAttacking();
+            }
+            if (stamina >= 40)
+            {
+                OnStaminaLost(40);
+            }
+        }
     }
 
     void CheckLife()
@@ -69,6 +95,11 @@ public class PlayerController : MonoBehaviour
     }
     void OnStaminaLost(int stamina)
     {
+        if (this.stamina - stamina < 0)
+        {
+            this.stamina = 0;
+            return;
+        }
         this.stamina -= stamina;
     }
 

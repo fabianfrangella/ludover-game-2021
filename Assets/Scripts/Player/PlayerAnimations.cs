@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerAnimations : MonoBehaviour
 {
-
+    public PlayerController controller;
     public Animator animator;
     // Start is called before the first frame update
     void Start()
@@ -25,8 +25,9 @@ public class PlayerAnimations : MonoBehaviour
 
     private void PlayAttackAnimation()
     {
-        var isAttacking = Input.GetMouseButtonDown(0);
+        var isAttacking = Input.GetMouseButtonDown(0) && controller.CanAttack();
         animator.SetBool("isAttacking", isAttacking);
+       
     }
     private void PlayRunAnimation()
     {
