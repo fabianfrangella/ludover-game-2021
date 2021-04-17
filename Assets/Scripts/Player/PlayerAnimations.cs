@@ -9,21 +9,26 @@ public class PlayerAnimations : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     private void FixedUpdate()
     {
-        SetRunAnimation();
+        PlayRunAnimation();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        PlayAttackAnimation();
     }
 
-    private void SetRunAnimation()
+    private void PlayAttackAnimation()
+    {
+        var isAttacking = Input.GetMouseButtonDown(0);
+        animator.SetBool("isAttacking", isAttacking);
+    }
+    private void PlayRunAnimation()
     {
         var horizontal = Input.GetAxisRaw("Horizontal");
         var vertical = Input.GetAxisRaw("Vertical");
@@ -39,7 +44,6 @@ public class PlayerAnimations : MonoBehaviour
         }
         if (Mathf.Abs(horizontal) > 0)
         {
-            print(Mathf.Abs(horizontal));
             animator.SetFloat("Speed", Mathf.Abs(horizontal));
             return;
         }
