@@ -20,7 +20,6 @@ public class PlayerAttackManager : MonoBehaviour
     void FixedUpdate()
     {
         timeSinceLastAttack= timeSinceLastAttack + Time.deltaTime;
-        print(timeSinceLastAttack);
         if (timeSinceLastAttack > 0.5)
         {
             gameObject.SetActive(false);
