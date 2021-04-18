@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     public PlayerHealthManager playerHealthManager;
     public PlayerStaminaManager playerStaminaManager;
     public PlayerManaManager playerManaManager;
-    // Lo dejo solo public para visualizar mientras pruebo
+
     public event System.Action OnPlayerDeath;
     public event System.Action OnAttacking;
 
