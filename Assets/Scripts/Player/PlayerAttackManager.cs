@@ -7,12 +7,10 @@ public class PlayerAttackManager : MonoBehaviour
 
     public int damage;
     float timeSinceLastAttack;
-    PlayerController playerController;
     // Start is called before the first frame update
     void Start()
     {
         FindObjectOfType<PlayerController>().OnAttacking += SetAttack;
-        playerController = gameObject.GetComponent<PlayerController>();
         gameObject.SetActive(false);
     }
 
