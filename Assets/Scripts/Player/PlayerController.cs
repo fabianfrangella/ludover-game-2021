@@ -7,7 +7,6 @@ public class PlayerController : MonoBehaviour
     public PlayerHealthManager playerHealthManager;
     public PlayerStaminaManager playerStaminaManager;
     public PlayerManaManager playerManaManager;
-
     // Lo dejo solo public para visualizar mientras pruebo
     public event System.Action OnPlayerDeath;
     public event System.Action OnAttacking;
@@ -45,12 +44,9 @@ public class PlayerController : MonoBehaviour
         var isAttacking = Input.GetMouseButtonDown(0);
         if (isAttacking)
         {
-            if (OnAttacking != null)
+            if (OnAttacking != null && playerStaminaManager.stamina >= 40)
             {
                 OnAttacking();
-            }
-            if (playerStaminaManager.stamina >= 40)
-            {
                 playerStaminaManager.OnStaminaLost(40);
             }
         }
