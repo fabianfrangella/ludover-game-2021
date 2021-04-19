@@ -10,7 +10,6 @@ public class PlayerInventory : MonoBehaviour
 
     }
 
-
     // Update is called once per frame
     void Update()
     {
@@ -32,7 +31,10 @@ public class PlayerInventory : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        PickUp(collision.GetComponent<Item<PlayerHealthManager>>());
+        if (collision.CompareTag("HealthPotion"))
+        {
+            PickUp(collision.GetComponent<Item<PlayerHealthManager>>());
+        }
   
     }
 
