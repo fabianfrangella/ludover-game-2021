@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovementManager : MonoBehaviour
 {
     public float speed;
     private bool isFacingRight;

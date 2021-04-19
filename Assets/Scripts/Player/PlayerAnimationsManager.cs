@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAnimations : MonoBehaviour
+public class PlayerAnimationsManager : MonoBehaviour
 {
     public PlayerController controller;
     public Animator animator;
@@ -33,20 +33,6 @@ public class PlayerAnimations : MonoBehaviour
     {
         var horizontal = Input.GetAxisRaw("Horizontal");
         var vertical = Input.GetAxisRaw("Vertical");
-        if (horizontal == 0 && vertical == 0)
-        {
-            animator.SetFloat("Speed", -1);
-            return;
-        }
-        if (Mathf.Abs(vertical) > 0)
-        {
-            animator.SetFloat("Speed", Mathf.Abs(vertical));
-            return;
-        }
-        if (Mathf.Abs(horizontal) > 0)
-        {
-            animator.SetFloat("Speed", Mathf.Abs(horizontal));
-            return;
-        }
+        animator.SetFloat("Speed", Mathf.Abs(horizontal) + Mathf.Abs(vertical));
     }
 }
