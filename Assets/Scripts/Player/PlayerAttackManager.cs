@@ -7,12 +7,13 @@ public class PlayerAttackManager : MonoBehaviour
 
     public int damage;
     float timeSinceLastAttack;
-
+    private bool isFacingRight;
     private PlayerStaminaManager playerStaminaManager;
     private PlayerAnimationsManager playerAnimationsManager;
     // Start is called before the first frame update
     void Start()
     {
+        isFacingRight = true;
         playerStaminaManager = gameObject.GetComponent<PlayerStaminaManager>();
         playerAnimationsManager = gameObject.GetComponent<PlayerAnimationsManager>();
         timeSinceLastAttack = 0;
@@ -21,9 +22,20 @@ public class PlayerAttackManager : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        var horizontal = Input.GetAxisRaw("Horizontal");
+        isFacingRight = isFacingRight ? horizontal > 0 || horizontal == 0 : horizontal > 0;
+        print(isFacingRight);
         SetTimeSinceLastAttack();
         // para ver el raycast
-        //Debug.DrawRay(new Vector2(transform.position.x + 0.55F, transform.position.y - 0.8F), Vector2.right);
+        /*
+        if (isFacingRight)
+        {
+            Debug.DrawRay(new Vector2(transform.position.x + 0.55F, transform.position.y - 0.8F), isFacingRight ? Vector2.right : Vector2.left);
+        } else
+        {
+            Debug.DrawRay(new Vector2(transform.position.x - 0.55F, transform.position.y - 0.8F), isFacingRight ? Vector2.right : Vector2.left);
+        }
+        */
     }
 
     private void Update()
@@ -50,7 +62,7 @@ public class PlayerAttackManager : MonoBehaviour
         bool isAttacking = Input.GetMouseButtonDown(0);
         if (isAttacking && timeSinceLastAttack > 0.2 && playerStaminaManager.stamina >= 40)
         {
-            RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x + 0.55F, transform.position.y - 0.8F), Vector2.right);
+            RaycastHit2D hit = GetRayCast();
             if (hit.collider != null)
             {
                 if (hit.collider.tag == "Enemy")
@@ -63,5 +75,14 @@ public class PlayerAttackManager : MonoBehaviour
             timeSinceLastAttack = 0;
 
         }
+    }
+
+    RaycastHit2D GetRayCast()
+    {
+        if (isFacingRight)
+        {
+            return Physics2D.Raycast(new Vector2(transform.position.x + 0.55F, transform.position.y - 0.8F), isFacingRight ? Vector2.right : Vector2.left);
+        }
+        return Physics2D.Raycast(new Vector2(transform.position.x - 0.55F, transform.position.y - 0.8F), isFacingRight ? Vector2.right : Vector2.left);
     }
 }
