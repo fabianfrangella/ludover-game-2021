@@ -35,7 +35,6 @@ public class PlayerInventory : MonoBehaviour
         {
             PickUp(collision.GetComponent<Item<PlayerHealthManager>>());
         }
-  
     }
 
     Item<PlayerHealthManager> FindHealthPotion()

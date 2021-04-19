@@ -22,7 +22,8 @@ public class PlayerAttackManager : MonoBehaviour
     void FixedUpdate()
     {
         SetTimeSinceLastAttack();
-        Debug.DrawRay(new Vector2(transform.position.x + 0.55F, transform.position.y - 0.8F), Vector2.right);
+        // para ver el raycast
+        //Debug.DrawRay(new Vector2(transform.position.x + 0.55F, transform.position.y - 0.8F), Vector2.right);
     }
 
     private void Update()
