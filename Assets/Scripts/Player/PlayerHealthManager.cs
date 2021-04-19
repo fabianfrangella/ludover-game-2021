@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerHealthManager : MonoBehaviour
 {
-
-    int health;
+    // public solo para debugear
+    public int health;
     public int maxHealth;
     // Start is called before the first frame update
     void Start()
