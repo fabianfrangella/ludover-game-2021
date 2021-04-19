@@ -21,7 +21,7 @@ public class PlayerHealthManager : MonoBehaviour
 
     public bool IsAlive()
     {
-        return health <= 0;
+        return health > 0;
      }
 
     public void OnDamageReceived(int damage)

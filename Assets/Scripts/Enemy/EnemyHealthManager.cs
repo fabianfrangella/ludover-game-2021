@@ -21,14 +21,14 @@ public class EnemyHealthManager : MonoBehaviour
 
     public bool IsAlive()
     {
-        return health <= 0;
+        return health > 0;
     }
 
     public void OnDamageReceived(int damage)
     {
         
         health -= damage;
-        if (health < 0)
+        if (!IsAlive())
         {
             Destroy(gameObject);
         }
