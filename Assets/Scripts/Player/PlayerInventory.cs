@@ -51,7 +51,8 @@ public class PlayerInventory : MonoBehaviour
     void DropItem<T>(Item<T> item)
     {
         var it = GetItem(item);
-        it.gameObject.transform.position = transform.position;
+        // Dropea el item frente al personaje
+        it.gameObject.transform.position = new Vector2(transform.position.x + 1, transform.position.y - 1);
         it.gameObject.SetActive(true);
     }
 
