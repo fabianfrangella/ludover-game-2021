@@ -31,14 +31,6 @@ public class PlayerAttackManager : MonoBehaviour
         HandleStopAttack();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.tag == "Enemy")
-        {
-            collision.gameObject.GetComponent<EnemyHealthManager>().OnDamageReceived(damage);
-        }
-    }
-
     private void SetTimeSinceLastAttack()
     {
         timeSinceLastAttack = timeSinceLastAttack + Time.deltaTime;
