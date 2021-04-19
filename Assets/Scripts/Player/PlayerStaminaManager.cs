@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerStaminaManager : MonoBehaviour
 {
-    public int stamina { get; set; }
+    public int stamina;
     public int maxStamina;
     // Start is called before the first frame update
     void Start()
@@ -16,7 +16,7 @@ public class PlayerStaminaManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        OnStaminaReceived(1);
     }
 
     public void OnStaminaLost(int stamina)

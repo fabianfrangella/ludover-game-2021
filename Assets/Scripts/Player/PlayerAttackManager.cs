@@ -7,28 +7,28 @@ public class PlayerAttackManager : MonoBehaviour
 
     public int damage;
     float timeSinceLastAttack;
+
+    private PlayerStaminaManager playerStaminaManager;
+    private PlayerAnimationsManager playerAnimationsManager;
     // Start is called before the first frame update
     void Start()
     {
-        FindObjectOfType<PlayerController>().OnAttacking += SetAttack;
-        gameObject.SetActive(false);
+        playerStaminaManager = gameObject.GetComponent<PlayerStaminaManager>();
+        playerAnimationsManager = gameObject.GetComponent<PlayerAnimationsManager>();
+        timeSinceLastAttack = 0;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        timeSinceLastAttack= timeSinceLastAttack + Time.deltaTime;
-        if (timeSinceLastAttack > 0.5)
-        {
-            gameObject.SetActive(false);
-        }
+        SetTimeSinceLastAttack();
+        Debug.DrawRay(new Vector2(transform.position.x + 0.55F, transform.position.y - 0.8F), Vector2.right);
     }
 
-    private void SetAttack()
+    private void Update()
     {
-        gameObject.SetActive(true);
-        timeSinceLastAttack = 0;
-
+        HandleAttack();
+        HandleStopAttack();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -36,6 +36,39 @@ public class PlayerAttackManager : MonoBehaviour
         if (collision.tag == "Enemy")
         {
             collision.gameObject.GetComponent<EnemyHealthManager>().OnDamageReceived(damage);
+        }
+    }
+
+    private void SetTimeSinceLastAttack()
+    {
+        timeSinceLastAttack = timeSinceLastAttack + Time.deltaTime;
+    }
+
+    void HandleStopAttack()
+    {
+        if (timeSinceLastAttack > 0.2)
+        {
+            playerAnimationsManager.StopAttackAnimation();
+        }
+    }
+
+    void HandleAttack()
+    {
+        bool isAttacking = Input.GetMouseButtonDown(0);
+        if (isAttacking && timeSinceLastAttack > 0.2 && playerStaminaManager.stamina >= 40)
+        {
+            RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x + 0.55F, transform.position.y - 0.8F), Vector2.right);
+            if (hit.collider != null)
+            {
+                if (hit.collider.tag == "Enemy")
+                {
+                    hit.collider.gameObject.GetComponent<EnemyHealthManager>().OnDamageReceived(damage);
+                }
+            }
+            playerAnimationsManager.PlayAttackAnimation();
+            playerStaminaManager.OnStaminaLost(40);
+            timeSinceLastAttack = 0;
+
         }
     }
 }

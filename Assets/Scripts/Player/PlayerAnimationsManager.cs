@@ -20,15 +20,20 @@ public class PlayerAnimationsManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        PlayAttackAnimation();
+
     }
 
-    private void PlayAttackAnimation()
+    public void PlayAttackAnimation()
     {
-        var isAttacking = Input.GetMouseButtonDown(0) && controller.CanAttack();
-        animator.SetBool("isAttacking", isAttacking);
+        animator.SetBool("isAttacking", true);
        
     }
+
+    public void StopAttackAnimation()
+    {
+        animator.SetBool("isAttacking", false);
+    }
+
     private void PlayRunAnimation()
     {
         var horizontal = Input.GetAxisRaw("Horizontal");
