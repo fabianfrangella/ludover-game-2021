@@ -24,7 +24,6 @@ public class PlayerAttackManager : MonoBehaviour
     {
         var horizontal = Input.GetAxisRaw("Horizontal");
         isFacingRight = isFacingRight ? horizontal > 0 || horizontal == 0 : horizontal > 0;
-        print(isFacingRight);
         SetTimeSinceLastAttack();
         // para ver el raycast
         /*
