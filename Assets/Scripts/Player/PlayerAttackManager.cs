@@ -58,22 +58,41 @@ public class PlayerAttackManager : MonoBehaviour
 
     void HandleAttack()
     {
-        bool isAttacking = Input.GetMouseButtonDown(0);
-        if (isAttacking && timeSinceLastAttack > 0.2 && playerStaminaManager.stamina >= 40)
+        if (IsAttacking())
         {
-            RaycastHit2D hit = GetRayCast();
-            if (hit.collider != null)
-            {
-                if (hit.collider.tag == "Enemy")
-                {
-                    hit.collider.gameObject.GetComponent<EnemyHealthManager>().OnDamageReceived(damage);
-                }
-            }
-            playerAnimationsManager.PlayAttackAnimation();
-            playerStaminaManager.OnStaminaLost(40);
-            timeSinceLastAttack = 0;
-
+            HandleRaycast();
         }
+    }
+
+    private bool IsAttacking()
+    {
+        bool isAttacking = Input.GetMouseButtonDown(0);
+        return isAttacking && timeSinceLastAttack > 0.2 && playerStaminaManager.stamina >= 40;
+    }
+
+    private void HandleRaycast()
+    {
+        RaycastHit2D hit = GetRayCast();
+        if (IsHit(hit))
+        {
+            HandleHit(hit);
+        }
+        playerAnimationsManager.PlayAttackAnimation();
+        playerStaminaManager.OnStaminaLost(40);
+        timeSinceLastAttack = 0;
+    }
+
+    private void HandleHit(RaycastHit2D hit)
+    {
+        if (hit.collider.tag == "Enemy")
+        {
+            hit.collider.gameObject.GetComponent<EnemyHealthManager>().OnDamageReceived(damage);
+        }
+    }
+
+    private bool IsHit(RaycastHit2D hit)
+    {
+        return hit.collider != null;
     }
 
     RaycastHit2D GetRayCast()
