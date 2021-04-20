@@ -22,8 +22,7 @@ public class PlayerAttackManager : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        var horizontal = Input.GetAxisRaw("Horizontal");
-        isFacingRight = isFacingRight ? horizontal > 0 || horizontal == 0 : horizontal > 0;
+        SetIsFacingRight();
         SetTimeSinceLastAttack();
         // para ver el raycast
         /*
@@ -95,6 +94,11 @@ public class PlayerAttackManager : MonoBehaviour
         return hit.collider != null;
     }
 
+    private void SetIsFacingRight()
+    {
+        var horizontal = Input.GetAxisRaw("Horizontal");
+        isFacingRight = isFacingRight ? horizontal > 0 || horizontal == 0 : horizontal > 0;
+    }
     RaycastHit2D GetRayCast()
     {
         if (isFacingRight)
