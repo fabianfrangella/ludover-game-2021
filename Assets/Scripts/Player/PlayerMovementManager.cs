@@ -31,9 +31,8 @@ public class PlayerMovementManager : MonoBehaviour
 
        var horizontal = Input.GetAxisRaw("Horizontal");
        var vertical = Input.GetAxisRaw("Vertical");
-       //var v3 = new Vector3(horizontal, vertical, 0);
-       rb.velocity = new Vector2(horizontal, vertical) * speed;
-       //transform.Translate(speed * v3.normalized * Time.deltaTime);
+       var v3 = new Vector2(horizontal, vertical);
+       rb.velocity = v3.normalized * speed;
        Flip(horizontal);
        
     }
