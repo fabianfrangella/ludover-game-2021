@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class PlayerAttackManager : MonoBehaviour
 {
-
     public int damage;
-    float timeSinceLastAttack;
+    public float attackRate = 2f;
+    float nextAttackTime = 0f;
+
     private bool isFacingRight;
     private PlayerStaminaManager playerStaminaManager;
     private PlayerAnimationsManager playerAnimationsManager;
@@ -16,14 +17,12 @@ public class PlayerAttackManager : MonoBehaviour
         isFacingRight = true;
         playerStaminaManager = gameObject.GetComponent<PlayerStaminaManager>();
         playerAnimationsManager = gameObject.GetComponent<PlayerAnimationsManager>();
-        timeSinceLastAttack = 0;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
         SetIsFacingRight();
-        SetTimeSinceLastAttack();
         // para ver el raycast
         /*
         if (isFacingRight)
@@ -39,20 +38,6 @@ public class PlayerAttackManager : MonoBehaviour
     private void Update()
     {
         HandleAttack();
-        HandleStopAttack();
-    }
-
-    private void SetTimeSinceLastAttack()
-    {
-        timeSinceLastAttack = timeSinceLastAttack + Time.deltaTime;
-    }
-
-    void HandleStopAttack()
-    {
-        if (timeSinceLastAttack > 0.2)
-        {
-            playerAnimationsManager.StopAttackAnimation();
-        }
     }
 
     void HandleAttack()
@@ -60,13 +45,18 @@ public class PlayerAttackManager : MonoBehaviour
         if (IsAttacking())
         {
             HandleRaycast();
+            SetNextAttackTime();
         }
     }
 
+    private void SetNextAttackTime()
+    {
+        nextAttackTime = Time.time + 1f / attackRate;
+    }
     private bool IsAttacking()
     {
         bool isAttacking = Input.GetMouseButtonDown(0);
-        return isAttacking && timeSinceLastAttack > 0.2 && playerStaminaManager.stamina >= 40;
+        return isAttacking && Time.time >= nextAttackTime && playerStaminaManager.stamina >= 40;
     }
 
     private void HandleRaycast()
@@ -78,7 +68,6 @@ public class PlayerAttackManager : MonoBehaviour
         }
         playerAnimationsManager.PlayAttackAnimation();
         playerStaminaManager.OnStaminaLost(40);
-        timeSinceLastAttack = 0;
     }
 
     private void HandleHit(RaycastHit2D hit)

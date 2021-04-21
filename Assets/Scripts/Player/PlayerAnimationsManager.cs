@@ -25,13 +25,8 @@ public class PlayerAnimationsManager : MonoBehaviour
 
     public void PlayAttackAnimation()
     {
-        animator.SetBool("isAttacking", true);
+        animator.SetTrigger("Attack");
        
-    }
-
-    public void StopAttackAnimation()
-    {
-        animator.SetBool("isAttacking", false);
     }
 
     private void PlayRunAnimation()
