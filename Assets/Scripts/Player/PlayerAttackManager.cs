@@ -66,32 +66,35 @@ public class PlayerAttackManager : MonoBehaviour
 
     private void HandleRaycast()
     {
-        RaycastHit2D hit = GetRayCast();
-        if (IsHit(hit))
+        RaycastHit2D[] hits = GetRayCast();
+        if (IsHit(hits))
         {
-            HandleHit(hit);
+            HandleHit(hits);
         }
         playerAnimationsManager.PlayAttackAnimation();
         playerStaminaManager.OnStaminaLost(40);
     }
 
-    private void HandleHit(RaycastHit2D hit)
+    private void HandleHit(RaycastHit2D[] hits)
     {
-        if (hit.collider.tag == "Enemy")
+        foreach (var hit in hits)
         {
-            hit.collider.gameObject.GetComponent<EnemyHealthManager>().OnDamageReceived(damage);
+            if (hit.collider.tag == "Enemy")
+            {
+                hit.collider.gameObject.GetComponent<EnemyHealthManager>().OnDamageReceived(damage);
+            }
         }
     }
 
-    private bool IsHit(RaycastHit2D hit)
+    private bool IsHit(RaycastHit2D[] hit)
     {
-        return hit;
+        return hit.Length > 0;
     }
 
-    RaycastHit2D GetRayCast()
+    RaycastHit2D[] GetRayCast()
     {
         var swordPosition = new Vector2(transform.position.x, transform.position.y - 0.35f);
         Debug.DrawRay(swordPosition, directionToAttack.normalized, Color.red);
-        return Physics2D.Raycast(swordPosition, directionToAttack.normalized);
+        return Physics2D.RaycastAll(swordPosition, directionToAttack.normalized);
     }
 }
