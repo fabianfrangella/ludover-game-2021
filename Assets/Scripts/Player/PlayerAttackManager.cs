@@ -85,7 +85,7 @@ public class PlayerAttackManager : MonoBehaviour
 
     private bool IsHit(RaycastHit2D hit)
     {
-        return hit.collider != null;
+        return hit;
     }
 
     RaycastHit2D GetRayCast()
