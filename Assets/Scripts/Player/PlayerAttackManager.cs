@@ -8,31 +8,36 @@ public class PlayerAttackManager : MonoBehaviour
     public float attackRate = 2f;
     float nextAttackTime = 0f;
 
-    private bool isFacingRight;
     private PlayerStaminaManager playerStaminaManager;
     private PlayerAnimationsManager playerAnimationsManager;
+    private PlayerMovementManager playerMovementManager;
+
+    private Vector2 directionToAttack;
     // Start is called before the first frame update
     void Start()
     {
-        isFacingRight = true;
         playerStaminaManager = gameObject.GetComponent<PlayerStaminaManager>();
         playerAnimationsManager = gameObject.GetComponent<PlayerAnimationsManager>();
+        playerMovementManager = gameObject.GetComponent<PlayerMovementManager>();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        SetIsFacingRight();
-        // para ver el raycast
-        /*
-        if (isFacingRight)
+        SetDirectionToAttack();
+        var swordPosition = new Vector2(transform.position.x, transform.position.y - 0.35f);
+        Debug.DrawRay(swordPosition, directionToAttack.normalized, Color.red);
+
+    }
+
+    private void SetDirectionToAttack()
+    {
+        var direction = playerMovementManager.DirectionWhereIsMoving();
+        var standingPosition = new Vector2(0, 0);
+        if (!standingPosition.Equals(direction))
         {
-            Debug.DrawRay(new Vector2(transform.position.x + 0.55F, transform.position.y - 0.8F), isFacingRight ? Vector2.right : Vector2.left);
-        } else
-        {
-            Debug.DrawRay(new Vector2(transform.position.x - 0.55F, transform.position.y - 0.8F), isFacingRight ? Vector2.right : Vector2.left);
+            directionToAttack = direction;
         }
-        */
     }
 
     private void Update()
@@ -83,17 +88,10 @@ public class PlayerAttackManager : MonoBehaviour
         return hit.collider != null;
     }
 
-    private void SetIsFacingRight()
-    {
-        var horizontal = Input.GetAxisRaw("Horizontal");
-        isFacingRight = isFacingRight ? horizontal > 0 || horizontal == 0 : horizontal > 0;
-    }
     RaycastHit2D GetRayCast()
     {
-        if (isFacingRight)
-        {
-            return Physics2D.Raycast(new Vector2(transform.position.x + 0.55F, transform.position.y - 0.8F), isFacingRight ? Vector2.right : Vector2.left);
-        }
-        return Physics2D.Raycast(new Vector2(transform.position.x - 0.55F, transform.position.y - 0.8F), isFacingRight ? Vector2.right : Vector2.left);
+        var swordPosition = new Vector2(transform.position.x, transform.position.y - 0.35f);
+        Debug.DrawRay(swordPosition, directionToAttack.normalized, Color.red);
+        return Physics2D.Raycast(swordPosition, directionToAttack.normalized);
     }
 }
