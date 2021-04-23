@@ -69,20 +69,25 @@ public class PlayerAttackManager : MonoBehaviour
         RaycastHit2D[] hits = GetRayCast();
         if (IsHit(hits))
         {
-            HandleHit(hits);
+            HandleHits(hits);
         }
         playerAnimationsManager.PlayAttackAnimation();
         playerStaminaManager.OnStaminaLost(40);
     }
 
-    private void HandleHit(RaycastHit2D[] hits)
+    private void HandleHits(RaycastHit2D[] hits)
     {
         foreach (var hit in hits)
         {
-            if (hit.collider.tag == "Enemy")
-            {
-                hit.collider.gameObject.GetComponent<EnemyHealthManager>().OnDamageReceived(damage);
-            }
+            HandleHit(hit);
+        }
+    }
+
+    private void HandleHit(RaycastHit2D hit)
+    {
+        if (hit.collider.tag == "Enemy")
+        {
+            hit.collider.gameObject.GetComponent<EnemyHealthManager>().OnDamageReceived(damage);
         }
     }
 
