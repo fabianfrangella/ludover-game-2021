@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerAttackManager : MonoBehaviour
 {
     public int damage;
-    public float attackRate = 2f;
+    public float attackRate = 5f;
     public float attackDistance = 1f;
     float nextAttackTime = 0f;
 

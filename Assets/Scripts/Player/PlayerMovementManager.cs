@@ -33,7 +33,7 @@ public class PlayerMovementManager : MonoBehaviour
 
        var horizontal = Input.GetAxisRaw("Horizontal");
        rb.velocity = DirectionWhereIsMoving().normalized * speed;
-       Flip(horizontal);
+       //Flip(horizontal);
     }
 
     public Vector3 DirectionWhereIsMoving()

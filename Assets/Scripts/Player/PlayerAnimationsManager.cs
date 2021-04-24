@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerAnimationsManager : MonoBehaviour
 {
     public Animator animator;
+    private float lastHorizontal;
+    private float lastVertical;
     // Start is called before the first frame update
     void Start()
     {
@@ -13,6 +15,7 @@ public class PlayerAnimationsManager : MonoBehaviour
 
     private void FixedUpdate()
     {
+        SetIdleAnimation();
         PlayRunAnimation();
     }
 
@@ -25,13 +28,31 @@ public class PlayerAnimationsManager : MonoBehaviour
     public void PlayAttackAnimation()
     {
         animator.SetTrigger("Attack");
-       
+    }
+
+    private void SetIdleAnimation()
+    {
+        var horizontal = Input.GetAxisRaw("Horizontal");
+        var vertical = Input.GetAxisRaw("Vertical");
+        var isIdle = horizontal == 0 && vertical == 0;
+        if (isIdle)
+        {
+            animator.SetFloat("Horizontal", lastHorizontal);
+            animator.SetFloat("Vertical", lastVertical);
+        }
+        animator.SetBool("IsIdle", isIdle);
     }
 
     private void PlayRunAnimation()
     {
         var horizontal = Input.GetAxisRaw("Horizontal");
         var vertical = Input.GetAxisRaw("Vertical");
-        animator.SetFloat("Speed", Mathf.Abs(horizontal) + Mathf.Abs(vertical));
+        if (horizontal != 0 || vertical != 0)
+        {
+            lastHorizontal = horizontal;
+            lastVertical = vertical;
+            animator.SetFloat("Horizontal", horizontal);
+            animator.SetFloat("Vertical", vertical);
+        }
     }
 }
