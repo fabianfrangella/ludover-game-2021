@@ -7,15 +7,10 @@ public class PlayerMovementManager : MonoBehaviour
     public float speed = 2.0f;
     public Rigidbody2D rb;
 
-    private bool isFacingRight;
-
-    private Vector2 baseScale;
-
     // Start is called before the first frame update
     void Start()
     {
-        isFacingRight = true;
-        baseScale = transform.localScale;
+
     }
 
     private void FixedUpdate()
