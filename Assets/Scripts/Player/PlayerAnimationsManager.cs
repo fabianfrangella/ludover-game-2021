@@ -13,6 +13,7 @@ public class PlayerAnimationsManager : MonoBehaviour
 
     private void FixedUpdate()
     {
+        SetIdleAnimation();
         PlayRunAnimation();
     }
 
@@ -26,6 +27,15 @@ public class PlayerAnimationsManager : MonoBehaviour
     {
         animator.SetTrigger("Attack");
        
+    }
+
+    private void SetIdleAnimation()
+    {
+        var horizontal = Input.GetAxisRaw("Horizontal");
+        var vertical = Input.GetAxisRaw("Vertical");
+        animator.SetBool("IsIdle", true);
+        animator.SetFloat("Horizontal", horizontal);
+        animator.SetFloat("Vertical", vertical);
     }
 
     private void PlayRunAnimation()
