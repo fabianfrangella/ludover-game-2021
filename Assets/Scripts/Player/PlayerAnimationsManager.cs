@@ -28,7 +28,6 @@ public class PlayerAnimationsManager : MonoBehaviour
     public void PlayAttackAnimation()
     {
         animator.SetTrigger("Attack");
-       
     }
 
     private void SetIdleAnimation()
@@ -36,12 +35,12 @@ public class PlayerAnimationsManager : MonoBehaviour
         var horizontal = Input.GetAxisRaw("Horizontal");
         var vertical = Input.GetAxisRaw("Vertical");
         var isIdle = horizontal == 0 && vertical == 0;
-        animator.SetBool("IsIdle", isIdle);
         if (isIdle)
         {
             animator.SetFloat("Horizontal", lastHorizontal);
             animator.SetFloat("Vertical", lastVertical);
         }
+        animator.SetBool("IsIdle", isIdle);
     }
 
     private void PlayRunAnimation()
@@ -52,8 +51,8 @@ public class PlayerAnimationsManager : MonoBehaviour
         {
             lastHorizontal = horizontal;
             lastVertical = vertical;
+            animator.SetFloat("Horizontal", horizontal);
+            animator.SetFloat("Vertical", vertical);
         }
-        animator.SetFloat("Horizontal", horizontal);
-        animator.SetFloat("Vertical", vertical);
     }
 }
