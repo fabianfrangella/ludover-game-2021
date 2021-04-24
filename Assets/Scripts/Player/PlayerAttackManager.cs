@@ -97,7 +97,7 @@ public class PlayerAttackManager : MonoBehaviour
         return hit.Length > 0;
     }
 
-    RaycastHit2D[] GetHits()
+    private RaycastHit2D[] GetHits()
     {
         var swordPosition = new Vector2(transform.position.x, transform.position.y - 0.35f);
         Debug.DrawRay(swordPosition, directionToAttack.normalized, Color.red);
