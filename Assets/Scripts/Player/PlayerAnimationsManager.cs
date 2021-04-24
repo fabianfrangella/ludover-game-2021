@@ -25,6 +25,11 @@ public class PlayerAnimationsManager : MonoBehaviour
 
     }
 
+    public void SetDeathAnimation()
+    {
+        animator.SetTrigger("Die");
+    }
+
     public void PlayAttackAnimation()
     {
         animator.SetTrigger("Attack");

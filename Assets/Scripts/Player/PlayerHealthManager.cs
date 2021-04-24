@@ -7,30 +7,37 @@ public class PlayerHealthManager : MonoBehaviour
     // public solo para debugear
     public int health;
     public int maxHealth;
+    private PlayerAnimationsManager playerAnimationsManager;
     // Start is called before the first frame update
     void Start()
     {
         health = maxHealth;
+        playerAnimationsManager = gameObject.GetComponent<PlayerAnimationsManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        CheckDeath();
     }
 
     public bool IsAlive()
     {
         return health > 0;
-     }
+    }
+
+    void CheckDeath()
+    {
+        if (health <= 0)
+        {
+            playerAnimationsManager.SetDeathAnimation();
+            //gameObject.SetActive(false);
+        }
+    }
 
     public void OnDamageReceived(int damage)
     {
         health -= damage;
-        if (health < 0)
-        {
-            gameObject.SetActive(false);
-        }
     }
 
     public void OnHealing(int healing)
