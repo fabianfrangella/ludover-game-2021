@@ -43,14 +43,14 @@ public class PlayerAttackManager : MonoBehaviour
 
     private void Update()
     {
-        HandleAttack();
+        HandleBasicAttack();
     }
 
-    void HandleAttack()
+    void HandleBasicAttack()
     {
-        if (IsAttacking())
+        if (IsAttackingAndCanAttack())
         {
-            HandleRaycast();
+            DoBasicAttack();
             SetNextAttackTime();
         }
     }
@@ -59,13 +59,13 @@ public class PlayerAttackManager : MonoBehaviour
     {
         nextAttackTime = Time.time + 1f / attackRate;
     }
-    private bool IsAttacking()
+    private bool IsAttackingAndCanAttack()
     {
         bool isAttacking = Input.GetMouseButtonDown(0);
         return isAttacking && Time.time >= nextAttackTime && playerStaminaManager.stamina >= 40;
     }
 
-    private void HandleRaycast()
+    private void DoBasicAttack()
     {
         RaycastHit2D[] hits = GetHits();
         if (IsHit(hits))
