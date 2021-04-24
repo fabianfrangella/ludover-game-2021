@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerAnimationsManager : MonoBehaviour
 {
-    public PlayerController controller;
     public Animator animator;
     // Start is called before the first frame update
     void Start()

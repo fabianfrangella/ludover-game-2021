@@ -5,15 +5,17 @@ using UnityEngine;
 public class PlayerMovementManager : MonoBehaviour
 {
     public float speed = 2.0f;
-    private bool isFacingRight;
-    private Vector2 baseScale;
     public Rigidbody2D rb;
+
+    private bool isFacingRight;
+
+    private Vector2 baseScale;
 
     // Start is called before the first frame update
     void Start()
     {
-        this.isFacingRight = true;
-        this.baseScale = transform.localScale;
+        isFacingRight = true;
+        baseScale = transform.localScale;
     }
 
     private void FixedUpdate()
@@ -47,8 +49,6 @@ public class PlayerMovementManager : MonoBehaviour
         if (!isFacingRight && transform.localScale.x > 0)
         {
             transform.localScale = new Vector2(-baseScale.x, transform.localScale.y);
-            return;
-
         }
         if (isFacingRight && transform.localScale.x < 0)
         {
