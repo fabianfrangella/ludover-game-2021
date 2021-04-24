@@ -15,8 +15,8 @@ public class PlayerAnimationsManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        PlayRunAnimation();
         SetIdleAnimation();
+        PlayRunAnimation();
     }
 
     // Update is called once per frame
@@ -52,7 +52,6 @@ public class PlayerAnimationsManager : MonoBehaviour
         {
             lastHorizontal = horizontal;
             lastVertical = vertical;
-            return;
         }
         animator.SetFloat("Horizontal", horizontal);
         animator.SetFloat("Vertical", vertical);
