@@ -13784,7 +13784,6 @@ GameObject:
   m_Component:
   - component: {fileID: 791279854}
   - component: {fileID: 791279857}
-  - component: {fileID: 791279856}
   - component: {fileID: 791279855}
   - component: {fileID: 791279859}
   - component: {fileID: 791279862}
@@ -13830,19 +13829,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3
   rb: {fileID: 791279861}
---- !u!114 &791279856
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 791279853}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ddbd51523a09c24eab1d20826c54467, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerHealthManager: {fileID: 791279865}
 --- !u!212 &791279857
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -13960,7 +13946,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2891fb86e0cd26949a1d484bb6b83d66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 791279856}
   animator: {fileID: 791279859}
 --- !u!114 &791279863
 MonoBehaviour:
