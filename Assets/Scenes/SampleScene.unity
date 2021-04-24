@@ -13953,6 +13953,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
+  attackRate: 2
+  attackDistance: 1
 --- !u!50 &791279861
 Rigidbody2D:
   serializedVersion: 4

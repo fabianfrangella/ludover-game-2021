@@ -6,6 +6,7 @@ public class PlayerAttackManager : MonoBehaviour
 {
     public int damage;
     public float attackRate = 2f;
+    public float attackDistance = 1f;
     float nextAttackTime = 0f;
 
     private PlayerStaminaManager playerStaminaManager;
@@ -66,7 +67,7 @@ public class PlayerAttackManager : MonoBehaviour
 
     private void HandleRaycast()
     {
-        RaycastHit2D[] hits = GetRayCast();
+        RaycastHit2D[] hits = GetHits();
         if (IsHit(hits))
         {
             HandleHits(hits);
@@ -96,10 +97,11 @@ public class PlayerAttackManager : MonoBehaviour
         return hit.Length > 0;
     }
 
-    RaycastHit2D[] GetRayCast()
+    RaycastHit2D[] GetHits()
     {
         var swordPosition = new Vector2(transform.position.x, transform.position.y - 0.35f);
         Debug.DrawRay(swordPosition, directionToAttack.normalized, Color.red);
-        return Physics2D.RaycastAll(swordPosition, directionToAttack.normalized);
+
+        return Physics2D.RaycastAll(swordPosition, directionToAttack.normalized, attackDistance);
     }
 }
