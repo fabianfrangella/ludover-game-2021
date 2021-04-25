@@ -58,7 +58,7 @@ public class EnemyMovementManager : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        hasHitPlayer = collision.collider.CompareTag(TagEnum.Player.ToString());
+        hasHitPlayer = false;
         SetNewDestination();
     }
     private void StopMoving()
