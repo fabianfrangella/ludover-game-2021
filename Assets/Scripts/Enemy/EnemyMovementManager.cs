@@ -7,10 +7,12 @@ public class EnemyMovementManager : MonoBehaviour
 
     public Rigidbody2D rb;
     public float speed = 2.0f;
+
+    private Animator animator;
     // Start is called before the first frame update
     void Start()
     {
-
+        animator = gameObject.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -21,12 +23,10 @@ public class EnemyMovementManager : MonoBehaviour
 
     private void Move()
     {
-        rb.velocity = DirectionWhereIsMoving().normalized * speed;
-    }
-
-    private float GetMoveDirection()
-    {
-        return 1;
+        var direction = DirectionWhereIsMoving();
+        rb.velocity = direction.normalized * speed;
+        animator.SetFloat("Horizontal", direction.x);
+        animator.SetFloat("Vertical", direction.y);
     }
 
     public Vector3 DirectionWhereIsMoving()
