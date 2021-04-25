@@ -48,9 +48,9 @@ public class EnemyMovementManager : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag("Player"))
+        hasHitPlayer = collision.collider.CompareTag("Player");
+        if (hasHitPlayer)
         {
-            hasHitPlayer = true;
             return;
         }
         SetNewDestination();
@@ -58,10 +58,7 @@ public class EnemyMovementManager : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if(collision.collider.CompareTag("Player"))
-        {
-            hasHitPlayer = false;
-        }
+        hasHitPlayer = collision.collider.CompareTag("Player");
         SetNewDestination();
     }
     private void StopMoving()
