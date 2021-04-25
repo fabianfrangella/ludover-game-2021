@@ -7,6 +7,7 @@ public class EnemyHealthManager : MonoBehaviour
     // Start is called before the first frame update
     public int health;
     public int maxHealth;
+    public EnemyAnimationManager enemyAnimationManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,7 +17,7 @@ public class EnemyHealthManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        enemyAnimationManager.StartDieAnimation(health);
     }
 
     public bool IsAlive()
@@ -26,13 +27,7 @@ public class EnemyHealthManager : MonoBehaviour
 
     public void OnDamageReceived(int damage)
     {
-        
         health -= damage;
-        if (!IsAlive())
-        {
-            Destroy(gameObject);
-        }
-        
     }
 
     public void OnHealing(int healing)
