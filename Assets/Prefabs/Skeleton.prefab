@@ -185,3 +185,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 3112926715794206947}
   speed: 2
+  range: 0.5
+  maxDistance: 5
