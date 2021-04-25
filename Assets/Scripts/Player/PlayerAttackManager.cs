@@ -86,7 +86,7 @@ public class PlayerAttackManager : MonoBehaviour
 
     private void HandleHit(RaycastHit2D hit)
     {
-        if (hit.collider.tag == "Enemy")
+        if (hit.collider.CompareTag(TagEnum.Enemy.ToString()))
         {
             hit.collider.gameObject.GetComponent<EnemyHealthManager>().OnDamageReceived(damage);
         }

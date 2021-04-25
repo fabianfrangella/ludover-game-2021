@@ -48,7 +48,7 @@ public class EnemyMovementManager : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        hasHitPlayer = collision.collider.CompareTag("Player");
+        hasHitPlayer = collision.collider.CompareTag(TagEnum.Player.ToString());
         if (hasHitPlayer)
         {
             return;
@@ -58,7 +58,7 @@ public class EnemyMovementManager : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        hasHitPlayer = collision.collider.CompareTag("Player");
+        hasHitPlayer = collision.collider.CompareTag(TagEnum.Player.ToString());
         SetNewDestination();
     }
     private void StopMoving()
