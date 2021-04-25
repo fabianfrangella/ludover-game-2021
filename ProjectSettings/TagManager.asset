@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - HealthPotion
+  - Npc
   layers:
   - Default
   - TransparentFX
