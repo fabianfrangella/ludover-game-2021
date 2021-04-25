@@ -35,16 +35,4 @@ public class PlayerMovementManager : MonoBehaviour
         return new Vector2(horizontal, vertical);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.collider.gameObject.CompareTag("Enemy"))
-        {
-            rb.constraints = RigidbodyConstraints2D.FreezeAll;
-        }
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-    }
 }

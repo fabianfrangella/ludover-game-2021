@@ -19,6 +19,8 @@ public class EnemyMovementManager : MonoBehaviour
     private Vector2 wayPoint;
 
     private Vector2 currentDirection;
+
+    private bool hasHitPlayer = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,7 +32,7 @@ public class EnemyMovementManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!healthManager.IsAlive())
+        if (!healthManager.IsAlive() || hasHitPlayer)
         {
             StopMoving();
             return;
@@ -48,15 +50,24 @@ public class EnemyMovementManager : MonoBehaviour
     {
         if (collision.collider.CompareTag("Player"))
         {
-            StopMoving();
+            hasHitPlayer = true;
             return;
         }
         SetNewDestination();
     }
 
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if(collision.collider.CompareTag("Player"))
+        {
+            hasHitPlayer = false;
+        }
+        SetNewDestination();
+    }
     private void StopMoving()
     {
         currentDirection = Vector2.zero;
+        wayPoint = currentDirection;
     }
 
     private void SetNewDestination()

@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class SkeletonAnimationManager : EnemyAnimationManager
 {
-
+    public float timeToDisappearBody = 5;
+    private float timeSinceDeath = 0;
+    private bool isDead = false;
     public override void StartDieAnimation(float health)
     {
+        isDead = health <= 0;
         animator.SetFloat("Health", health);
     }
 
@@ -25,6 +28,21 @@ public class SkeletonAnimationManager : EnemyAnimationManager
     // Update is called once per frame
     void Update()
     {
-        
+        if (isDead)
+        {
+            HandleDeath();
+        }
+    }
+
+    void HandleDeath()
+    {
+        if (timeSinceDeath < timeToDisappearBody)
+        {
+            timeSinceDeath += Time.deltaTime;
+        }
+        if (timeSinceDeath > timeToDisappearBody)
+        {
+            gameObject.SetActive(false);
+        }
     }
 }
