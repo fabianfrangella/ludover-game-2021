@@ -12,6 +12,8 @@ public class EnemyMovementManager : MonoBehaviour
 
     public float maxDistance;
 
+    private EnemyHealthManager healthManager;
+
     private Animator animator;
 
     private Vector2 wayPoint;
@@ -20,6 +22,7 @@ public class EnemyMovementManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        healthManager = gameObject.GetComponent<EnemyHealthManager>();
         animator = gameObject.GetComponent<Animator>();
         SetNewDestination();
     }
@@ -27,6 +30,11 @@ public class EnemyMovementManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!healthManager.IsAlive())
+        {
+            StopMoving();
+            return;
+        }
         transform.position = Vector2.MoveTowards(transform.position, wayPoint, speed * Time.deltaTime);
         if (Vector2.Distance(transform.position, wayPoint) < range)
         {
@@ -38,9 +46,18 @@ public class EnemyMovementManager : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.collider.CompareTag("Player"))
+        {
+            StopMoving();
+            return;
+        }
         SetNewDestination();
     }
 
+    private void StopMoving()
+    {
+        currentDirection = Vector2.zero;
+    }
 
     private void SetNewDestination()
     {
