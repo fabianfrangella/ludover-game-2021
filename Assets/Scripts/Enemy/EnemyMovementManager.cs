@@ -6,31 +6,46 @@ public class EnemyMovementManager : MonoBehaviour
 {
 
     public Rigidbody2D rb;
-    public float speed = 2.0f;
+    public float speed = 1.0f;
+
+    public float range;
+
+    public float maxDistance;
 
     private Animator animator;
+
+    private Vector2 wayPoint;
+
+    private Vector2 currentDirection;
     // Start is called before the first frame update
     void Start()
     {
         animator = gameObject.GetComponent<Animator>();
+        SetNewDestination();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Move();
+        transform.position = Vector2.MoveTowards(transform.position, wayPoint, speed * Time.deltaTime);
+        if (Vector2.Distance(transform.position, wayPoint) < range)
+        {
+            SetNewDestination();
+        }
+        animator.SetFloat("Horizontal", currentDirection.x);
+        animator.SetFloat("Vertical", currentDirection.y);
     }
 
-    private void Move()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        var direction = DirectionWhereIsMoving();
-        rb.velocity = direction.normalized * speed;
-        animator.SetFloat("Horizontal", direction.x);
-        animator.SetFloat("Vertical", direction.y);
+        SetNewDestination();
     }
 
-    public Vector3 DirectionWhereIsMoving()
+
+    private void SetNewDestination()
     {
-        return new Vector2(1, 0);
+        currentDirection = new Vector2(Random.Range(-maxDistance, maxDistance), Random.Range(-maxDistance, maxDistance));
+        wayPoint = currentDirection;
     }
+
 }

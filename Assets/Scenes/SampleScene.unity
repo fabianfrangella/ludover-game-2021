@@ -19260,9 +19260,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3112926715794206938, guid: ac826389f7bd344469f9cfbba31201e1,
         type: 3}
+      propertyPath: range
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3112926715794206938, guid: ac826389f7bd344469f9cfbba31201e1,
+        type: 3}
       propertyPath: animator
       value: 
       objectReference: {fileID: 488066146}
+    - target: {fileID: 3112926715794206938, guid: ac826389f7bd344469f9cfbba31201e1,
+        type: 3}
+      propertyPath: maxDistance
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 3112926715794206942, guid: ac826389f7bd344469f9cfbba31201e1,
         type: 3}
       propertyPath: m_RootOrder
