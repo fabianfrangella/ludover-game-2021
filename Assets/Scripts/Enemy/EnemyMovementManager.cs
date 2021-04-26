@@ -18,8 +18,6 @@ public class EnemyMovementManager : MonoBehaviour
 
     private Vector2 wayPoint;
 
-    private Vector2 currentDirection;
-
     private Vector2 startPosition;
 
     private bool hasHitPlayer = false;
@@ -43,7 +41,8 @@ public class EnemyMovementManager : MonoBehaviour
             StopMoving();
             return;
         }
-        transform.position = Vector2.MoveTowards(transform.position, wayPoint, speed * Time.deltaTime);
+        //transform.position = Vector2.MoveTowards(transform.position, wayPoint, speed * Time.deltaTime);
+        rb.MovePosition(Vector2.MoveTowards(transform.position, wayPoint, speed * Time.deltaTime));
         if (Vector2.Distance(transform.position, wayPoint) < range)
         {
             SetNewDestination();
@@ -75,8 +74,7 @@ public class EnemyMovementManager : MonoBehaviour
     }
     private void StopMoving()
     {
-        currentDirection = Vector2.zero;
-        wayPoint = currentDirection;
+        wayPoint = Vector2.zero;
     }
 
     private void SetNewDestination()
@@ -85,11 +83,10 @@ public class EnemyMovementManager : MonoBehaviour
         var maxX = startPosition.x + maxDistance;
         var minY = startPosition.y - maxDistance;
         var maxY = startPosition.y + maxDistance;
-        currentDirection = new Vector2(
-            Random.Range(minX, maxX), 
+        wayPoint = new Vector2(
+            Random.Range(minX, maxX),
             Random.Range(minY, maxY)
             );
-        wayPoint = currentDirection;
     }
 
 }
