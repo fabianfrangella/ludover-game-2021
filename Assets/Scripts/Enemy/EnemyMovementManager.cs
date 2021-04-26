@@ -23,12 +23,15 @@ public class EnemyMovementManager : MonoBehaviour
     private Vector2 startPosition;
 
     private bool hasHitPlayer = false;
+
+    private Vector2 prevLoc;
     // Start is called before the first frame update
     void Start()
     {
         healthManager = gameObject.GetComponent<EnemyHealthManager>();
         animator = gameObject.GetComponent<Animator>();
         startPosition = transform.position;
+        prevLoc = startPosition;
         SetNewDestination();
     }
 
@@ -45,10 +48,16 @@ public class EnemyMovementManager : MonoBehaviour
         {
             SetNewDestination();
         }
-        animator.SetFloat("Horizontal", currentDirection.x);
-        animator.SetFloat("Vertical", currentDirection.y);
+        SetAnimationDirection();
     }
 
+    private void SetAnimationDirection()
+    {
+        var direction = (Vector2) transform.position - prevLoc;
+        prevLoc = transform.position;
+        animator.SetFloat("Horizontal", direction.x);
+        animator.SetFloat("Vertical", direction.y);
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         hasHitPlayer = collision.collider.CompareTag(TagEnum.Player.ToString());
