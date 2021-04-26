@@ -171,6 +171,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 3112926715794206940}
+  timeToDisappearBody: 5
 --- !u!114 &3112926715794206938
 MonoBehaviour:
   m_ObjectHideFlags: 0
