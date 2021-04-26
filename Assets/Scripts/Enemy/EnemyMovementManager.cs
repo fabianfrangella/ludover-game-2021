@@ -20,17 +20,20 @@ public class EnemyMovementManager : MonoBehaviour
 
     private Vector2 currentDirection;
 
+    private Vector2 startPosition;
+
     private bool hasHitPlayer = false;
     // Start is called before the first frame update
     void Start()
     {
         healthManager = gameObject.GetComponent<EnemyHealthManager>();
         animator = gameObject.GetComponent<Animator>();
+        startPosition = transform.position;
         SetNewDestination();
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (!healthManager.IsAlive() || hasHitPlayer)
         {
@@ -69,7 +72,14 @@ public class EnemyMovementManager : MonoBehaviour
 
     private void SetNewDestination()
     {
-        currentDirection = new Vector2(Random.Range(-maxDistance, maxDistance), Random.Range(-maxDistance, maxDistance));
+        var minX = startPosition.x - maxDistance;
+        var maxX = startPosition.x + maxDistance;
+        var minY = startPosition.y - maxDistance;
+        var maxY = startPosition.y + maxDistance;
+        currentDirection = new Vector2(
+            Random.Range(minX, maxX), 
+            Random.Range(minY, maxY)
+            );
         wayPoint = currentDirection;
     }
 
