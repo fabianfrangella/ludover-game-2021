@@ -41,13 +41,17 @@ public class EnemyMovementManager : MonoBehaviour
             StopMoving();
             return;
         }
-        //transform.position = Vector2.MoveTowards(transform.position, wayPoint, speed * Time.deltaTime);
-        rb.MovePosition(Vector2.MoveTowards(transform.position, wayPoint, speed * Time.deltaTime));
+        SetVelocity();
         if (Vector2.Distance(transform.position, wayPoint) < range)
         {
             SetNewDestination();
         }
         SetAnimationDirection();
+    }
+
+    private void SetVelocity()
+    {
+        rb.velocity = (wayPoint - (Vector2)transform.position).normalized * speed;
     }
 
     private void SetAnimationDirection()
@@ -60,21 +64,26 @@ public class EnemyMovementManager : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         hasHitPlayer = collision.collider.CompareTag(TagEnum.Player.ToString());
-        if (hasHitPlayer)
+        /* eventualmente esto sera algo como 
+         * if (hasHitPlayer) {
+         *  attack() 
+         *  return;
+         * }
+         * ReturnToStartPosition();
+         */
+        if (!hasHitPlayer)
         {
-            return;
+            SetWayPointToStartPosition();
         }
-        SetNewDestination();
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
         hasHitPlayer = false;
-        SetNewDestination();
     }
     private void StopMoving()
     {
-        wayPoint = Vector2.zero;
+        rb.velocity = Vector2.zero;
     }
 
     private void SetNewDestination()
@@ -87,6 +96,11 @@ public class EnemyMovementManager : MonoBehaviour
             Random.Range(minX, maxX),
             Random.Range(minY, maxY)
             );
+    }
+
+    private void SetWayPointToStartPosition()
+    {
+        wayPoint = startPosition;
     }
 
 }
