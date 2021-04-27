@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class EnemyMovementManager : MonoBehaviour
 {
+   public Transform target;
 
     public Rigidbody2D rb;
+
     public float speed = 1.0f;
+
+    public float lineOfSight;
 
     public float range;
 
@@ -22,6 +26,9 @@ public class EnemyMovementManager : MonoBehaviour
 
     private bool hasHitPlayer = false;
 
+    
+
+
     private Vector2 prevLoc;
     // Start is called before the first frame update
     void Start()
@@ -30,12 +37,17 @@ public class EnemyMovementManager : MonoBehaviour
         animator = gameObject.GetComponent<Animator>();
         startPosition = transform.position;
         prevLoc = startPosition;
+        rb = GetComponent<Rigidbody2D>();
         SetNewDestination();
+       // player = GameObject.FindGameObjectWithTag("Player").transform;
+
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        //float distanceFromPlayer = Vector2.Distance(player.position, transform.position);
+
         if (!healthManager.IsAlive() || hasHitPlayer)
         {
             StopMoving();
@@ -46,7 +58,52 @@ public class EnemyMovementManager : MonoBehaviour
         {
             SetNewDestination();
         }
+
+        if (target != null) {
+
+           
+            wayPoint = Vector2.MoveTowards(this.transform.position, target.position, speed);
+            
+
+        }
+
+      /*  
+        if (distanceFromPlayer < lineOfSight)
+        {
+            
+           wayPoint = Vector2.MoveTowards(this.transform.position, player.position, speed);
+
+        }
+      */
+
         SetAnimationDirection();
+    }
+
+    
+
+  private void OnTriggerEnter2D(Collider2D collision)
+    {
+       
+        if (collision.tag == "Player")
+        {
+            target = collision.transform;
+                
+
+        }
+        
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (target != null)
+        {
+
+            target = null;
+            
+
+        }
+
+
     }
 
     private void SetVelocity()
@@ -103,4 +160,12 @@ public class EnemyMovementManager : MonoBehaviour
         wayPoint = startPosition;
     }
 
+ 
+
+    /* private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, lineOfSight);
+    } 
+    */
 }
