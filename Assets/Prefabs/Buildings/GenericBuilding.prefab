@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6343173541051851786}
   - component: {fileID: 6343173541051851785}
-  - component: {fileID: 6343173541051851784}
-  - component: {fileID: -3115810595851374681}
+  - component: {fileID: 6225886085761513823}
+  - component: {fileID: 8687458947285226899}
   m_Layer: 0
   m_Name: GenericBuilding
   m_TagString: Untagged
@@ -82,8 +82,29 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
---- !u!68 &6343173541051851784
+  m_SpriteSortPoint: 1
+--- !u!50 &6225886085761513823
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6343173541051851791}
+  m_BodyType: 2
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!68 &8687458947285226899
 EdgeCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -112,24 +133,3 @@ EdgeCollider2D:
   - {x: -0.39251423, y: -2.7230835}
   - {x: -0.9111624, y: -2.936008}
   - {x: -2.5746288, y: -2.1413226}
---- !u!50 &-3115810595851374681
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6343173541051851791}
-  m_BodyType: 2
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 7
