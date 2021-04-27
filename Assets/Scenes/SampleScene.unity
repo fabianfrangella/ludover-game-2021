@@ -61186,7 +61186,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stamina: 0
-  maxStamina: 100
+  maxStamina: 500
   staminaBar: {fileID: 1432566676}
 --- !u!114 &791279864
 MonoBehaviour:

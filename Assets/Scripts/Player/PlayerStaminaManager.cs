@@ -17,8 +17,7 @@ public class PlayerStaminaManager : MonoBehaviour
         staminaBar.SetMaxStamina(maxStamina);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
         OnStaminaReceived(0.25f);
         SetStaminaBar();
