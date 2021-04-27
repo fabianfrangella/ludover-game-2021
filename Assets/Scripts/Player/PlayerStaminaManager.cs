@@ -5,21 +5,32 @@ using UnityEngine;
 
 public class PlayerStaminaManager : MonoBehaviour
 {
-    public int stamina;
-    public int maxStamina;
+    public float stamina;
+    public float maxStamina;
+
+    public StaminaBar staminaBar;
     // Start is called before the first frame update
     void Start()
     {
         stamina = maxStamina;
+        staminaBar.SetStamina(stamina);
+        staminaBar.SetMaxStamina(maxStamina);
     }
 
     // Update is called once per frame
     void Update()
     {
-        OnStaminaReceived(1);
+        OnStaminaReceived(0.25f);
+        SetStaminaBar();
     }
 
-    public void OnStaminaLost(int stamina)
+    public void SetStaminaBar()
+    {
+        staminaBar.SetStamina(stamina);
+        staminaBar.SetMaxStamina(maxStamina);
+    }
+
+    public void OnStaminaLost(float stamina)
     {
         if (this.stamina - stamina < 0)
         {
@@ -29,11 +40,11 @@ public class PlayerStaminaManager : MonoBehaviour
         this.stamina -= stamina;
     }
 
-    public void OnStaminaReceived(int stamina)
+    public void OnStaminaReceived(float stamina)
     {
-        if (this.stamina + stamina >= this.maxStamina)
+        if (this.stamina + stamina >= maxStamina)
         {
-            this.stamina = this.maxStamina;
+            this.stamina = maxStamina;
             return;
         }
         this.stamina += stamina;
