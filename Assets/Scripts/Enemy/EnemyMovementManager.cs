@@ -82,7 +82,9 @@ public class EnemyMovementManager : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Player")
+        //if (other.tag == "Player")
+        // acordate que es mejor usar el TagEnum para no dejar hardcodeado el tag
+        if(other.CompareTag(TagEnum.Player.ToString()))
         {
             target = other.transform;
         }
@@ -137,7 +139,7 @@ public class EnemyMovementManager : MonoBehaviour
         }
         // esto te lo agrego porque cuando colisionas con el bicho, se triggerea tambien el OnTriggerExit
         // entonces para mantener el target, lo volvemos a setear, es medio un hackazo, pero por ahora va
-        if (collision.collider.CompareTag("Player"))
+        if (collision.collider.CompareTag(TagEnum.Player.ToString()))
         {
             target = collision.transform;
         }
