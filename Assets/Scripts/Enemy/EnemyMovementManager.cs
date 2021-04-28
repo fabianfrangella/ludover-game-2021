@@ -4,28 +4,21 @@ using UnityEngine;
 
 public class EnemyMovementManager : MonoBehaviour
 {
-    public Transform target;
-
+    public Transform target; // este atributo deberia ser private
     public Rigidbody2D rb;
-
+    // como regla de oro, los unicos atributos que ponemos public son los que queremos tocar desde el editor de unity 
+    // o desde otros scripts (y esto es debatible tambien), sino va private
     public float speed = 1.0f;
-
     public float range;
-
     public float maxDistance;
 
     private EnemyHealthManager healthManager;
-
     private Animator animator;
-
     private Vector2 wayPoint;
-
     private Vector2 startPosition;
-
-    private bool hasHitPlayer = false;
-
     private Vector2 prevLoc;
 
+    private bool hasHitPlayer = false;
     private bool isColliding = false;
 
    
@@ -36,7 +29,9 @@ public class EnemyMovementManager : MonoBehaviour
         animator = gameObject.GetComponent<Animator>();
         startPosition = transform.position;
         prevLoc = startPosition;
-        rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>(); 
+        // el rb ya lo estamos metiendo a mano en la scene, no hace falta hacer un GetComponent
+        // esto no esta necesariamente mal, pero si lo hacemos asi, pasemos el rb a private
         SetNewDestination();
      
 
@@ -48,10 +43,17 @@ public class EnemyMovementManager : MonoBehaviour
 
         Debug.Log(isColliding);
 
-        if (isColliding == true)
+        if (isColliding == true) 
         {
-            
-
+        /* Tip para nico -> decir if (isColliding) es lo mismo que decir isColliding == true
+         * isColliding es un boolean, por lo tanto sus valores son o true o false, 
+         * el if espera tener algo que sea true o false, por lo tanto con decir if (isColliding) es suficiente
+         * decir isColliding == true es lo mismo que decir true == true o false == true, es redundante
+         * si isColliding es true, decir true == true es lo mismo que decir isColliding
+         * y si isColliding es false, decir false == true es lo mismo que decir isColliding
+         * Como regla general, si en algún lado estás comparando algo == true o algo == false está mal
+         * y podes reducirlo simplemente a "algo", nunca de los jamases poner == true o == false
+         */
         }
 
         if (!healthManager.IsAlive() || hasHitPlayer)
@@ -59,22 +61,19 @@ public class EnemyMovementManager : MonoBehaviour
             StopMoving();
             return;
         }
-        SetVelocity();
-        if (Vector2.Distance(transform.position, wayPoint) < range)
+        
+        if (target != null) {
+            wayPoint = Vector2.MoveTowards(this.transform.position, target.position, speed);      
+        }
+
+        // aca te agregue la validacion de target == null, 
+        // porque sino seteas un nuevo destino una vez que se acerco mucho al target
+        if (target == null && Vector2.Distance(transform.position, wayPoint) < range)
         {
             SetNewDestination();
         }
+        SetVelocity();
 
-        if (target != null) {
-
-            
-           
-            wayPoint = Vector2.MoveTowards(this.transform.position, target.position, speed);
-
-
-           
-
-        }
 
         SetAnimationDirection();
     }
@@ -83,27 +82,20 @@ public class EnemyMovementManager : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-
         if (other.tag == "Player")
         {
             target = other.transform;
-
-
         }
-
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (target != null)
+        // Aca te faltaba validar que el tag del other sea player
+        //sino cuando triggereaba por tocar otra cosa, seteaba target null siempre
+        if (other.CompareTag(TagEnum.Player.ToString()) && target != null)
         {
-
-            target = null;
-            
-
+            target = null;   
         }
-
-
     }
 
     private void SetVelocity()
@@ -121,9 +113,7 @@ public class EnemyMovementManager : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.tag == "Building"){
-
             isColliding = true;
-            
         }
         hasHitPlayer = collision.collider.CompareTag(TagEnum.Player.ToString());
         /* eventualmente esto sera algo como 
@@ -143,9 +133,13 @@ public class EnemyMovementManager : MonoBehaviour
     {
         if (collision.gameObject.tag == "Building")
         {
-
             isColliding = false;
-
+        }
+        // esto te lo agrego porque cuando colisionas con el bicho, se triggerea tambien el OnTriggerExit
+        // entonces para mantener el target, lo volvemos a setear, es medio un hackazo, pero por ahora va
+        if (collision.collider.CompareTag("Player"))
+        {
+            target = collision.transform;
         }
 
         hasHitPlayer = false;
