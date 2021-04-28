@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class EnemyMovementManager : MonoBehaviour
 {
-   public Transform target;
+    public Transform target;
 
     public Rigidbody2D rb;
 
     public float speed = 1.0f;
-
-    public float lineOfSight;
 
     public float range;
 
@@ -26,11 +24,12 @@ public class EnemyMovementManager : MonoBehaviour
 
     private bool hasHitPlayer = false;
 
-    
-
-
     private Vector2 prevLoc;
-    // Start is called before the first frame update
+
+    private bool isColliding = false;
+
+   
+   
     void Start()
     {
         healthManager = gameObject.GetComponent<EnemyHealthManager>();
@@ -39,14 +38,21 @@ public class EnemyMovementManager : MonoBehaviour
         prevLoc = startPosition;
         rb = GetComponent<Rigidbody2D>();
         SetNewDestination();
-       // player = GameObject.FindGameObjectWithTag("Player").transform;
+     
 
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        //float distanceFromPlayer = Vector2.Distance(player.position, transform.position);
+
+        Debug.Log(isColliding);
+
+        if (isColliding == true)
+        {
+            
+
+        }
 
         if (!healthManager.IsAlive() || hasHitPlayer)
         {
@@ -61,39 +67,33 @@ public class EnemyMovementManager : MonoBehaviour
 
         if (target != null) {
 
+            
            
             wayPoint = Vector2.MoveTowards(this.transform.position, target.position, speed);
-            
+
+
+           
 
         }
-
-      /*  
-        if (distanceFromPlayer < lineOfSight)
-        {
-            
-           wayPoint = Vector2.MoveTowards(this.transform.position, player.position, speed);
-
-        }
-      */
 
         SetAnimationDirection();
     }
 
-    
 
-  private void OnTriggerEnter2D(Collider2D collision)
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
-       
-        if (collision.tag == "Player")
+
+        if (other.tag == "Player")
         {
-            target = collision.transform;
-                
+            target = other.transform;
+
 
         }
-        
+
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerExit2D(Collider2D other)
     {
         if (target != null)
         {
@@ -120,6 +120,11 @@ public class EnemyMovementManager : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if(collision.gameObject.tag == "Building"){
+
+            isColliding = true;
+            
+        }
         hasHitPlayer = collision.collider.CompareTag(TagEnum.Player.ToString());
         /* eventualmente esto sera algo como 
          * if (hasHitPlayer) {
@@ -136,6 +141,13 @@ public class EnemyMovementManager : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
+        if (collision.gameObject.tag == "Building")
+        {
+
+            isColliding = false;
+
+        }
+
         hasHitPlayer = false;
     }
     private void StopMoving()
@@ -162,10 +174,5 @@ public class EnemyMovementManager : MonoBehaviour
 
  
 
-    /* private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, lineOfSight);
-    } 
-    */
+   
 }
