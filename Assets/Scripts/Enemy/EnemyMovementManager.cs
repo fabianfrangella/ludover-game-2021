@@ -11,6 +11,7 @@ public class EnemyMovementManager : MonoBehaviour
     public float speed = 1.0f;
     public float range;
     public float maxDistance;
+    public float lineOfSight;
 
     private EnemyHealthManager healthManager;
     private Animator animator;
@@ -79,7 +80,7 @@ public class EnemyMovementManager : MonoBehaviour
 
     void HandleRadiusCollisions()
     {
-        Collider2D[] collisions = Physics2D.OverlapCircleAll(transform.position, 5f);
+        Collider2D[] collisions = Physics2D.OverlapCircleAll(transform.position, lineOfSight);
         bool playerFound = false;
         foreach (var collider in collisions)
         {
@@ -142,13 +143,6 @@ public class EnemyMovementManager : MonoBehaviour
         {
             isColliding = false;
         }
-        // esto te lo agrego porque cuando colisionas con el bicho, se triggerea tambien el OnTriggerExit
-        // entonces para mantener el target, lo volvemos a setear, es medio un hackazo, pero por ahora va
-        if (collision.collider.CompareTag(TagEnum.Player.ToString()))
-        {
-            target = collision.transform;
-        }
-
         hasHitPlayer = false;
     }
     private void StopMoving()

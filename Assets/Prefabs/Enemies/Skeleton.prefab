@@ -190,6 +190,7 @@ MonoBehaviour:
   speed: 1.5
   range: 0.5
   maxDistance: 4
+  lineOfSight: 4
 --- !u!58 &-7709271727446129743
 CircleCollider2D:
   m_ObjectHideFlags: 0
