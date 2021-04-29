@@ -54,7 +54,7 @@ public class EnemyMovementManager : MonoBehaviour
          */
         }
 
-        SetTargetFromCollisions();
+        HandleRadiusCollisions();
         if (!healthManager.IsAlive() || hasHitPlayer)
         {
             StopMoving();
@@ -77,7 +77,7 @@ public class EnemyMovementManager : MonoBehaviour
         SetAnimationDirection();
     }
 
-    void SetTargetFromCollisions()
+    void HandleRadiusCollisions()
     {
         Collider2D[] collisions = Physics2D.OverlapCircleAll(transform.position, 5f);
         bool playerFound = false;
