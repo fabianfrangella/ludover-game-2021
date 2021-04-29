@@ -41,8 +41,6 @@ public class EnemyMovementManager : MonoBehaviour
     void FixedUpdate()
     {
 
-        Debug.Log(isColliding);
-
         if (isColliding == true) 
         {
         /* Tip para nico -> decir if (isColliding) es lo mismo que decir isColliding == true
@@ -56,6 +54,7 @@ public class EnemyMovementManager : MonoBehaviour
          */
         }
 
+        SetTargetFromCollisions();
         if (!healthManager.IsAlive() || hasHitPlayer)
         {
             StopMoving();
@@ -78,26 +77,32 @@ public class EnemyMovementManager : MonoBehaviour
         SetAnimationDirection();
     }
 
-
-
-    private void OnTriggerEnter2D(Collider2D other)
+    void SetTargetFromCollisions()
     {
-        //if (other.tag == "Player")
-        // acordate que es mejor usar el TagEnum para no dejar hardcodeado el tag
-        if(other.CompareTag(TagEnum.Player.ToString()))
+        Collider2D[] collisions = Physics2D.OverlapCircleAll(transform.position, 5f);
+        bool playerFound = false;
+        foreach (var collider in collisions)
         {
-            target = other.transform;
+            playerFound = SetPlayerTarget(playerFound, collider);
+        }
+        if (!playerFound)
+        {
+            target = null;
         }
     }
 
-    private void OnTriggerExit2D(Collider2D other)
+    private bool SetPlayerTarget(bool playerFound, Collider2D collider)
     {
-        // Aca te faltaba validar que el tag del other sea player
-        //sino cuando triggereaba por tocar otra cosa, seteaba target null siempre
-        if (other.CompareTag(TagEnum.Player.ToString()) && target != null)
+        if (!playerFound)
         {
-            target = null;   
+            playerFound = collider.CompareTag(TagEnum.Player.ToString());
+            if (playerFound)
+            {
+                target = collider.transform;
+            }
         }
+
+        return playerFound;
     }
 
     private void SetVelocity()
