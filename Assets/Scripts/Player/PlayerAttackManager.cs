@@ -10,6 +10,7 @@ public class PlayerAttackManager : MonoBehaviour
     float nextAttackTime = 0f;
 
     private PlayerStaminaManager playerStaminaManager;
+    private PlayerExperienceManager playerExperienceManager;
     private PlayerAnimationsManager playerAnimationsManager;
     private PlayerMovementManager playerMovementManager;
 
@@ -17,9 +18,11 @@ public class PlayerAttackManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerStaminaManager = gameObject.GetComponent<PlayerStaminaManager>();
-        playerAnimationsManager = gameObject.GetComponent<PlayerAnimationsManager>();
-        playerMovementManager = gameObject.GetComponent<PlayerMovementManager>();
+        playerStaminaManager = GetComponent<PlayerStaminaManager>();
+        playerAnimationsManager = GetComponent<PlayerAnimationsManager>();
+        playerMovementManager = GetComponent<PlayerMovementManager>();
+        playerExperienceManager = GetComponent<PlayerExperienceManager>();
+        playerExperienceManager.OnLevelUp += HandleLevelUp;
     }
 
     // Update is called once per frame
@@ -28,7 +31,6 @@ public class PlayerAttackManager : MonoBehaviour
         SetDirectionToAttack();
         var swordPosition = new Vector2(transform.position.x, transform.position.y - 0.35f);
         Debug.DrawRay(swordPosition, directionToAttack.normalized, Color.red);
-
     }
 
     private void SetDirectionToAttack()
@@ -88,7 +90,8 @@ public class PlayerAttackManager : MonoBehaviour
     {
         if (hit.collider.CompareTag(TagEnum.Enemy.ToString()))
         {
-            hit.collider.gameObject.GetComponent<EnemyHealthManager>().OnDamageReceived(damage);
+            var experience = hit.collider.gameObject.GetComponent<EnemyHealthManager>().OnDamageReceived(damage);
+            playerExperienceManager.GainExperience(experience);
         }
     }
 
@@ -104,4 +107,10 @@ public class PlayerAttackManager : MonoBehaviour
 
         return Physics2D.RaycastAll(swordPosition, directionToAttack.normalized, attackDistance);
     }
+
+    private void HandleLevelUp()
+    {
+        damage += damage / 2;
+    }
+
 }
