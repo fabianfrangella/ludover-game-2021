@@ -10,12 +10,15 @@ public class PlayerHealthManager : MonoBehaviour
 
     public HealthBar healthBar;
     private PlayerAnimationsManager playerAnimationsManager;
+    private PlayerExperienceManager playerExperienceManager;
 
     // Start is called before the first frame update
     void Start()
     {
         health = maxHealth;
-        playerAnimationsManager = gameObject.GetComponent<PlayerAnimationsManager>();
+        playerAnimationsManager = GetComponent<PlayerAnimationsManager>();
+        playerExperienceManager = GetComponent<PlayerExperienceManager>();
+        playerExperienceManager.OnLevelUp += HandleLevelUp;
         healthBar.SetMaxHealth(maxHealth);
     }
 
@@ -58,5 +61,11 @@ public class PlayerHealthManager : MonoBehaviour
             return;
         }
         health += healing;
+    }
+
+    private void HandleLevelUp()
+    {
+        maxHealth += maxHealth / 2;
+        health = maxHealth;
     }
 }

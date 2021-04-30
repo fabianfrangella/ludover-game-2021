@@ -7,6 +7,7 @@ public class EnemyHealthManager : MonoBehaviour
     // Start is called before the first frame update
     public int health;
     public int maxHealth;
+    public float experience;
     public EnemyAnimationManager enemyAnimationManager;
     // Start is called before the first frame update
     void Start()
@@ -25,9 +26,19 @@ public class EnemyHealthManager : MonoBehaviour
         return health > 0;
     }
 
-    public void OnDamageReceived(int damage)
+    /**
+     * <summary>
+     * Decrements the health value and if is dead returns the given experience, 0 otherwise
+     * </summary>
+     */
+    public float OnDamageReceived(int damage)
     {
         health -= damage;
+        if (!IsAlive())
+        {
+            return experience;
+        }
+        return 0;
     }
 
     public void OnHealing(int healing)

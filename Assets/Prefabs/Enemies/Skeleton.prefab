@@ -139,6 +139,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   maxHealth: 100
+  experience: 50
   enemyAnimationManager: {fileID: 3112926715794206941}
 --- !u!95 &3112926715794206940
 Animator:
