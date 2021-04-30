@@ -23,6 +23,7 @@ public class PlayerStaminaManager : MonoBehaviour
     private void HandleLevelUp()
     {
         maxStamina += maxStamina / 2;
+        stamina = maxStamina;
     }
 
     private void FixedUpdate()

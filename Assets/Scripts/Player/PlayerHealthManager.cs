@@ -66,5 +66,6 @@ public class PlayerHealthManager : MonoBehaviour
     private void HandleLevelUp()
     {
         maxHealth += maxHealth / 2;
+        health = maxHealth;
     }
 }
