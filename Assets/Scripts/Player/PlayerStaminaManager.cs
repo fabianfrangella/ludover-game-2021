@@ -9,12 +9,20 @@ public class PlayerStaminaManager : MonoBehaviour
     public float maxStamina;
 
     public StaminaBar staminaBar;
+    private PlayerExperienceManager playerExperienceManager;
     // Start is called before the first frame update
     void Start()
     {
         stamina = maxStamina;
         staminaBar.SetStamina(stamina);
         staminaBar.SetMaxStamina(maxStamina);
+        playerExperienceManager = GetComponent<PlayerExperienceManager>();
+        playerExperienceManager.OnLevelUp += HandleLevelUp;
+    }
+
+    private void HandleLevelUp()
+    {
+        maxStamina += maxStamina / 2;
     }
 
     private void FixedUpdate()
