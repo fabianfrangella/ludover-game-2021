@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 
-[SerializeField]
 public class Shock : MonoBehaviour
 {
     public Vector2 direction;
@@ -31,7 +30,9 @@ public class Shock : MonoBehaviour
     {
         if (direction != null && !direction.Equals(Vector2.zero))
         {
-            transform.Translate(Vector2.MoveTowards(transform.position, direction, speed).normalized * speed * Time.deltaTime);
+            var wayPoint = Vector2.MoveTowards(transform.position, direction, speed);
+            float step = speed * Time.deltaTime;
+            transform.position = Vector2.MoveTowards(transform.position, wayPoint, step);
             SetAnimationDirection();
         }
         HandleHits();
@@ -40,7 +41,8 @@ public class Shock : MonoBehaviour
 
     void HandleDestroy()
     {
-        if (!hasHit && Vector2.Distance(transform.position, startPosition) > 5)
+        if (!hasHit && Vector2.Distance(transform.position, startPosition) > 5
+            || transform.position.Equals(direction))
         {
            Destroy(gameObject);
         }
