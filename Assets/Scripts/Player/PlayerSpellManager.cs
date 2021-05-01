@@ -8,17 +8,20 @@ public class PlayerSpellManager : MonoBehaviour, PlayerAttackState
     float nextCastTime = 0f;
 
     private PlayerAnimationsManager playerAnimationsManager;
+    private PlayerManaManager playerManaManager;
 
     void Start()
     {
         playerAnimationsManager = GetComponent<PlayerAnimationsManager>();
+        playerManaManager = GetComponent<PlayerManaManager>();
     }
 
     public void HandleAttack()
     {
-        if (Time.time >= nextCastTime)
+        if (playerManaManager.GetCurrentMana() > 40 && Time.time >= nextCastTime)
         {
             playerAnimationsManager.PlayCastAnimation();
+            playerManaManager.OnManaLost(40);
             var shock = Instantiate(shockSpellPrefab, transform.position, Quaternion.identity);
             shock.SetDirection(Camera.main.ScreenToWorldPoint(Input.mousePosition));
             SetNextCastTime();

@@ -5,18 +5,41 @@ using UnityEngine;
 public class PlayerManaManager : MonoBehaviour
 {
 
-    int mana;
-    public int maxMana;
+    float mana;
+    public float maxMana;
     // Start is called before the first frame update
-    void Start()
+
+    private void Start()
     {
         mana = maxMana;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        OnManaReceived(0.25f);
+    }
+    public void OnManaReceived(float mana)
+    {
+        if (this.mana + mana >= maxMana)
+        {
+            this.mana = maxMana;
+            return;
+        }
+        this.mana += mana;
     }
 
+    public void OnManaLost(float value)
+    {
+        if (mana - value <= 0)
+        {
+            mana = 0;
+            return;
+        }
+        mana -= value;
+    }
+
+    public float GetCurrentMana()
+    {
+        return mana;
+    }
 }

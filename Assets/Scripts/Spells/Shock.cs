@@ -8,6 +8,7 @@ public class Shock : MonoBehaviour
 
     public int damage;
     public float speed;
+    public int manaCost;
 
     private bool hasHit;
     private Vector2 prevLoc;

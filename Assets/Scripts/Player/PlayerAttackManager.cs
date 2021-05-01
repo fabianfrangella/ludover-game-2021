@@ -13,14 +13,19 @@ public class PlayerAttackManager : MonoBehaviour
 
     private void Update()
     {
+        HandleAttack();
+        HandleChangeAttackMode();
+    }
+
+    private void HandleAttack()
+    {
         if (Input.GetMouseButtonDown(0))
         {
             playerAttackState.HandleAttack();
         }
-        ChangeAttackMode();
     }
 
-    private void ChangeAttackMode()
+    private void HandleChangeAttackMode()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
