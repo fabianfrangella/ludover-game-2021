@@ -1,21 +1,17 @@
 ﻿using UnityEngine;
 
-public class PlayerSpellManager : MonoBehaviour
+public class PlayerSpellManager : MonoBehaviour, PlayerAttackState
 {
     public Shock shockSpellPrefab;
 
-    private void Update()
-    {
-        if (Input.GetMouseButtonDown(1))
-        {
-            CastShockSpell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-        }
-    }
-
-    public void CastShockSpell(Vector2 direction)
+    public void HandleAttack()
     {
         var shock = Instantiate(shockSpellPrefab, transform.position, Quaternion.identity);
-        shock.SetDirection(direction);
+        shock.SetDirection(Camera.main.ScreenToWorldPoint(Input.mousePosition));
     }
 
+    public PlayerAttackState GetNextState()
+    {
+        return GetComponent<PlayerMeleeAttackManager>();
+    }
 }

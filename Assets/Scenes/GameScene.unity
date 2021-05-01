@@ -62470,6 +62470,7 @@ GameObject:
   - component: {fileID: 791279856}
   - component: {fileID: 791279858}
   - component: {fileID: 791279867}
+  - component: {fileID: 791279869}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -62617,9 +62618,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dff71fb6724979445903c8f277515a15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 40
-  attackRate: 2
-  attackDistance: 1
 --- !u!50 &791279861
 Rigidbody2D:
   serializedVersion: 4
@@ -62721,8 +62719,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02e4d3f8b37515b4487659396885de01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shockSpellPrefab: {fileID: 8446708541228853187, guid: 911b03d1627159f4ebb81983bf6eb854,
-    type: 3}
+  shockSpellPrefab: {fileID: 0}
 --- !u!58 &791279868
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -62739,6 +62736,21 @@ CircleCollider2D:
   m_Offset: {x: 0.018753022, y: -0.27199423}
   serializedVersion: 2
   m_Radius: 0.1203312
+--- !u!114 &791279869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 791279853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2e975e4a81bcb641af59a1cd08f88b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 40
+  attackRate: 2
+  attackDistance: 1
 --- !u!1001 &815491222
 PrefabInstance:
   m_ObjectHideFlags: 0

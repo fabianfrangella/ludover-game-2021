@@ -10,41 +10,40 @@ public class Shock : MonoBehaviour
     public int damage;
     public float speed;
 
+    private bool hasHit;
     private Vector2 prevLoc;
-
+    private Vector2 startPosition;
     private PlayerExperienceManager playerExperienceManager;
 
     private void Awake()
     {
+        hasHit = false;
         direction = Vector2.zero; 
     }
     private void Start()
     {
         playerExperienceManager = FindObjectOfType<PlayerExperienceManager>();
         prevLoc = transform.position;
+        startPosition = transform.position;
     }
 
     void FixedUpdate()
     {
         if (direction != null && !direction.Equals(Vector2.zero))
         {
-            transform.Translate(Vector2.MoveTowards(transform.position, direction, speed).normalized * speed *Time.deltaTime);
+            transform.Translate(Vector2.MoveTowards(transform.position, direction, speed).normalized * speed * Time.deltaTime);
             SetAnimationDirection();
         }
+        HandleHits();
         HandleDestroy();
     }
 
     void HandleDestroy()
     {
-        if (Vector2.Distance(direction, transform.position) < 1)
+        if (!hasHit && Vector2.Distance(transform.position, startPosition) > 5)
         {
-            Destroy(gameObject);
+           Destroy(gameObject);
         }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        HandleHit(collision);
     }
 
     public void SetDirection(Vector2 dir)
@@ -60,12 +59,19 @@ public class Shock : MonoBehaviour
         animator.SetFloat("Vertical", dir.y);
     }
 
-    private void HandleHit(Collider2D collider)
+    private void HandleHits()
     {
-        if (collider.CompareTag(TagEnum.Enemy.ToString()))
+        Collider2D[] collisions = Physics2D.OverlapCircleAll(transform.position, 0.25f);
+        foreach (var collider in collisions)
         {
-            var experience = collider.gameObject.GetComponent<EnemyHealthManager>().OnDamageReceived(damage);
-            playerExperienceManager.GainExperience(experience);
+            hasHit = collider.CompareTag(TagEnum.Enemy.ToString());
+            if (hasHit)
+            {
+                var experience = collider.gameObject.GetComponent<EnemyHealthManager>().OnDamageReceived(damage);
+                playerExperienceManager.GainExperience(experience);
+                break;
+            }
         }
+        hasHit = false;
     }
 }
