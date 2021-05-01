@@ -14,16 +14,13 @@ public class Shock : MonoBehaviour
 
     private PlayerExperienceManager playerExperienceManager;
 
-    private Rigidbody2D rb;
-
     private void Awake()
     {
         direction = Vector2.zero; 
     }
     private void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        playerExperienceManager = transform.parent.GetComponent<PlayerExperienceManager>();
+        playerExperienceManager = FindObjectOfType<PlayerExperienceManager>();
         prevLoc = transform.position;
     }
 
@@ -31,7 +28,7 @@ public class Shock : MonoBehaviour
     {
         if (direction != null && !direction.Equals(Vector2.zero))
         {
-            rb.velocity = ((Vector2.MoveTowards(transform.position, direction, speed) - (Vector2)transform.position)).normalized * speed;
+            transform.Translate(Vector2.MoveTowards(transform.position, direction, speed).normalized * speed *Time.deltaTime);
             SetAnimationDirection();
         }
         HandleDestroy();

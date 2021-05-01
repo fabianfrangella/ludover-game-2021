@@ -15,7 +15,6 @@ public class PlayerSpellManager : MonoBehaviour
     public void CastShockSpell(Vector2 direction)
     {
         var shock = Instantiate(shockSpellPrefab, transform.position, Quaternion.identity);
-        shock.transform.parent = gameObject.transform;
         shock.SetDirection(direction);
     }
 
