@@ -62585,7 +62585,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxLevel: 100
-  experienceBar: {fileID: 0}
+  experienceBar: {fileID: 79618609}
   level: 1
 --- !u!95 &791279859
 Animator:

@@ -13,14 +13,9 @@ public class Shock : MonoBehaviour
     private Vector2 prevLoc;
     private Vector2 startPosition;
     private PlayerExperienceManager playerExperienceManager;
-
-    private void Awake()
-    {
-        hasHit = false;
-        direction = Vector2.zero; 
-    }
     private void Start()
     {
+        hasHit = false;
         playerExperienceManager = FindObjectOfType<PlayerExperienceManager>();
         prevLoc = transform.position;
         startPosition = transform.position;
@@ -28,7 +23,7 @@ public class Shock : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (direction != null && !direction.Equals(Vector2.zero))
+        if (direction != null)
         {
             var wayPoint = Vector2.MoveTowards(transform.position, direction, speed);
             float step = speed * Time.deltaTime;
@@ -71,6 +66,7 @@ public class Shock : MonoBehaviour
             {
                 var experience = collider.gameObject.GetComponent<EnemyHealthManager>().OnDamageReceived(damage);
                 playerExperienceManager.GainExperience(experience);
+                Destroy(gameObject);
                 break;
             }
         }
