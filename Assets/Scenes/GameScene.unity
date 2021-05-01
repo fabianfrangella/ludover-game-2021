@@ -62721,7 +62721,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02e4d3f8b37515b4487659396885de01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shockSpellPrefab: {fileID: 4700974185049466432, guid: 911b03d1627159f4ebb81983bf6eb854,
+  shockSpellPrefab: {fileID: 8446708541228853187, guid: 911b03d1627159f4ebb81983bf6eb854,
     type: 3}
 --- !u!58 &791279868
 CircleCollider2D:
