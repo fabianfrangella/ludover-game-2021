@@ -25,9 +25,17 @@ public class PlayerMeleeAttackManager : MonoBehaviour, PlayerAttackState
         playerExperienceManager = GetComponent<PlayerExperienceManager>();
         playerExperienceManager.OnLevelUp += HandleLevelUp;
     }
+
+    void FixedUpdate()
+    {
+        SetDirectionToAttack();
+        var swordPosition = new Vector2(transform.position.x, transform.position.y - 0.35f);
+        Debug.DrawRay(swordPosition, directionToAttack.normalized, Color.red);
+    }
+
     public void HandleAttack()
     {
-        if (IsAttackingAndCanAttack())
+        if (CanAttack())
         {
             DoBasicAttack();
             SetNextAttackTime();
@@ -40,14 +48,6 @@ public class PlayerMeleeAttackManager : MonoBehaviour, PlayerAttackState
         return GetComponent<PlayerSpellManager>();
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        SetDirectionToAttack();
-        var swordPosition = new Vector2(transform.position.x, transform.position.y - 0.35f);
-        Debug.DrawRay(swordPosition, directionToAttack.normalized, Color.red);
-    }
-
     private void SetDirectionToAttack()
     {
         var direction = playerMovementManager.DirectionWhereIsMoving();
@@ -58,15 +58,13 @@ public class PlayerMeleeAttackManager : MonoBehaviour, PlayerAttackState
         }
     }
 
-
     private void SetNextAttackTime()
     {
         nextAttackTime = Time.time + 1f / attackRate;
     }
-    private bool IsAttackingAndCanAttack()
+    private bool CanAttack()
     {
-        bool isAttacking = Input.GetMouseButtonDown(0);
-        return isAttacking && Time.time >= nextAttackTime && playerStaminaManager.stamina >= 40;
+        return Time.time >= nextAttackTime && playerStaminaManager.stamina >= 40;
     }
 
     private void DoBasicAttack()
