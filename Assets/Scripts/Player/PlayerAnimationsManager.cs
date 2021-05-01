@@ -7,11 +7,6 @@ public class PlayerAnimationsManager : MonoBehaviour
     public Animator animator;
     private float lastHorizontal;
     private float lastVertical;
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
 
     private void FixedUpdate()
     {
@@ -25,6 +20,10 @@ public class PlayerAnimationsManager : MonoBehaviour
 
     }
 
+    public void SetIsUsingMagic(bool isUsingMagic)
+    {
+        animator.SetBool("IsUsingMagic", isUsingMagic);
+    }
     public void SetDeathAnimation()
     {
         animator.SetTrigger("Die");
@@ -33,6 +32,11 @@ public class PlayerAnimationsManager : MonoBehaviour
     public void PlayAttackAnimation()
     {
         animator.SetTrigger("Attack");
+    }
+
+    public void PlayCastAnimation()
+    {
+        animator.SetTrigger("Cast");
     }
 
     private void SetIdleAnimation()
@@ -60,4 +64,5 @@ public class PlayerAnimationsManager : MonoBehaviour
             animator.SetFloat("Vertical", vertical);
         }
     }
+
 }

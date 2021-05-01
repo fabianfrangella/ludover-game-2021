@@ -5,18 +5,62 @@ using UnityEngine;
 public class PlayerManaManager : MonoBehaviour
 {
 
-    int mana;
-    public int maxMana;
+    float mana;
+    public float maxMana;
+
+    public ManaBar manaBar;
+
+    private PlayerExperienceManager playerExperienceManager;
     // Start is called before the first frame update
-    void Start()
+
+    private void Start()
     {
+        playerExperienceManager = GetComponent<PlayerExperienceManager>();
+        playerExperienceManager.OnLevelUp += HandleLevelUp;
+        mana = maxMana;
+        manaBar.SetMaxMana(maxMana);
+    }
+
+    private void Update()
+    {
+        OnManaReceived(0.10f);
+        SetManaBar();
+    }
+
+    public void SetManaBar()
+    {
+        manaBar.SetMana(mana);
+        manaBar.SetMaxMana(maxMana);
+    }
+
+    void HandleLevelUp()
+    {
+        maxMana += maxMana / 2;
         mana = maxMana;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnManaReceived(float mana)
     {
-        
+        if (this.mana + mana >= maxMana)
+        {
+            this.mana = maxMana;
+            return;
+        }
+        this.mana += mana;
     }
 
+    public void OnManaLost(float value)
+    {
+        if (mana - value <= 0)
+        {
+            mana = 0;
+            return;
+        }
+        mana -= value;
+    }
+
+    public float GetCurrentMana()
+    {
+        return mana;
+    }
 }
