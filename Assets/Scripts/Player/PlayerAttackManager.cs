@@ -13,15 +13,11 @@ public class PlayerAttackManager : MonoBehaviour
 
     private void Update()
     {
-        ChangeAttackMode();
-    }
-    // Update is called once per frame
-    void FixedUpdate()
-    {
         if (Input.GetMouseButtonDown(0))
         {
             playerAttackState.HandleAttack();
         }
+        ChangeAttackMode();
     }
 
     private void ChangeAttackMode()
