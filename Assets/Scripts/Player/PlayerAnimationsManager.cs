@@ -30,6 +30,11 @@ public class PlayerAnimationsManager : MonoBehaviour
         animator.SetTrigger("Attack");
     }
 
+    public void PlayCastAnimation()
+    {
+        animator.SetTrigger("Cast");
+    }
+
     private void SetIdleAnimation()
     {
         var horizontal = Input.GetAxisRaw("Horizontal");
@@ -55,4 +60,5 @@ public class PlayerAnimationsManager : MonoBehaviour
             animator.SetFloat("Vertical", vertical);
         }
     }
+
 }

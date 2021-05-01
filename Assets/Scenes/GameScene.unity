@@ -62721,6 +62721,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shockSpellPrefab: {fileID: 8446708541228853187, guid: 911b03d1627159f4ebb81983bf6eb854,
     type: 3}
+  castRate: 1.5
 --- !u!58 &791279868
 CircleCollider2D:
   m_ObjectHideFlags: 0
