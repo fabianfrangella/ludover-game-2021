@@ -35,7 +35,7 @@ public class PlayerHealthManager : MonoBehaviour
     {
         if (playerStats.health <= 0)
         {
-            playerAnimationsManager.SetDeathAnimation();
+            playerAnimationsManager.PlayDeathAnimation();
             
         }
     }
