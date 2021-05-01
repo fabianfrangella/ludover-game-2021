@@ -36,6 +36,7 @@ public class PlayerMeleeAttackManager : MonoBehaviour, PlayerAttackState
 
     public PlayerAttackState GetNextState()
     {
+        playerAnimationsManager.SetIsUsingMagic(true);
         return GetComponent<PlayerSpellManager>();
     }
 
