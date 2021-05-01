@@ -11,7 +11,6 @@ public class PlayerAttackManager : MonoBehaviour
     private PlayerExperienceManager playerExperienceManager;
     private PlayerAnimationsManager playerAnimationsManager;
     private PlayerMovementManager playerMovementManager;
-    private PlayerSpellManager playerSpellManager;
 
     private Vector2 directionToAttack;
     // Start is called before the first frame update
@@ -21,7 +20,6 @@ public class PlayerAttackManager : MonoBehaviour
         playerAnimationsManager = GetComponent<PlayerAnimationsManager>();
         playerMovementManager = GetComponent<PlayerMovementManager>();
         playerExperienceManager = GetComponent<PlayerExperienceManager>();
-        playerSpellManager = GetComponent<PlayerSpellManager>();
         playerExperienceManager.OnLevelUp += HandleLevelUp;
     }
 
@@ -45,10 +43,6 @@ public class PlayerAttackManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(1))
-        {
-            playerSpellManager.CastShockSpell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-        }
         HandleBasicAttack();
     }
 

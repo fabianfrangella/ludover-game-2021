@@ -7,11 +7,6 @@ public class PlayerAnimationsManager : MonoBehaviour
     public Animator animator;
     private float lastHorizontal;
     private float lastVertical;
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
 
     private void FixedUpdate()
     {

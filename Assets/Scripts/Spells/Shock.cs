@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+[SerializeField]
 public class Shock : MonoBehaviour
 {
     public Vector2 direction;
@@ -8,23 +9,39 @@ public class Shock : MonoBehaviour
 
     public int damage;
     public float speed;
-    public float distance;
 
     private Vector2 prevLoc;
+
     private PlayerExperienceManager playerExperienceManager;
 
+    private Rigidbody2D rb;
+
+    private void Awake()
+    {
+        direction = Vector2.zero; 
+    }
     private void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
         playerExperienceManager = transform.parent.GetComponent<PlayerExperienceManager>();
         prevLoc = transform.position;
     }
 
     void FixedUpdate()
     {
-        if (direction != null)
+        if (direction != null && !direction.Equals(Vector2.zero))
         {
-            transform.Translate(direction.normalized * speed * Time.deltaTime);
+            rb.velocity = ((Vector2.MoveTowards(transform.position, direction, speed) - (Vector2)transform.position)).normalized * speed;
             SetAnimationDirection();
+        }
+        HandleDestroy();
+    }
+
+    void HandleDestroy()
+    {
+        if (Vector2.Distance(direction, transform.position) < 1)
+        {
+            Destroy(gameObject);
         }
     }
 
