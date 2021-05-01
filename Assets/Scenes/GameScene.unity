@@ -62547,6 +62547,7 @@ GameObject:
   - component: {fileID: 791279858}
   - component: {fileID: 791279867}
   - component: {fileID: 791279869}
+  - component: {fileID: 791279870}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -62740,8 +62741,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47bdb273511f79a48b50a8368dabd0f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stamina: 0
-  maxStamina: 500
   staminaBar: {fileID: 1432566676}
 --- !u!114 &791279864
 MonoBehaviour:
@@ -62755,7 +62754,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ea4fa77f6e126546bba4a28f4b138ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxMana: 100
   manaBar: {fileID: 1404907360}
 --- !u!114 &791279865
 MonoBehaviour:
@@ -62769,8 +62767,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a86fd79473d61fd47bf162a1b963a212, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
-  maxHealth: 100
   healthBar: {fileID: 481092107}
 --- !u!114 &791279866
 MonoBehaviour:
@@ -62827,9 +62823,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2e975e4a81bcb641af59a1cd08f88b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 40
   attackRate: 2
   attackDistance: 1
+--- !u!114 &791279870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 791279853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6782f3d6c69208140a773018bac068e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 0
+  mana: 0
+  stamina: 0
+  maxHealth: 100
+  maxMana: 100
+  maxStamina: 100
+  meleeDamage: 40
+  spellDamage: 25
 --- !u!1001 &815491222
 PrefabInstance:
   m_ObjectHideFlags: 0

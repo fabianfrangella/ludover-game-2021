@@ -1,29 +1,15 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerStaminaManager : MonoBehaviour
 {
-    public float stamina;
-    public float maxStamina;
-
     public StaminaBar staminaBar;
-    private PlayerExperienceManager playerExperienceManager;
-    // Start is called before the first frame update
+
+    private PlayerStats playerStats;
+
     void Start()
     {
-        stamina = maxStamina;
-        staminaBar.SetStamina(stamina);
-        staminaBar.SetMaxStamina(maxStamina);
-        playerExperienceManager = GetComponent<PlayerExperienceManager>();
-        playerExperienceManager.OnLevelUp += HandleLevelUp;
-    }
-
-    private void HandleLevelUp()
-    {
-        maxStamina += maxStamina / 2;
-        stamina = maxStamina;
+        playerStats = GetComponent<PlayerStats>();
+        staminaBar.SetMaxStamina(playerStats.maxStamina);
     }
 
     private void FixedUpdate()
@@ -34,28 +20,28 @@ public class PlayerStaminaManager : MonoBehaviour
 
     public void SetStaminaBar()
     {
-        staminaBar.SetStamina(stamina);
-        staminaBar.SetMaxStamina(maxStamina);
+        staminaBar.SetStamina(playerStats.stamina);
+        staminaBar.SetMaxStamina(playerStats.maxStamina);
     }
 
     public void OnStaminaLost(float stamina)
     {
-        if (this.stamina - stamina < 0)
+        if (playerStats.stamina - stamina < 0)
         {
-            this.stamina = 0;
+            playerStats.stamina = 0;
             return;
         }
-        this.stamina -= stamina;
+        playerStats.stamina -= stamina;
     }
 
     public void OnStaminaReceived(float stamina)
     {
-        if (this.stamina + stamina >= maxStamina)
+        if (playerStats.stamina + stamina >= playerStats.maxStamina)
         {
-            this.stamina = maxStamina;
+            playerStats.stamina = playerStats.maxStamina;
             return;
         }
-        this.stamina += stamina;
+        playerStats.stamina += stamina;
     }
 
 

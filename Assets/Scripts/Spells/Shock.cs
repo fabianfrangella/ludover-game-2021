@@ -6,7 +6,7 @@ public class Shock : MonoBehaviour
 
     public Animator animator;
 
-    public int damage;
+    public float damage;
     public float speed;
     public int manaCost;
 
@@ -47,6 +47,11 @@ public class Shock : MonoBehaviour
     public void SetDirection(Vector2 dir)
     {
         direction = dir;
+    }
+
+    public void SetExtraDamage(float extraDamage)
+    {
+        damage += extraDamage;
     }
 
     private void SetAnimationDirection()

@@ -1,24 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerManaManager : MonoBehaviour
 {
-
-    float mana;
-    public float maxMana;
-
     public ManaBar manaBar;
 
-    private PlayerExperienceManager playerExperienceManager;
+    private PlayerStats playerStats;
     // Start is called before the first frame update
 
     private void Start()
     {
-        playerExperienceManager = GetComponent<PlayerExperienceManager>();
-        playerExperienceManager.OnLevelUp += HandleLevelUp;
-        mana = maxMana;
-        manaBar.SetMaxMana(maxMana);
+        playerStats = GetComponent<PlayerStats>();
+        manaBar.SetMaxMana(playerStats.maxMana);
     }
 
     private void Update()
@@ -29,38 +21,32 @@ public class PlayerManaManager : MonoBehaviour
 
     public void SetManaBar()
     {
-        manaBar.SetMana(mana);
-        manaBar.SetMaxMana(maxMana);
-    }
-
-    void HandleLevelUp()
-    {
-        maxMana += maxMana / 2;
-        mana = maxMana;
+        manaBar.SetMana(playerStats.mana);
+        manaBar.SetMaxMana(playerStats.maxMana);
     }
 
     public void OnManaReceived(float mana)
     {
-        if (this.mana + mana >= maxMana)
+        if (playerStats.mana + mana >= playerStats.maxMana)
         {
-            this.mana = maxMana;
+            playerStats.mana = playerStats.maxMana;
             return;
         }
-        this.mana += mana;
+        playerStats.mana += mana;
     }
 
     public void OnManaLost(float value)
     {
-        if (mana - value <= 0)
+        if (playerStats.mana - value <= 0)
         {
-            mana = 0;
+            playerStats.mana = 0;
             return;
         }
-        mana -= value;
+        playerStats.mana -= value;
     }
 
     public float GetCurrentMana()
     {
-        return mana;
+        return playerStats.mana;
     }
 }
