@@ -4,49 +4,94 @@ using UnityEngine;
 
 public class EnemyMovementManager : MonoBehaviour
 {
-
-    public Rigidbody2D rb;
     public float speed = 1.0f;
-
     public float range;
-
     public float maxDistance;
+    public float lineOfSight;
 
+    private Transform target;
     private EnemyHealthManager healthManager;
-
     private Animator animator;
-
+    private Rigidbody2D rb;
     private Vector2 wayPoint;
-
     private Vector2 startPosition;
+    private Vector2 prevLoc;
 
     private bool hasHitPlayer = false;
+    private bool isColliding = false;
 
-    private Vector2 prevLoc;
-    // Start is called before the first frame update
+   
+   
     void Start()
     {
         healthManager = gameObject.GetComponent<EnemyHealthManager>();
         animator = gameObject.GetComponent<Animator>();
         startPosition = transform.position;
         prevLoc = startPosition;
+        rb = GetComponent<Rigidbody2D>(); 
         SetNewDestination();
+     
+
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+
+        if (isColliding) 
+        {
+
+
+        }
+
+        HandleRadiusCollisions();
         if (!healthManager.IsAlive() || hasHitPlayer)
         {
             StopMoving();
             return;
         }
-        SetVelocity();
-        if (Vector2.Distance(transform.position, wayPoint) < range)
+        
+        if (target != null) {
+            wayPoint = Vector2.MoveTowards(this.transform.position, target.position, speed);      
+        }
+
+
+        if (target == null && Vector2.Distance(transform.position, wayPoint) < range)
         {
             SetNewDestination();
         }
+        SetVelocity();
+
+
         SetAnimationDirection();
+    }
+
+    void HandleRadiusCollisions()
+    {
+        Collider2D[] collisions = Physics2D.OverlapCircleAll(transform.position, lineOfSight);
+        bool playerFound = false;
+        foreach (var collider in collisions)
+        {
+            playerFound = SetPlayerTarget(playerFound, collider);
+        }
+        if (!playerFound)
+        {
+            target = null;
+        }
+    }
+
+    private bool SetPlayerTarget(bool playerFound, Collider2D collider)
+    {
+        if (!playerFound)
+        {
+            playerFound = collider.CompareTag(TagEnum.Player.ToString());
+            if (playerFound)
+            {
+                target = collider.transform;
+            }
+        }
+
+        return playerFound;
     }
 
     private void SetVelocity()
@@ -61,16 +106,17 @@ public class EnemyMovementManager : MonoBehaviour
         animator.SetFloat("Horizontal", direction.x);
         animator.SetFloat("Vertical", direction.y);
     }
+
+    public Vector2 GetDirectionWhereIsLooking()
+    {
+        return (Vector2)transform.position - prevLoc;
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if(collision.gameObject.tag == "Building"){
+            isColliding = true;
+        }
         hasHitPlayer = collision.collider.CompareTag(TagEnum.Player.ToString());
-        /* eventualmente esto sera algo como 
-         * if (hasHitPlayer) {
-         *  attack() 
-         *  return;
-         * }
-         * ReturnToStartPosition();
-         */
         if (!hasHitPlayer)
         {
             SetWayPointToStartPosition();
@@ -79,6 +125,10 @@ public class EnemyMovementManager : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
+        if (collision.gameObject.tag == "Building")
+        {
+            isColliding = false;
+        }
         hasHitPlayer = false;
     }
     private void StopMoving()
@@ -103,4 +153,7 @@ public class EnemyMovementManager : MonoBehaviour
         wayPoint = startPosition;
     }
 
+ 
+
+   
 }
