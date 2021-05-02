@@ -20,7 +20,6 @@ public class PlayerExperienceManager : MonoBehaviour
 
     void Start()
     {
-        experienceBar = FindObjectOfType<ExperienceBar>();
         level = 1;
         currentExperience = 0;
         nextLevelExperience = 100;
