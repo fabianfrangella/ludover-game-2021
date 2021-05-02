@@ -15,4 +15,12 @@ public class SkeletonAttackManager : MonoBehaviour
     {
         
     }
+
+    void Attack()
+    {
+        // PlayAnimation
+        // DoRaycast onDirectionWhereIsLooking (se le puede pedir al movementManager)
+        // if isPlayer then player.OnDamageReceive(damage)
+        // SetNextAttackTime()
+    }
 }
