@@ -1,33 +1,38 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerMeleeAttackManager : MonoBehaviour, PlayerAttackState
 {
-
-    public int damage;
     public float attackRate = 5f;
     public float attackDistance = 1f;
-    float nextAttackTime = 0f;
+
+    private float nextAttackTime = 0f;
 
     private PlayerStaminaManager playerStaminaManager;
     private PlayerExperienceManager playerExperienceManager;
     private PlayerAnimationsManager playerAnimationsManager;
     private PlayerMovementManager playerMovementManager;
-
+    private PlayerStats playerStats;
     private Vector2 directionToAttack;
-    // Start is called before the first frame update
+
     void Start()
     {
         playerStaminaManager = GetComponent<PlayerStaminaManager>();
         playerAnimationsManager = GetComponent<PlayerAnimationsManager>();
         playerMovementManager = GetComponent<PlayerMovementManager>();
         playerExperienceManager = GetComponent<PlayerExperienceManager>();
-        playerExperienceManager.OnLevelUp += HandleLevelUp;
+        playerStats = GetComponent<PlayerStats>();
     }
+
+    void FixedUpdate()
+    {
+        SetDirectionToAttack();
+        var swordPosition = new Vector2(transform.position.x, transform.position.y - 0.35f);
+        Debug.DrawRay(swordPosition, directionToAttack.normalized, Color.red);
+    }
+
     public void HandleAttack()
     {
-        if (IsAttackingAndCanAttack())
+        if (CanAttack())
         {
             DoBasicAttack();
             SetNextAttackTime();
@@ -40,14 +45,6 @@ public class PlayerMeleeAttackManager : MonoBehaviour, PlayerAttackState
         return GetComponent<PlayerSpellManager>();
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        SetDirectionToAttack();
-        var swordPosition = new Vector2(transform.position.x, transform.position.y - 0.35f);
-        Debug.DrawRay(swordPosition, directionToAttack.normalized, Color.red);
-    }
-
     private void SetDirectionToAttack()
     {
         var direction = playerMovementManager.DirectionWhereIsMoving();
@@ -58,15 +55,13 @@ public class PlayerMeleeAttackManager : MonoBehaviour, PlayerAttackState
         }
     }
 
-
     private void SetNextAttackTime()
     {
         nextAttackTime = Time.time + 1f / attackRate;
     }
-    private bool IsAttackingAndCanAttack()
+    private bool CanAttack()
     {
-        bool isAttacking = Input.GetMouseButtonDown(0);
-        return isAttacking && Time.time >= nextAttackTime && playerStaminaManager.stamina >= 40;
+        return Time.time >= nextAttackTime && playerStats.stamina >= 40;
     }
 
     private void DoBasicAttack()
@@ -92,7 +87,7 @@ public class PlayerMeleeAttackManager : MonoBehaviour, PlayerAttackState
     {
         if (hit.collider.CompareTag(TagEnum.Enemy.ToString()))
         {
-            var experience = hit.collider.gameObject.GetComponent<EnemyHealthManager>().OnDamageReceived(damage);
+            var experience = hit.collider.gameObject.GetComponent<EnemyHealthManager>().OnDamageReceived(playerStats.meleeDamage);
             playerExperienceManager.GainExperience(experience);
         }
     }
@@ -108,11 +103,6 @@ public class PlayerMeleeAttackManager : MonoBehaviour, PlayerAttackState
         Debug.DrawRay(swordPosition, directionToAttack.normalized, Color.red);
 
         return Physics2D.RaycastAll(swordPosition, directionToAttack.normalized, attackDistance);
-    }
-
-    private void HandleLevelUp()
-    {
-        damage += damage / 2;
     }
 
 }

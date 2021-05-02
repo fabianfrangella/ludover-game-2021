@@ -5,8 +5,8 @@ using UnityEngine;
 public class EnemyHealthManager : MonoBehaviour
 {
     // Start is called before the first frame update
-    public int health;
-    public int maxHealth;
+    public float health;
+    public float maxHealth;
     public float experience;
     public EnemyAnimationManager enemyAnimationManager;
     // Start is called before the first frame update
@@ -31,7 +31,7 @@ public class EnemyHealthManager : MonoBehaviour
      * Decrements the health value and if is dead returns the given experience, 0 otherwise
      * </summary>
      */
-    public float OnDamageReceived(int damage)
+    public float OnDamageReceived(float damage)
     {
         health -= damage;
         if (!IsAlive())

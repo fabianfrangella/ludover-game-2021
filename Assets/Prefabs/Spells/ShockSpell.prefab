@@ -91,7 +91,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 200
+  m_SortingOrder: 100
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -119,6 +119,7 @@ MonoBehaviour:
   animator: {fileID: 4700974185049466447}
   damage: 100
   speed: 5
+  manaCost: 0
 --- !u!58 &1706677339488438040
 CircleCollider2D:
   m_ObjectHideFlags: 0

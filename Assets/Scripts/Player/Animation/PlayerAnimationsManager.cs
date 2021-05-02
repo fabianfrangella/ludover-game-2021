@@ -24,7 +24,7 @@ public class PlayerAnimationsManager : MonoBehaviour
     {
         animator.SetBool("IsUsingMagic", isUsingMagic);
     }
-    public void SetDeathAnimation()
+    public void PlayDeathAnimation()
     {
         animator.SetTrigger("Die");
     }

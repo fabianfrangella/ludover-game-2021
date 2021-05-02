@@ -9,11 +9,13 @@ public class PlayerSpellManager : MonoBehaviour, PlayerAttackState
 
     private PlayerAnimationsManager playerAnimationsManager;
     private PlayerManaManager playerManaManager;
+    private PlayerStats playerStats;
 
     void Start()
     {
         playerAnimationsManager = GetComponent<PlayerAnimationsManager>();
         playerManaManager = GetComponent<PlayerManaManager>();
+        playerStats = GetComponent<PlayerStats>();
     }
 
     public void HandleAttack()
@@ -24,6 +26,7 @@ public class PlayerSpellManager : MonoBehaviour, PlayerAttackState
             playerManaManager.OnManaLost(40);
             var shock = Instantiate(shockSpellPrefab, transform.position, Quaternion.identity);
             shock.SetDirection(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+            shock.SetExtraDamage(playerStats.spellDamage);
             SetNextCastTime();
         }
     }
