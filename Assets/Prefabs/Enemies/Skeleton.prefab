@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 3112926715794206941}
   - component: {fileID: 3112926715794206938}
   - component: {fileID: -7709271727446129743}
+  - component: {fileID: 2785299880925088188}
   m_Layer: 10
   m_Name: Skeleton
   m_TagString: Enemy
@@ -186,8 +187,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c00dff4fd924b349b56476546d56a56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  rb: {fileID: 3112926715794206947}
   speed: 1.5
   range: 0.5
   maxDistance: 4
@@ -208,3 +207,18 @@ CircleCollider2D:
   m_Offset: {x: 0.0019142777, y: -0.4530618}
   serializedVersion: 2
   m_Radius: 0.16242644
+--- !u!114 &2785299880925088188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3112926715794206946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15bfa748afd15b244bb96f340ee0648c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackDistance: 1
+  damage: 40
+  attackRate: 2

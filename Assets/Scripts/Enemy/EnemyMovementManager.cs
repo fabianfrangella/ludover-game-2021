@@ -4,17 +4,15 @@ using UnityEngine;
 
 public class EnemyMovementManager : MonoBehaviour
 {
-    public Transform target; // este atributo deberia ser private
-    public Rigidbody2D rb;
-    // como regla de oro, los unicos atributos que ponemos public son los que queremos tocar desde el editor de unity 
-    // o desde otros scripts (y esto es debatible tambien), sino va private
     public float speed = 1.0f;
     public float range;
     public float maxDistance;
     public float lineOfSight;
 
+    private Transform target;
     private EnemyHealthManager healthManager;
     private Animator animator;
+    private Rigidbody2D rb;
     private Vector2 wayPoint;
     private Vector2 startPosition;
     private Vector2 prevLoc;
@@ -31,8 +29,6 @@ public class EnemyMovementManager : MonoBehaviour
         startPosition = transform.position;
         prevLoc = startPosition;
         rb = GetComponent<Rigidbody2D>(); 
-        // el rb ya lo estamos metiendo a mano en la scene, no hace falta hacer un GetComponent
-        // esto no esta necesariamente mal, pero si lo hacemos asi, pasemos el rb a private
         SetNewDestination();
      
 
@@ -42,17 +38,10 @@ public class EnemyMovementManager : MonoBehaviour
     void FixedUpdate()
     {
 
-        if (isColliding == true) 
+        if (isColliding) 
         {
-        /* Tip para nico -> decir if (isColliding) es lo mismo que decir isColliding == true
-         * isColliding es un boolean, por lo tanto sus valores son o true o false, 
-         * el if espera tener algo que sea true o false, por lo tanto con decir if (isColliding) es suficiente
-         * decir isColliding == true es lo mismo que decir true == true o false == true, es redundante
-         * si isColliding es true, decir true == true es lo mismo que decir isColliding
-         * y si isColliding es false, decir false == true es lo mismo que decir isColliding
-         * Como regla general, si en algún lado estás comparando algo == true o algo == false está mal
-         * y podes reducirlo simplemente a "algo", nunca de los jamases poner == true o == false
-         */
+
+
         }
 
         HandleRadiusCollisions();
@@ -66,8 +55,7 @@ public class EnemyMovementManager : MonoBehaviour
             wayPoint = Vector2.MoveTowards(this.transform.position, target.position, speed);      
         }
 
-        // aca te agregue la validacion de target == null, 
-        // porque sino seteas un nuevo destino una vez que se acerco mucho al target
+
         if (target == null && Vector2.Distance(transform.position, wayPoint) < range)
         {
             SetNewDestination();
@@ -118,19 +106,17 @@ public class EnemyMovementManager : MonoBehaviour
         animator.SetFloat("Horizontal", direction.x);
         animator.SetFloat("Vertical", direction.y);
     }
+
+    public Vector2 GetDirectionWhereIsLooking()
+    {
+        return (Vector2)transform.position - prevLoc;
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.tag == "Building"){
             isColliding = true;
         }
         hasHitPlayer = collision.collider.CompareTag(TagEnum.Player.ToString());
-        /* eventualmente esto sera algo como 
-         * if (hasHitPlayer) {
-         *  attack() 
-         *  return;
-         * }
-         * ReturnToStartPosition();
-         */
         if (!hasHitPlayer)
         {
             SetWayPointToStartPosition();

@@ -18,6 +18,11 @@ public class SkeletonAnimationManager : EnemyAnimationManager
         animator.SetBool("isIdle", isIdle);
     }
 
+    override public void PlayAttackAnimation()
+    {
+        animator.SetTrigger("Attack");
+    }
+
     // Start is called before the first frame update
     void Start()
     {

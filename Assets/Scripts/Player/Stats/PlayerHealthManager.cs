@@ -40,12 +40,12 @@ public class PlayerHealthManager : MonoBehaviour
         }
     }
 
-    public void OnDamageReceived(int damage)
+    public void OnDamageReceived(float damage)
     {
         playerStats.health -= damage;
     }
 
-    public void OnHealing(int healing)
+    public void OnHealing(float healing)
     {
         if (playerStats.health + healing >= playerStats.maxHealth)
         {
