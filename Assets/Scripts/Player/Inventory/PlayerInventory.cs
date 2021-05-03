@@ -1,68 +1,62 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
-    public List<ItemInterface> items = new List<ItemInterface>();
+    public List<Item> items;
+
+    public int maxSize;
+
     void Start()
     {
-
+        items = new List<Item>() { new HealthPotion(), new HealthPotion() };
     }
 
-    // Update is called once per frame
     void Update()
     {
-        UseHealthPotion();
-    }
-
-
-    private void UseHealthPotion()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
-            var healthPotion = FindHealthPotion();
-            if (healthPotion != null)
-            {
-                healthPotion.Use();
-            }
+            var potion = FindHealthPotion();
+            UseItem(potion);
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void AddItem(Item item)
     {
-        if (collision.CompareTag("HealthPotion"))
+        if (items.Count >= maxSize)
         {
-            PickUp(collision.GetComponent<Item<PlayerHealthManager>>());
+            throw new InventoryFullException();
+        }
+        items.Add(item);
+    }
+
+    public List<string> GetItemsNames()
+    {
+        List<string> mappedItems = new List<string>();
+        foreach (var item in items)
+        {
+            mappedItems.Add(item.GetName().ToString());
+        }
+        return mappedItems;
+    }
+
+    private Item FindHealthPotion()
+    {
+        return items.Find(item => item.GetName().Equals(ItemEnum.HealthPotion));
+    }
+
+    private void UseItem(Item item)
+    {
+        if (item != null)
+        {
+            item.Use(transform);
+            items.Remove(item);
         }
     }
+}
 
-    Item<PlayerHealthManager> FindHealthPotion()
-    {
-        return (Item<PlayerHealthManager>) items.Find(item => item.GetType().Equals(ItemType.HEALTHPOTION));
-    }
-
-    Item<T> GetItem<T>(Item<T> item)
-    {
-        return (Item<T>) items.Find(i => i.Equals(item));
-    }
-
-    void DropItem<T>(Item<T> item)
-    {
-        var it = GetItem(item);
-        // Dropea el item frente al personaje
-        it.gameObject.transform.position = new Vector2(transform.position.x + 1, transform.position.y - 1);
-        it.gameObject.SetActive(true);
-    }
-
-    void PickUp<T>(Item<T> item)
-    {
-        if (item.itemType.Equals(ItemType.HEALTHPOTION))
-        {
-            item.gameObject.SetActive(false);
-            item.SetOwner(gameObject.GetComponent<T>());
-            items.Add(item);
-        }
-    }
+public class InventoryFullException : Exception
+{
 
 }

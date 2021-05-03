@@ -1,23 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class HealthPotion : Item<PlayerHealthManager>
+public class HealthPotion : Item
 {
-    public int healingAmount = 10;
-
-    private void Start()
+    public HealthPotion()
     {
-        itemType = ItemType.HEALTHPOTION;
-    }
-    override public void Use()
-    {
-        owner.OnHealing(healingAmount);
-        Destroy(gameObject);
+        name = ItemEnum.HealthPotion;
     }
 
-    public override string ToString()
+    override public void Use(Transform transform)
     {
-        return "{ healingAmount: 10, itemType: HEALTHPOTION }";
+        var manager = transform.GetComponent<PlayerHealthManager>();
+        manager.OnHealing(50);
     }
 }

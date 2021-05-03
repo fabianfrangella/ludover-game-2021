@@ -1,33 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public abstract class Item<T> : MonoBehaviour, ItemInterface
+﻿using UnityEngine;
+public abstract class Item
 {
-    public ItemType itemType;
-    public T owner;
-    public abstract void Use();
+    public ItemEnum name;
+    public abstract void Use(Transform transform);
 
-    public void SetOwner(T newOwner)
+    public ItemEnum GetName()
     {
-        owner = newOwner;
-    }
-
-    new public ItemType GetType()
-    {
-        return itemType;
+        return name;
     }
 }
 
-public enum ItemType
+public enum ItemEnum
 {
-    HEALTHPOTION,
-    MANAPOTION,
-    STAMINAPOTION
-}
-
-public interface ItemInterface
-{ 
-    void Use();
-    ItemType GetType();
+    HealthPotion,
+    ManaPotion,
+    StaminaPotion
 }
