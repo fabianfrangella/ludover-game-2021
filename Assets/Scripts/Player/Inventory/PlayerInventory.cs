@@ -17,9 +17,19 @@ public class PlayerInventory : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            var potion = FindHealthPotion();
+            var potion = FindItemByName(ItemEnum.HealthPotion);
             UseItem(potion);
         }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            var potion = FindItemByName(ItemEnum.ManaPotion);
+            UseItem(potion);
+        }
+    }
+
+    private Item FindItemByName(ItemEnum i)
+    {
+        return items.Find(item => item.GetName().Equals(i));
     }
 
     public void AddItem(Item item)
@@ -54,11 +64,6 @@ public class PlayerInventory : MonoBehaviour
             mappedItems.Add(item.GetName().ToString());
         }
         return mappedItems;
-    }
-
-    private Item FindHealthPotion()
-    {
-        return items.Find(item => item.GetName().Equals(ItemEnum.HealthPotion));
     }
 
     private void UseItem(Item item)

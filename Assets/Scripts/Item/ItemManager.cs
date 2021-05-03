@@ -33,6 +33,15 @@ public class ItemManager : MonoBehaviour
         {
             return new HealthPotion();
         }
+        if(item.Equals(ItemEnum.ManaPotion))
+        {
+            return new ManaPotion();
+        }
+        if(item.Equals(ItemEnum.StaminaPotion))
+        {
+            return new StaminaPotion();
+        }
+
         return null;
     }
 }
