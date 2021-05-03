@@ -31,6 +31,21 @@ public class PlayerInventory : MonoBehaviour
         items.Add(item);
     }
 
+    public Dictionary<string, int> GetItemsQuantities()
+    {
+        var dict = new Dictionary<string, int>();
+        foreach (var item in items)
+        {
+            if (dict.TryGetValue(item.GetName().ToString(), out int val))
+            {
+                dict[item.GetName().ToString()] = val+1;
+                continue;
+            }
+
+            dict.Add(item.GetName().ToString(), 1);
+        }
+        return dict;
+    }
     public List<string> GetItemsNames()
     {
         List<string> mappedItems = new List<string>();
