@@ -5,16 +5,16 @@ public class PlayerHealthManager : MonoBehaviour
     public HealthBar healthBar;
     private PlayerAnimationsManager playerAnimationsManager;
     private PlayerStats playerStats;
+    private Rigidbody2D rb;
 
-    // Start is called before the first frame update
     void Start()
     {
         playerAnimationsManager = GetComponent<PlayerAnimationsManager>();
+        rb = GetComponent<Rigidbody2D>();
         playerStats = GetComponent<PlayerStats>();
         healthBar.SetMaxHealth(playerStats.maxHealth);
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         CheckDeath();
@@ -35,8 +35,8 @@ public class PlayerHealthManager : MonoBehaviour
     {
         if (playerStats.health <= 0)
         {
+            rb.constraints = RigidbodyConstraints2D.FreezeAll;
             playerAnimationsManager.PlayDeathAnimation();
-            
         }
     }
 

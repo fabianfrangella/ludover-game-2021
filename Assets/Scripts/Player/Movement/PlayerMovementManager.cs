@@ -7,17 +7,6 @@ public class PlayerMovementManager : MonoBehaviour
     public float speed = 2.0f;
     public Rigidbody2D rb;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    private void FixedUpdate()
-    {
-       
-    }
-    // Update is called once per frame
     void Update()
     {
         Move();
@@ -25,7 +14,7 @@ public class PlayerMovementManager : MonoBehaviour
 
     private void Move()
     {
-       rb.velocity = DirectionWhereIsMoving().normalized * speed;
+        rb.velocity = DirectionWhereIsMoving().normalized * speed;
     }
 
     public Vector3 DirectionWhereIsMoving()

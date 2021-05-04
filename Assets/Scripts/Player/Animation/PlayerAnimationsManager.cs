@@ -7,17 +7,16 @@ public class PlayerAnimationsManager : MonoBehaviour
     public Animator animator;
     private float lastHorizontal;
     private float lastVertical;
+    private bool isAlive;
 
+    private void Start()
+    {
+        isAlive = true;
+    }
     private void FixedUpdate()
     {
         SetIdleAnimation();
         PlayRunAnimation();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     public void SetIsUsingMagic(bool isUsingMagic)
@@ -26,6 +25,7 @@ public class PlayerAnimationsManager : MonoBehaviour
     }
     public void PlayDeathAnimation()
     {
+        isAlive = false;
         animator.SetTrigger("Die");
     }
 
@@ -56,7 +56,7 @@ public class PlayerAnimationsManager : MonoBehaviour
     {
         var horizontal = Input.GetAxisRaw("Horizontal");
         var vertical = Input.GetAxisRaw("Vertical");
-        if (horizontal != 0 || vertical != 0)
+        if ((horizontal != 0 || vertical != 0) && isAlive)
         {
             lastHorizontal = horizontal;
             lastVertical = vertical;

@@ -8,19 +8,21 @@ public class PlayerSpellManager : MonoBehaviour, PlayerAttackState
     float nextCastTime = 0f;
 
     private PlayerAnimationsManager playerAnimationsManager;
+    private PlayerHealthManager playerHealthManager;
     private PlayerManaManager playerManaManager;
     private PlayerStats playerStats;
 
     void Start()
     {
         playerAnimationsManager = GetComponent<PlayerAnimationsManager>();
+        playerHealthManager = GetComponent<PlayerHealthManager>();
         playerManaManager = GetComponent<PlayerManaManager>();
         playerStats = GetComponent<PlayerStats>();
     }
 
     public void HandleAttack()
     {
-        if (playerManaManager.GetCurrentMana() > 40 && Time.time >= nextCastTime)
+        if (CanCast())
         {
             playerAnimationsManager.PlayCastAnimation();
             playerManaManager.OnManaLost(40);
@@ -29,6 +31,11 @@ public class PlayerSpellManager : MonoBehaviour, PlayerAttackState
             shock.SetExtraDamage(playerStats.spellDamage);
             SetNextCastTime();
         }
+    }
+
+    private bool CanCast()
+    {
+        return playerManaManager.GetCurrentMana() > 40 && Time.time >= nextCastTime && playerHealthManager.IsAlive();
     }
 
     private void SetNextCastTime()

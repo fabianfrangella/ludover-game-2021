@@ -11,6 +11,7 @@ public class PlayerMeleeAttackManager : MonoBehaviour, PlayerAttackState
     private PlayerExperienceManager playerExperienceManager;
     private PlayerAnimationsManager playerAnimationsManager;
     private PlayerMovementManager playerMovementManager;
+    private PlayerHealthManager playerHealthManager;
     private PlayerStats playerStats;
     private Vector2 directionToAttack;
 
@@ -20,6 +21,7 @@ public class PlayerMeleeAttackManager : MonoBehaviour, PlayerAttackState
         playerAnimationsManager = GetComponent<PlayerAnimationsManager>();
         playerMovementManager = GetComponent<PlayerMovementManager>();
         playerExperienceManager = GetComponent<PlayerExperienceManager>();
+        playerHealthManager = GetComponent<PlayerHealthManager>();
         playerStats = GetComponent<PlayerStats>();
     }
 
@@ -61,7 +63,7 @@ public class PlayerMeleeAttackManager : MonoBehaviour, PlayerAttackState
     }
     private bool CanAttack()
     {
-        return Time.time >= nextAttackTime && playerStats.stamina >= 40;
+        return Time.time >= nextAttackTime && playerStats.stamina >= 40 && playerHealthManager.IsAlive();
     }
 
     private void DoBasicAttack()
