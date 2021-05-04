@@ -45,17 +45,26 @@ public class EnemyMovementManager : MonoBehaviour
         }
 
         HandleRadiusCollisions();
+        // TODO llevar esto a otro lado (ver si puede ser mas lindo)
+        // la idea de este if es que cuando se muera, puedas pasar por arriba del chobi
+        if (!healthManager.IsAlive())
+        {
+            GetComponent<CircleCollider2D>().isTrigger = true;
+        }
+
+        // TODO llevar esto a otro metodo
         if (!healthManager.IsAlive() || hasHitPlayer)
         {
             StopMoving();
             return;
         }
-        
+
+        // TODO llevar esto a otro metodo
         if (target != null) {
             wayPoint = Vector2.MoveTowards(this.transform.position, target.position, speed);      
         }
 
-
+        // TODO llevar esto a otro metodo
         if (target == null && Vector2.Distance(transform.position, wayPoint) < range)
         {
             SetNewDestination();
