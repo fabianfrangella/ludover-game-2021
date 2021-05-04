@@ -10,12 +10,14 @@ public class SkeletonAttackManager : MonoBehaviour
     private bool hasFoundPlayer;
     private SkeletonAnimationManager animationManager;
     private EnemyMovementManager enemyMovementManager;
+    private EnemyHealthManager enemyHealthManager;
 
     // Start is called before the first frame update
     void Start()
     {
         animationManager = GetComponent<SkeletonAnimationManager>();
         enemyMovementManager = GetComponent<EnemyMovementManager>();
+        enemyHealthManager = GetComponent<EnemyHealthManager>();
     }
 
     // Update is called once per frame
@@ -30,7 +32,7 @@ public class SkeletonAttackManager : MonoBehaviour
 
     void Attack()
     {
-        if (CanAttack())
+        if (CanAttack() && enemyHealthManager.IsAlive())
         {
             DoAttack();
         }

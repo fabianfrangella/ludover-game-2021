@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ItemManager : MonoBehaviour
 {
@@ -18,30 +16,12 @@ public class ItemManager : MonoBehaviour
     {
         try
         {
-            collision.GetComponent<PlayerInventory>().AddItem(CreateItem());
+            collision.GetComponent<PlayerInventory>().AddItem(ItemFactory.CreateItem(item));
             Destroy(gameObject);
         }
         catch (InventoryFullException)
         {
             Debug.Log("The inventory is full");
         }
-    }
-
-    private Item CreateItem()
-    {
-        if (item.Equals(ItemEnum.HealthPotion))
-        {
-            return new HealthPotion();
-        }
-        if(item.Equals(ItemEnum.ManaPotion))
-        {
-            return new ManaPotion();
-        }
-        if(item.Equals(ItemEnum.StaminaPotion))
-        {
-            return new StaminaPotion();
-        }
-
-        return null;
     }
 }

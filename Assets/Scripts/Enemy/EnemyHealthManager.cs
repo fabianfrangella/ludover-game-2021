@@ -9,6 +9,8 @@ public class EnemyHealthManager : MonoBehaviour
     public float maxHealth;
     public float experience;
     public EnemyAnimationManager enemyAnimationManager;
+
+    public event System.Action OnDeath;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +38,7 @@ public class EnemyHealthManager : MonoBehaviour
         health -= damage;
         if (!IsAlive())
         {
+            OnDeath();
             return experience;
         }
         return 0;

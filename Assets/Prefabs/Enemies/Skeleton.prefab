@@ -18,6 +18,8 @@ GameObject:
   - component: {fileID: 3112926715794206938}
   - component: {fileID: -7709271727446129743}
   - component: {fileID: 2785299880925088188}
+  - component: {fileID: 6111803481340249103}
+  - component: {fileID: -3453064129817427868}
   m_Layer: 10
   m_Name: Skeleton
   m_TagString: Enemy
@@ -222,3 +224,31 @@ MonoBehaviour:
   attackDistance: 1
   damage: 40
   attackRate: 2
+--- !u!114 &6111803481340249103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3112926715794206946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 057f952ac68cd08478fb3e2593af2e81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  droppableItems: 0000000001000000
+--- !u!114 &-3453064129817427868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3112926715794206946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72d04e0e59de7bd40a1d4388427be25a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabs:
+  - {fileID: 6087985388382950760, guid: ce66335d6d4aaa143aa30cde7b5bc26f, type: 3}
+  - {fileID: 3721039928305416975, guid: 50d07e09cd964af45b23c6e86ad18bad, type: 3}
