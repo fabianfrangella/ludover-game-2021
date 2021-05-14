@@ -62837,7 +62837,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 791279853}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.06, y: -0.11, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -63069,6 +63069,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shockSpellPrefab: {fileID: 8446708541228853187, guid: 911b03d1627159f4ebb81983bf6eb854,
     type: 3}
+  availableSpells: 0000000001000000
   castRate: 1.5
 --- !u!58 &791279868
 CircleCollider2D:

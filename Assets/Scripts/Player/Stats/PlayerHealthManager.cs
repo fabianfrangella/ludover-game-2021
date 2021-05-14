@@ -7,12 +7,14 @@ public class PlayerHealthManager : MonoBehaviour
     private PlayerStats playerStats;
     private Rigidbody2D rb;
 
+    private float damageAbsorption;
     void Start()
     {
         playerAnimationsManager = GetComponent<PlayerAnimationsManager>();
         rb = GetComponent<Rigidbody2D>();
         playerStats = GetComponent<PlayerStats>();
         healthBar.SetMaxHealth(playerStats.maxHealth);
+        damageAbsorption = 0;
     }
 
     void FixedUpdate()
@@ -42,7 +44,19 @@ public class PlayerHealthManager : MonoBehaviour
 
     public void OnDamageReceived(float damage)
     {
-        playerStats.health -= damage;
+        var finalDamage = damageAbsorption >= damage ? 0 : damage - damageAbsorption;
+        playerStats.health -= finalDamage;
+    }
+
+    public void AddDamageAbsorption(float abs)
+    {
+        damageAbsorption += abs;
+    }
+
+    public void SubstractDamageAbsorption(float abs)
+    {
+        damageAbsorption -= abs;
+        Debug.Log(damageAbsorption);
     }
 
     public void OnHealing(float healing)
