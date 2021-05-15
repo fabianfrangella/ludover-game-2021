@@ -88,7 +88,6 @@ public class PlayerSpellManager : MonoBehaviour, PlayerAttackState
         {
             selectedSpell = Spell.Shield;
         }
-        Debug.Log(selectedSpell);
     }
 
     private bool HasSpell(Spell spell)

@@ -63042,6 +63042,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 481092107}
+  damageAbsorption: 0
 --- !u!114 &791279866
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63069,7 +63070,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shockSpellPrefab: {fileID: 8446708541228853187, guid: 911b03d1627159f4ebb81983bf6eb854,
     type: 3}
-  availableSpells: 0000000001000000
+  shieldSpellPrefab: {fileID: 8287484850294984802, guid: 5cb0a00b32b4e6d448b0c47490d39387,
+    type: 3}
+  availableSpells: 0200000001000000
   castRate: 1.5
 --- !u!58 &791279868
 CircleCollider2D:
@@ -68953,8 +68956,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 25}
-  m_SizeDelta: {x: 408.20844, y: 50}
+  m_AnchoredPosition: {x: 0.00014877, y: 25}
+  m_SizeDelta: {x: 691.9996, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1890283676
 MonoBehaviour:
@@ -68975,7 +68978,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Press space to change your weapon
+  m_text: 'Press space to change your weapon
+
+    Press F1 to select Shock Spell
+
+    Press
+    F2 to select Shield Spell'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -69002,14 +69010,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 14
+  m_fontSizeBase: 14
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0

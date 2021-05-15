@@ -8,7 +8,7 @@ public class Shield : MonoBehaviour
     private float absorption;
     void Awake()
     {
-        duration = 10;
+        duration = 30;
         absorption = 20;
         playerSpellManager = FindObjectOfType<PlayerSpellManager>();
         playerHealthManager = FindObjectOfType<PlayerHealthManager>();
