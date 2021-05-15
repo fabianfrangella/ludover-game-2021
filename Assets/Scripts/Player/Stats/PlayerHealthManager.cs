@@ -7,7 +7,7 @@ public class PlayerHealthManager : MonoBehaviour
     private PlayerStats playerStats;
     private Rigidbody2D rb;
 
-    private float damageAbsorption;
+    public float damageAbsorption;
     void Start()
     {
         playerAnimationsManager = GetComponent<PlayerAnimationsManager>();
@@ -56,7 +56,6 @@ public class PlayerHealthManager : MonoBehaviour
     public void SubstractDamageAbsorption(float abs)
     {
         damageAbsorption -= abs;
-        Debug.Log(damageAbsorption);
     }
 
     public void OnHealing(float healing)

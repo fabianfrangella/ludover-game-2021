@@ -10,6 +10,7 @@ public class PlayerSpellManager : MonoBehaviour, PlayerAttackState
     public float castRate = 5f;
     float nextCastTime = 0f;
 
+    private bool isBuffActive;
     private Spell selectedSpell;
     private PlayerAnimationsManager playerAnimationsManager;
     private PlayerHealthManager playerHealthManager;
@@ -19,6 +20,7 @@ public class PlayerSpellManager : MonoBehaviour, PlayerAttackState
 
     void Start()
     {
+        isBuffActive = false;
         playerAnimationsManager = GetComponent<PlayerAnimationsManager>();
         playerHealthManager = GetComponent<PlayerHealthManager>();
         playerManaManager = GetComponent<PlayerManaManager>();
@@ -39,13 +41,17 @@ public class PlayerSpellManager : MonoBehaviour, PlayerAttackState
         }
     }
 
+    public void SetBuffActive(bool isActive)
+    {
+        isBuffActive = isActive;
+    }
     private void CastSelectedSpell()
     {
         if (selectedSpell.Equals(Spell.Shock))
         {
             CastShock();
         }
-        if (selectedSpell.Equals(Spell.Shield))
+        if (selectedSpell.Equals(Spell.Shield) && !isBuffActive)
         {
             CastShield();
         }
@@ -63,10 +69,12 @@ public class PlayerSpellManager : MonoBehaviour, PlayerAttackState
 
     private void CastShield()
     {
+        isBuffActive = true;
         playerAnimationsManager.PlayCastAnimation();
         playerManaManager.OnManaLost(80);
         var shield = Instantiate(shieldSpellPrefab, transform.position, Quaternion.identity);
         shield.transform.parent = transform;
+        SetNextCastTime();
     }
 
     private void ChangeSpell()
@@ -74,13 +82,12 @@ public class PlayerSpellManager : MonoBehaviour, PlayerAttackState
         if (Input.GetKeyDown(KeyCode.F1) && HasSpell(Spell.Shock))
         {
             selectedSpell = Spell.Shock;
-            Debug.Log("Change to spell Shock");
         }
         if (Input.GetKeyDown(KeyCode.F2) && HasSpell(Spell.Shield))
         {
             selectedSpell = Spell.Shield;
-            Debug.Log("Change to spell Shield");
         }
+        Debug.Log(selectedSpell);
     }
 
     private bool HasSpell(Spell spell)
