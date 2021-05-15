@@ -68524,7 +68524,9 @@ MonoBehaviour:
     Press F1 to select Shock Spell
 
     Press
-    F2 to select Shield Spell'
+    F2 to select Shield Spell
+
+    Press F3 to select Healing Spell'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -68587,7 +68589,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 1
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: -19.121046, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -69462,6 +69464,32 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 5871709682391251156, guid: 5b3fb2067331bb746a0ed5540e7784a8,
+        type: 3}
+      propertyPath: healingSpellPrefab
+      value: 
+      objectReference: {fileID: 459134215581190037, guid: 704a44585ae30af41be1e6203d86485d,
+        type: 3}
+    - target: {fileID: 5871709682391251156, guid: 5b3fb2067331bb746a0ed5540e7784a8,
+        type: 3}
+      propertyPath: availableSpells.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5871709682391251156, guid: 5b3fb2067331bb746a0ed5540e7784a8,
+        type: 3}
+      propertyPath: availableSpells.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5871709682391251156, guid: 5b3fb2067331bb746a0ed5540e7784a8,
+        type: 3}
+      propertyPath: availableSpells.Array.data[1]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5871709682391251156, guid: 5b3fb2067331bb746a0ed5540e7784a8,
+        type: 3}
+      propertyPath: availableSpells.Array.data[2]
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5871709682391251158, guid: 5b3fb2067331bb746a0ed5540e7784a8,
         type: 3}

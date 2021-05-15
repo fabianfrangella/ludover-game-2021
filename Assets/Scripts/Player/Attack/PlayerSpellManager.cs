@@ -5,6 +5,7 @@ public class PlayerSpellManager : MonoBehaviour, PlayerAttackState
 {
     public Shock shockSpellPrefab;
     public Shield shieldSpellPrefab;
+    public Healing healingSpellPrefab;
     public Spell[] availableSpells;
 
     public float castRate = 5f;
@@ -55,6 +56,18 @@ public class PlayerSpellManager : MonoBehaviour, PlayerAttackState
         {
             CastShield();
         }
+        if (selectedSpell.Equals(Spell.Healing))
+        {
+            CastHealing();
+        }
+    }
+
+    private void CastHealing()
+    {
+        playerAnimationsManager.PlayCastAnimation();
+        Instantiate(healingSpellPrefab, transform.position, Quaternion.identity);
+        playerManaManager.OnManaLost(50);
+        playerStats.health += 40;
     }
 
     private void CastShock()
@@ -88,6 +101,10 @@ public class PlayerSpellManager : MonoBehaviour, PlayerAttackState
         {
             selectedSpell = Spell.Shield;
         }
+        if (Input.GetKeyDown(KeyCode.F3) && HasSpell(Spell.Healing))
+        {
+            selectedSpell = Spell.Healing;
+        }
     }
 
     private bool HasSpell(Spell spell)
@@ -116,5 +133,6 @@ public enum Spell
 {
     Default,
     Shock,
-    Shield
+    Shield,
+    Healing
 }
