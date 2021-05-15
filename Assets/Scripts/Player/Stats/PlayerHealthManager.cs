@@ -41,7 +41,10 @@ public class PlayerHealthManager : MonoBehaviour
         {
             rb.constraints = RigidbodyConstraints2D.FreezeAll;
             playerAnimationsManager.PlayDeathAnimation();
-            OnPlayerDeath();
+            if (OnPlayerDeath != null)
+            {
+                OnPlayerDeath();
+            }
         }
     }
 

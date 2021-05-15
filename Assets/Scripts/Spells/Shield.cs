@@ -12,6 +12,7 @@ public class Shield : MonoBehaviour
         absorption = 20;
         playerSpellManager = FindObjectOfType<PlayerSpellManager>();
         playerHealthManager = FindObjectOfType<PlayerHealthManager>();
+        playerHealthManager.OnPlayerDeath += HandleOnDeath;
     }
 
     void Update()
@@ -30,4 +31,11 @@ public class Shield : MonoBehaviour
         playerHealthManager.AddDamageAbsorption(absorption);
     }
 
+    private void HandleOnDeath()
+    {
+        playerHealthManager.SubstractDamageAbsorption(absorption);
+        playerSpellManager.SetBuffActive(false);
+        playerHealthManager.OnPlayerDeath -= HandleOnDeath;
+        Destroy(gameObject);
+    }
 }
