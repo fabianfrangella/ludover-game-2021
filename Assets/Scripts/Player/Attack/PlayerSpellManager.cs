@@ -74,6 +74,7 @@ public class PlayerSpellManager : MonoBehaviour, PlayerAttackState
         playerManaManager.OnManaLost(80);
         var shield = Instantiate(shieldSpellPrefab, transform.position, Quaternion.identity);
         shield.transform.parent = transform;
+        shield.SetAbsorption();
         SetNextCastTime();
     }
 
