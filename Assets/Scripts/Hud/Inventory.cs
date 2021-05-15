@@ -24,6 +24,6 @@ public class Inventory : MonoBehaviour
             items += entry.Key + ": " + entry.Value + " ";
         }
      
-        text.text = items;
+        text.text = "Max inventory size: " + playerInventory.maxSize + " " + items;
     }
 }
