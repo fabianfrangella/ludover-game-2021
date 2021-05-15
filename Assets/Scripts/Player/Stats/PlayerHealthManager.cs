@@ -7,6 +7,8 @@ public class PlayerHealthManager : MonoBehaviour
     private PlayerStats playerStats;
     private Rigidbody2D rb;
 
+    public event System.Action OnPlayerDeath;
+
     public float damageAbsorption;
     void Start()
     {
@@ -39,6 +41,7 @@ public class PlayerHealthManager : MonoBehaviour
         {
             rb.constraints = RigidbodyConstraints2D.FreezeAll;
             playerAnimationsManager.PlayDeathAnimation();
+            OnPlayerDeath();
         }
     }
 
