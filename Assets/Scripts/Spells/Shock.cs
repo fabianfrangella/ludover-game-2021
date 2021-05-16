@@ -65,17 +65,26 @@ public class Shock : MonoBehaviour
     private void HandleHits()
     {
         Collider2D[] collisions = Physics2D.OverlapCircleAll(transform.position, 0.25f);
-        foreach (var collider in collisions)
+        var count = 0;
+        while(!hasHit && collisions.Length > count )
         {
-            hasHit = collider.CompareTag(TagEnum.Enemy.ToString());
+            HandleHit(collisions[count]);
+            count++;
+        }
+    }
+
+    private void HandleHit(Collider2D collider)
+    {
+        if (collider.CompareTag(TagEnum.Enemy.ToString()))
+        {
+            var healthManager = collider.gameObject.GetComponent<EnemyHealthManager>();
+            hasHit = healthManager.IsAlive();
             if (hasHit)
             {
-                var experience = collider.gameObject.GetComponent<EnemyHealthManager>().OnDamageReceived(damage);
+                var experience = healthManager.OnDamageReceived(damage);
                 playerExperienceManager.GainExperience(experience);
                 Destroy(gameObject);
-                break;
             }
         }
-        hasHit = false;
     }
 }
