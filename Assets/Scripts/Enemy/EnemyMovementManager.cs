@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using Enemy;
 using UnityEngine;
 
 public class EnemyMovementManager : MonoBehaviour
@@ -13,44 +15,35 @@ public class EnemyMovementManager : MonoBehaviour
     private EnemyHealthManager healthManager;
     private Animator animator;
     private Rigidbody2D rb;
-    private Vector2 wayPoint;
     private Vector2 startPosition;
     private Vector2 prevLoc;
+    
+    private Seeker seeker;
+    private Vector2 nextDir;
 
-    private bool hasHitPlayer = false;
-    private bool isColliding = false;
-
-   
-   
+    private bool hasHitPlayer;
+    
+    
     void Start()
     {
         healthManager = gameObject.GetComponent<EnemyHealthManager>();
         animator = gameObject.GetComponent<Animator>();
         startPosition = transform.position;
         prevLoc = startPosition;
-        rb = GetComponent<Rigidbody2D>(); 
-        SetNewDestination();
-     
-
+        rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-
-        if (isColliding) 
-        {
-
-
-        }
-
-        HandleRadiusCollisions();
-        // TODO llevar esto a otro lado (ver si puede ser mas lindo)
-        // la idea de este if es que cuando se muera, puedas pasar por arriba del chobi
         if (!healthManager.IsAlive())
         {
             GetComponent<CircleCollider2D>().isTrigger = true;
         }
+        /*
+        HandleRadiusCollisions();
+        // TODO llevar esto a otro lado (ver si puede ser mas lindo)
+        // la idea de este if es que cuando se muera, puedas pasar por arriba del chobi
 
         // TODO llevar esto a otro metodo
         if (!healthManager.IsAlive() || hasHitPlayer)
@@ -70,9 +63,37 @@ public class EnemyMovementManager : MonoBehaviour
             SetNewDestination();
         }
         SetVelocity();
-
-
+        */
+        HandleRadiusCollisions();
+        if (target == null) return;
+        if (seeker.HasFinishPath())
+        {
+            StopMoving();
+            return;
+        }
+        nextDir = seeker.GetNextDirectionTowardsTarget();
+        rb.velocity = (nextDir - (Vector2)transform.position).normalized * speed;
         SetAnimationDirection();
+        
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        hasHitPlayer = collision.collider.CompareTag(TagEnum.Player.ToString());
+    }
+
+    private void OnCollisionExit(Collision other)
+    {
+        if (other.collider.CompareTag(TagEnum.Player.ToString()))
+        {
+            hasHitPlayer = false;
+        }
+    }
+    
+
+    bool HasReachedDirection()
+    {
+        return Vector2.Distance(transform.position, nextDir) < range;
     }
 
     void HandleRadiusCollisions()
@@ -85,7 +106,7 @@ public class EnemyMovementManager : MonoBehaviour
         }
         if (!playerFound)
         {
-            target = null;
+         //   target = null;
         }
     }
 
@@ -97,15 +118,11 @@ public class EnemyMovementManager : MonoBehaviour
             if (playerFound)
             {
                 target = collider.transform;
+                seeker = new Seeker(target, transform);
             }
         }
 
         return playerFound;
-    }
-
-    private void SetVelocity()
-    {
-        rb.velocity = (wayPoint - (Vector2)transform.position).normalized * speed;
     }
 
     private void SetAnimationDirection()
@@ -120,49 +137,8 @@ public class EnemyMovementManager : MonoBehaviour
     {
         return (Vector2)transform.position - prevLoc;
     }
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(collision.gameObject.tag == "Building"){
-            isColliding = true;
-        }
-        hasHitPlayer = collision.collider.CompareTag(TagEnum.Player.ToString());
-        if (!hasHitPlayer)
-        {
-            SetWayPointToStartPosition();
-        }
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Building")
-        {
-            isColliding = false;
-        }
-        hasHitPlayer = false;
-    }
     private void StopMoving()
     {
         rb.velocity = Vector2.zero;
     }
-
-    private void SetNewDestination()
-    {
-        var minX = startPosition.x - maxDistance;
-        var maxX = startPosition.x + maxDistance;
-        var minY = startPosition.y - maxDistance;
-        var maxY = startPosition.y + maxDistance;
-        wayPoint = new Vector2(
-            Random.Range(minX, maxX),
-            Random.Range(minY, maxY)
-            );
-    }
-
-    private void SetWayPointToStartPosition()
-    {
-        wayPoint = startPosition;
-    }
-
- 
-
-   
 }
