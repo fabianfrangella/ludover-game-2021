@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using Enemy;
+﻿using Enemy;
 using UnityEngine;
 
 public class EnemyMovementManager : MonoBehaviour
 {
     public float speed = 1.0f;
     public float range;
-    public float maxDistance;
     public float lineOfSight;
-
-    private Transform target;
+    
     private EnemyHealthManager healthManager;
     private Animator animator;
     private Rigidbody2D rb;
@@ -36,45 +31,26 @@ public class EnemyMovementManager : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (!healthManager.IsAlive())
-        {
-            GetComponent<CircleCollider2D>().isTrigger = true;
-        }
-        /*
         HandleRadiusCollisions();
-        // TODO llevar esto a otro lado (ver si puede ser mas lindo)
-        // la idea de este if es que cuando se muera, puedas pasar por arriba del chobi
-
-        // TODO llevar esto a otro metodo
-        if (!healthManager.IsAlive() || hasHitPlayer)
+        if (!healthManager.IsAlive()) GetComponent<CircleCollider2D>().isTrigger = true;
+        if (!healthManager.IsAlive() || hasHitPlayer || seeker == null)
         {
             StopMoving();
             return;
         }
 
-        // TODO llevar esto a otro metodo
-        if (target != null) {
-            wayPoint = Vector2.MoveTowards(this.transform.position, target.position, speed);      
-        }
-
-        // TODO llevar esto a otro metodo
-        if (target == null && Vector2.Distance(transform.position, wayPoint) < range)
+        if (HasReachedDirection())
         {
-            SetNewDestination();
+            nextDir = seeker.GetNextDirectionTowardsTarget();
         }
-        SetVelocity();
-        */
-        HandleRadiusCollisions();
-        if (target == null) return;
-        if (seeker.HasFinishPath())
-        {
-            StopMoving();
-            return;
-        }
-        nextDir = seeker.GetNextDirectionTowardsTarget();
-        rb.velocity = (nextDir - (Vector2)transform.position).normalized * speed;
+        //transform.Translate(Vector2.MoveTowards(transform.position, nextDir, speed).normalized);
+        rb.velocity = (nextDir - (Vector2) transform.position).normalized * speed;
         SetAnimationDirection();
-        
+    }
+
+    bool HasReachedDirection()
+    {
+        return Vector2.Distance(transform.position, nextDir) <= 0.5f;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -82,32 +58,20 @@ public class EnemyMovementManager : MonoBehaviour
         hasHitPlayer = collision.collider.CompareTag(TagEnum.Player.ToString());
     }
 
-    private void OnCollisionExit(Collision other)
+    private void OnCollisionExit2D(Collision2D other)
     {
-        if (other.collider.CompareTag(TagEnum.Player.ToString()))
-        {
-            hasHitPlayer = false;
-        }
-    }
-    
-
-    bool HasReachedDirection()
-    {
-        return Vector2.Distance(transform.position, nextDir) < range;
+        if (other.collider.CompareTag(TagEnum.Player.ToString())) hasHitPlayer = false;
     }
 
     void HandleRadiusCollisions()
     {
-        Collider2D[] collisions = Physics2D.OverlapCircleAll(transform.position, lineOfSight);
-        bool playerFound = false;
+        var collisions = Physics2D.OverlapCircleAll(transform.position, lineOfSight);
+        var playerFound = false;
         foreach (var collider in collisions)
         {
             playerFound = SetPlayerTarget(playerFound, collider);
         }
-        if (!playerFound)
-        {
-         //   target = null;
-        }
+        //if (!playerFound) seeker = null;
     }
 
     private bool SetPlayerTarget(bool playerFound, Collider2D collider)
@@ -117,11 +81,14 @@ public class EnemyMovementManager : MonoBehaviour
             playerFound = collider.CompareTag(TagEnum.Player.ToString());
             if (playerFound)
             {
-                target = collider.transform;
-                seeker = new Seeker(target, transform);
+                if (seeker == null)
+                {
+                    var target = collider.transform;
+                    seeker = new Seeker(target, transform);
+                    nextDir = seeker.GetNextDirectionTowardsTarget();
+                }
             }
         }
-
         return playerFound;
     }
 

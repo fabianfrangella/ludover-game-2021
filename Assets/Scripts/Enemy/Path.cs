@@ -25,29 +25,23 @@ namespace Enemy
             return next;
         }
 
-        public Vector2 GetLastDirection()
-        {
-            var len = path.Count - 1;
-            if (len < 0) return Vector2.zero;
-            return path[len];
-        }
-
         public bool HasFinishedPath()
         {
             var finished = path.Count <= 0 || path == null;
             return finished;
         }
         
-        public void GeneratePath(Vector2 from, Vector2 to, float speed)
+        public void GeneratePath(Vector2 from, Transform to, float speed)
         {
             path = new List<Vector2>();
-            var nextDir = GetNextDirection(from, to, speed);
+            var nextDir = GetNextDirection(from, to.position, speed);
             CurrentDirection = from;
-            while (to != nextDir)
+            while ((Vector2) to.position != nextDir)
             {
-                nextDir = GetNextDirection(CurrentDirection, to, speed);
+                nextDir = GetNextDirection(CurrentDirection, to.position, speed);
                 path.Add(nextDir);
             }
+            Debug.Log("THE PATH IS: " + GetPathString());
         }
 
         private Vector2 GetNextDirection(Vector2 from, Vector2 to, float speed)
@@ -65,6 +59,17 @@ namespace Enemy
         {
             return false;
         }
+
+        public string GetPathString()
+        {
+            var pathS = "";
+            foreach (var dir in path)
+            {
+                pathS+=  "X: " + dir.x + " Y: " + dir.y;
+            }
+
+            return pathS;
+        }
         
     }
 
@@ -72,32 +77,46 @@ namespace Enemy
     {
         private Transform target;
         private Transform transform;
+        private Vector2 initialTargetPosition;
+        private Vector2 lastDirection;
         private Path path;
 
         public Seeker(Transform target, Transform transform)
         {
             this.target = target;
             this.transform = transform;
+            initialTargetPosition = target.position;
             path = new Path();
-            path.GeneratePath(transform.position, target.position, 1f);
+            Debug.Log("GENERATING FIRST PATH");
+            path.GeneratePath(transform.position, target, 1f);
         }
-
-        public bool HasFinishPath()
-        {
-            return path.HasFinishedPath();
-        }
+        
         public Vector2 GetNextDirectionTowardsTarget()
         {
             if (TargetHasMoved())
             {
-                path.GeneratePath(transform.position, target.position, 1f);
+                Debug.Log("GENERATING NEW PATH");
+                SetNewTarget(target);
             }
-            return path.GetNextDirection();
+            if (path.HasFinishedPath())
+            {
+                return lastDirection;
+            }
+            lastDirection = path.GetNextDirection();
+            Debug.Log("NEXT DIRECTION: " + "{X: " + lastDirection.x + " Y: " + lastDirection.y + " }");
+            return lastDirection;
+        }
+
+        private void SetNewTarget(Transform newTarget)
+        {
+            target = newTarget;
+            initialTargetPosition = newTarget.position;
+            path.GeneratePath(transform.position, newTarget, 1f);
         }
         
-        bool TargetHasMoved()
+        private bool TargetHasMoved()
         {
-            return Vector2.Distance(target.position, path.GetLastDirection()) > 0.5f;
+            return Vector2.Distance(target.position, initialTargetPosition) > 0.1f;
         }
     }
 }
