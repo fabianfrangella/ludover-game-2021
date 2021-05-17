@@ -7,7 +7,7 @@ public class HealthPotion : Item
         name = ItemEnum.HealthPotion;
     }
 
-    override public void Use(Transform transform)
+    public override void Use(Transform transform)
     {
         var manager = transform.GetComponent<PlayerHealthManager>();
         manager.OnHealing(50);

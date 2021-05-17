@@ -7,7 +7,7 @@ public class ManaPotion : Item
         name = ItemEnum.ManaPotion;
     }
 
-    override public void Use(Transform transform)
+    public override void Use(Transform transform)
     {
         var manager = transform.GetComponent<PlayerManaManager>();
         manager.OnManaReceived(50);
