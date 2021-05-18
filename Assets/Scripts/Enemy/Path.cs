@@ -6,7 +6,7 @@ namespace Enemy
     public class PathTree
     {
         public PathTree nextPath;
-        private Vector2 direction;
+        public Vector2 direction;
         
         public void GeneratePath(Vector2 from, Transform target, float speed)
         {
@@ -16,9 +16,9 @@ namespace Enemy
             nextPath.GeneratePath(direction, target, speed);
             
         }
-        public Vector2 GetDirection()
+        public bool IsLastNode()
         {
-            return direction;
+            return nextPath == null;
         }
         
         private Vector2 GetNextDirection(Vector2 from, Vector2 to, float speed)
@@ -30,8 +30,8 @@ namespace Enemy
 
     public class Seeker
     {
-        private Transform target;
-        private Transform transform;
+        private readonly Transform target;
+        private readonly Transform transform;
         private Vector2 initialTargetPosition;
         private PathTree pathTree;
 
@@ -53,11 +53,11 @@ namespace Enemy
                 initialTargetPosition = target.position;
                 pathTree.GeneratePath(transform.position,target,1f);
             }
-            if (pathTree.nextPath == null) 
-                return pathTree.GetDirection();
+            if (pathTree.IsLastNode()) 
+                return pathTree.direction;
             
             pathTree = pathTree.nextPath;
-            return pathTree.GetDirection();
+            return pathTree.direction;
         }
         private bool TargetHasMoved()
         {
