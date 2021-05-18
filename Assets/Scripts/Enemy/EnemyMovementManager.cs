@@ -1,4 +1,5 @@
-﻿using Enemy;
+﻿using System.Collections;
+using Enemy;
 using UnityEngine;
 
 public class EnemyMovementManager : MonoBehaviour
@@ -81,15 +82,23 @@ public class EnemyMovementManager : MonoBehaviour
             playerFound = collider.CompareTag(TagEnum.Player.ToString());
             if (playerFound)
             {
-                if (seeker == null)
-                {
-                    var target = collider.transform;
-                    seeker = new Seeker(target, transform);
-                    nextDir = seeker.GetNextDirectionTowardsTarget();
-                }
+                SetPath(collider.transform);
             }
         }
         return playerFound;
+    }
+
+    private void SetPath(Transform target)
+    {
+        if (seeker != null) return;
+        seeker = new Seeker(target, transform);
+        StartCoroutine(nameof(GetNextDirection));
+    }
+
+    private IEnumerator GetNextDirection()
+    {
+        nextDir = seeker.GetNextDirectionTowardsTarget();
+        yield return null;
     }
 
     private void SetAnimationDirection()
