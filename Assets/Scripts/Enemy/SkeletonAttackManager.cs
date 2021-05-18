@@ -27,7 +27,6 @@ public class SkeletonAttackManager : MonoBehaviour
         {
             Attack();
         }
-        Debug.DrawRay(transform.position, enemyMovementManager.GetDirectionWhereIsLooking().normalized, Color.red);
     }
 
     void Attack()

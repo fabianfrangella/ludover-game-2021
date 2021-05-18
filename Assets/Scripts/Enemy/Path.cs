@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Numerics;
+using UnityEngine;
 using Vector2 = UnityEngine.Vector2;
 
 namespace Enemy
@@ -6,15 +7,32 @@ namespace Enemy
     public class PathTree
     {
         public PathTree nextPath;
+        public PathTree parentPath;
         public Vector2 direction;
 
+        public PathTree() {}
+        private PathTree(PathTree p)
+        {
+            parentPath = p;
+        }
         public void GeneratePath(Vector2 from, Transform target, float speed)
         {
             direction = GetNextDirection(from, target.position, speed);
-            if (direction == (Vector2) target.position) return;
+            if (direction == (Vector2) target.position)
+            {
+                DrawPath();
+                return;
+            };
             
-            nextPath = new PathTree();
+            nextPath = new PathTree(this);
             nextPath.GeneratePath(direction, target, speed);
+        }
+
+        private void DrawPath()
+        {
+            if (parentPath == null) return;
+            Debug.DrawLine(direction, parentPath.direction, Color.green, 1f);
+            parentPath.DrawPath();
         }
         
         public bool IsLastNode()
@@ -25,16 +43,11 @@ namespace Enemy
         private Vector2 GetNextDirection(Vector2 from, Vector2 to, float speed)
         {
             var nextDirection = Vector2.MoveTowards(from, to, speed);
-            if (!IsPositionOccupied(nextDirection))
-            {
-                Debug.DrawLine(from, nextDirection, Color.green, 1);
-                return nextDirection;
-            };
+            if (!IsPositionOccupied(nextDirection)) return nextDirection;
             
-            var newDir = nextDirection + new Vector2(nextDirection.x, nextDirection.y + 0.1f);
-            Debug.DrawLine(from, newDir, Color.green, 1);
             return nextDirection;
         }
+        
 
         private static bool IsPositionOccupied(Vector2 position)
         {
@@ -62,9 +75,8 @@ namespace Enemy
             this.target = target;
             this.transform = transform;
             initialTargetPosition = target.position;
-            pathTree = new PathTree();
             Debug.Log("GENERATING FIRST PATH");
-            pathTree.GeneratePath(transform.position,target,1f);
+            GeneratePath();
         }
         
         public Vector2 GetNextDirectionTowardsTarget()
@@ -73,7 +85,7 @@ namespace Enemy
             {
                 Debug.Log("GENERATING NEW PATH");
                 initialTargetPosition = target.position;
-                pathTree.GeneratePath(transform.position,target,1f);
+                GeneratePath();
             }
             if (pathTree.IsLastNode()) 
                 return pathTree.direction;
@@ -81,9 +93,17 @@ namespace Enemy
             pathTree = pathTree.nextPath;
             return pathTree.direction;
         }
+        
+        private void GeneratePath()
+        {
+            pathTree = new PathTree();
+            pathTree.GeneratePath(transform.position,target,1f);
+        }
+        
         private bool TargetHasMoved()
         {
             return Vector2.Distance(target.position, initialTargetPosition) > 0.1f;
         }
+
     }
 }
