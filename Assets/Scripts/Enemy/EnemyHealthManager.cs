@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -27,6 +28,15 @@ public class EnemyHealthManager : MonoBehaviour
             cl.isTrigger = true;
         }
         enemyAnimationManager.StartDieAnimation(health);
+    }
+
+    private void OnDestroy()
+    {
+        var childC = transform.childCount;
+        for (var i = 0; i < childC; i++)
+        {
+            Destroy(transform.GetChild(i));
+        }
     }
 
     public bool IsAlive()
