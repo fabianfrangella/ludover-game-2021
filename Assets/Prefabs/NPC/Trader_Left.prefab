@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 5727712580582538072}
   - component: {fileID: 5727712580582538075}
   - component: {fileID: 5727712580582538079}
-  m_Layer: 0
-  m_Name: Trader
+  m_Layer: 11
+  m_Name: Trader_Left
   m_TagString: Npc
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

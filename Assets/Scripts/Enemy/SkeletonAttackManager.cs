@@ -9,14 +9,14 @@ public class SkeletonAttackManager : MonoBehaviour
     private float nextAttackTime = 0f;
     private bool hasFoundPlayer;
     private SkeletonAnimationManager animationManager;
-    private EnemyMovementManager enemyMovementManager;
+    private EnemyPathFinder enemyPathFinder;
     private EnemyHealthManager enemyHealthManager;
 
     // Start is called before the first frame update
     void Start()
     {
         animationManager = GetComponent<SkeletonAnimationManager>();
-        enemyMovementManager = GetComponent<EnemyMovementManager>();
+        enemyPathFinder = GetComponent<EnemyPathFinder>();
         enemyHealthManager = GetComponent<EnemyHealthManager>();
     }
 
@@ -27,7 +27,7 @@ public class SkeletonAttackManager : MonoBehaviour
         {
             Attack();
         }
-        Debug.DrawRay(transform.position, enemyMovementManager.GetDirectionWhereIsLooking().normalized, Color.red);
+        Debug.DrawRay(transform.position, enemyPathFinder.GetDirectionWhereIsLooking().normalized, Color.red);
     }
 
     void Attack()
@@ -50,7 +50,7 @@ public class SkeletonAttackManager : MonoBehaviour
     private void DoAttack()
     {
         animationManager.PlayAttackAnimation();
-        RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, enemyMovementManager.GetDirectionWhereIsLooking().normalized, attackDistance);
+        RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, enemyPathFinder.GetDirectionWhereIsLooking().normalized, attackDistance);
         foreach (var hit in hits)
         {
             if (hit.collider.CompareTag(TagEnum.Player.ToString()))

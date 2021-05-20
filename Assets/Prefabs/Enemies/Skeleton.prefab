@@ -15,11 +15,12 @@ GameObject:
   - component: {fileID: 3112926715794206943}
   - component: {fileID: 3112926715794206940}
   - component: {fileID: 3112926715794206941}
-  - component: {fileID: 3112926715794206938}
   - component: {fileID: -7709271727446129743}
   - component: {fileID: 2785299880925088188}
   - component: {fileID: 6111803481340249103}
   - component: {fileID: -3453064129817427868}
+  - component: {fileID: -491420859083320059}
+  - component: {fileID: -7258202589116104787}
   m_Layer: 10
   m_Name: Skeleton
   m_TagString: Enemy
@@ -36,7 +37,7 @@ Transform:
   m_GameObject: {fileID: 3112926715794206946}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 63.400005, y: 63.400005, z: 63.400005}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -177,22 +178,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 3112926715794206940}
   timeToDisappearBody: 5
---- !u!114 &3112926715794206938
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3112926715794206946}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c00dff4fd924b349b56476546d56a56, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 1.5
-  range: 0.5
-  maxDistance: 4
-  lineOfSight: 4
 --- !u!58 &-7709271727446129743
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -252,3 +237,47 @@ MonoBehaviour:
   prefabs:
   - {fileID: 6087985388382950760, guid: ce66335d6d4aaa143aa30cde7b5bc26f, type: 3}
   - {fileID: 3721039928305416975, guid: 50d07e09cd964af45b23c6e86ad18bad, type: 3}
+--- !u!114 &-491420859083320059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3112926715794206946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  drawGizmos: 1
+  detailedGizmos: 0
+  startEndModifier:
+    addPoints: 0
+    exactStartPoint: 3
+    exactEndPoint: 3
+    useRaycasting: 0
+    mask:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    useGraphRaycasting: 0
+  traversableTags: -1
+  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  graphMask:
+    value: -1
+--- !u!114 &-7258202589116104787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3112926715794206946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3898c313ada1244fbd10423b7e9e9f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 1
+  nextWaypointDistance: 0.5
+  lineOfSight: 4
+  currentWaypoint: 0

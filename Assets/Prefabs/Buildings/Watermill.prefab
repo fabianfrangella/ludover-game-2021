@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3974070663479189844}
   - component: {fileID: 3974070663479189847}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 3974070663740426768}
   - component: {fileID: 3974070663740426770}
   - component: {fileID: 3974070663740426771}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -193,7 +193,7 @@ GameObject:
   - component: {fileID: 3974070665508969206}
   - component: {fileID: 3974070665508969207}
   - component: {fileID: 3974070665508969209}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Watermill
   m_TagString: Building
   m_Icon: {fileID: 0}
