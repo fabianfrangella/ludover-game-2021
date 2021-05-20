@@ -20,6 +20,7 @@ public class EnemyPathFinder : MonoBehaviour
     private Animator animator;
     
     private EnemyHealthManager healthManager;
+    private bool hasReachedPlayer;
     
     private void Start()
     {
@@ -33,7 +34,7 @@ public class EnemyPathFinder : MonoBehaviour
 
     private void UpdatePath()
     {
-        if (target == null || !seeker.IsDone()) return;
+        if (target == null || !seeker.IsDone() || hasReachedPlayer || !healthManager.IsAlive()) return;
         seeker.StartPath(rb.position, target.position, OnPathComplete);
     }
 
@@ -47,7 +48,12 @@ public class EnemyPathFinder : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (!healthManager.IsAlive()) return;
+        if (!healthManager.IsAlive())
+        {
+            StopMoving();
+            return;
+        }
+
         if (target == null)
         {
             SearchForTargetInArea();
@@ -55,11 +61,11 @@ public class EnemyPathFinder : MonoBehaviour
         };
         if (path == null) return;
 
-        reachedEndOfPath = currentWaypoint >= path.vectorPath.Count;
+        reachedEndOfPath = currentWaypoint >= path.vectorPath.Count || hasReachedPlayer;
 
         if (reachedEndOfPath)
         {
-            rb.velocity = Vector2.zero;
+            StopMoving();
             return;
         }
 
@@ -69,6 +75,20 @@ public class EnemyPathFinder : MonoBehaviour
         CheckIfTargetIsTooFarAway();
     }
 
+    private void StopMoving()
+    {
+        rb.velocity = Vector2.zero;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        hasReachedPlayer = collision.collider.CompareTag(TagEnum.Player.ToString());
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        hasReachedPlayer = false;
+    }
     private void CheckIfTargetIsTooFarAway()
     {
         if (Vector2.Distance(transform.position, target.position) > lineOfSight * 2)
