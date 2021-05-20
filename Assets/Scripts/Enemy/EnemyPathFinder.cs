@@ -16,7 +16,7 @@ public class EnemyPathFinder : MonoBehaviour
     private bool reachedEndOfPath = false;
     private Seeker seeker;
     private Rigidbody2D rb;
-    private Vector2 prevLoc;
+    private Vector2 directionWhereIsLooking;
     private Animator animator;
     
     private EnemyHealthManager healthManager;
@@ -27,7 +27,7 @@ public class EnemyPathFinder : MonoBehaviour
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        prevLoc = transform.position;
+        directionWhereIsLooking = transform.position;
         healthManager = gameObject.GetComponent<EnemyHealthManager>();
         InvokeRepeating(nameof(UpdatePath), 0f, .5f);
     }
@@ -48,6 +48,7 @@ public class EnemyPathFinder : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        SetAnimationDirection();
         if (!healthManager.IsAlive())
         {
             StopMoving();
@@ -71,8 +72,16 @@ public class EnemyPathFinder : MonoBehaviour
 
         MoveTowardsWaypoint();
         SetNextWaypoint();
-        SetAnimationDirection();
         CheckIfTargetIsTooFarAway();
+
+        SetLastDirectionWhereIsLooking();
+    }
+
+    private void SetLastDirectionWhereIsLooking()
+    {
+        if (rb.velocity == Vector2.zero) return;
+        directionWhereIsLooking = rb.velocity;
+        
     }
 
     private void StopMoving()
@@ -87,14 +96,15 @@ public class EnemyPathFinder : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        hasReachedPlayer = false;
+        hasReachedPlayer = !collision.collider.CompareTag(TagEnum.Player.ToString());
     }
+    
     private void CheckIfTargetIsTooFarAway()
     {
         if (Vector2.Distance(transform.position, target.position) > lineOfSight * 2)
         {
             target = null;
-            rb.velocity = Vector2.zero;
+            StopMoving();
         }
     }
 
@@ -122,20 +132,22 @@ public class EnemyPathFinder : MonoBehaviour
 
     private void MoveTowardsWaypoint()
     {
-        var dir = Vector2.MoveTowards(transform.position, path.vectorPath[currentWaypoint], speed);
-        rb.velocity = (dir - (Vector2) transform.position).normalized * speed;
+        //var dir = Vector2.MoveTowards(transform.position, path.vectorPath[currentWaypoint], speed);
+        var dir = ((Vector2) path.vectorPath[currentWaypoint] - rb.position).normalized;
+        var force = dir * speed * Time.deltaTime;
+        rb.AddForce(force);
+        //rb.velocity = (dir - (Vector2) transform.position).normalized * speed;
     }
 
     private void SetAnimationDirection()
     {
-        var direction = (Vector2) transform.position - prevLoc;
-        prevLoc = transform.position;
-        animator.SetFloat("Horizontal", direction.x);
-        animator.SetFloat("Vertical", direction.y);
+        animator.SetBool("isIdle", rb.velocity == Vector2.zero);
+        animator.SetFloat("Horizontal", rb.velocity.x);
+        animator.SetFloat("Vertical", rb.velocity.y);
     }
     
     public Vector2 GetDirectionWhereIsLooking()
     {
-        return (Vector2)transform.position - prevLoc;
+        return rb.velocity;
     }
 }

@@ -10,16 +10,22 @@ public class EnemyHealthManager : MonoBehaviour
     public float experience;
     public EnemyAnimationManager enemyAnimationManager;
 
+    private CircleCollider2D cl;
     public event System.Action OnDeath;
     // Start is called before the first frame update
     void Start()
     {
         health = maxHealth;
+        cl = GetComponent<CircleCollider2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!IsAlive())
+        {
+            cl.isTrigger = true;
+        }
         enemyAnimationManager.StartDieAnimation(health);
     }
 
