@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
@@ -90,10 +91,16 @@ public class EnemyPathFinder : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag(TagEnum.Player.ToString()))
+        hasReachedPlayer = collision.collider.CompareTag(TagEnum.Player.ToString());
+        if (hasReachedPlayer)
         {
             StopMoving();
         }
+    }
+
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        hasReachedPlayer = !other.collider.CompareTag(TagEnum.Player.ToString());
     }
 
     private void CheckIfTargetIsTooFarAway()
@@ -107,6 +114,7 @@ public class EnemyPathFinder : MonoBehaviour
 
     private void SearchForTargetInArea()
     {
+        if (hasReachedPlayer) return;
         var collisions = Physics2D.OverlapCircleAll(transform.position, lineOfSight);
         foreach (var col in collisions)
         {
@@ -129,16 +137,12 @@ public class EnemyPathFinder : MonoBehaviour
 
     private void MoveTowardsWaypoint()
     {
-        //var dir = Vector2.MoveTowards(transform.position, path.vectorPath[currentWaypoint], speed);
         var dir = ((Vector2) path.vectorPath[currentWaypoint] - rb.position).normalized;
-        var force = dir * speed * Time.deltaTime;
-        rb.AddForce(force);
-        //rb.velocity = (dir - (Vector2) transform.position).normalized * speed;
+        rb.velocity = dir * speed;
     }
 
     private void SetAnimationDirection()
     {
-        animator.SetBool("isIdle", rb.velocity == Vector2.zero);
         animator.SetFloat("Horizontal", directionWhereIsLooking.x);
         animator.SetFloat("Vertical", directionWhereIsLooking.y);
     }
