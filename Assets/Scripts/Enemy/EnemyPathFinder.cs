@@ -66,7 +66,6 @@ public class EnemyPathFinder : MonoBehaviour
 
         if (reachedEndOfPath)
         {
-            StopMoving();
             return;
         }
 
@@ -91,12 +90,18 @@ public class EnemyPathFinder : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        hasReachedPlayer = collision.collider.CompareTag(TagEnum.Player.ToString());
+        if (collision.collider.CompareTag(TagEnum.Player.ToString()))
+        {
+            StopMoving();
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        hasReachedPlayer = !collision.collider.CompareTag(TagEnum.Player.ToString());
+        if (collision.collider.CompareTag(TagEnum.Player.ToString()))
+        {
+            MoveTowardsWaypoint();
+        }
     }
     
     private void CheckIfTargetIsTooFarAway()
@@ -141,13 +146,13 @@ public class EnemyPathFinder : MonoBehaviour
 
     private void SetAnimationDirection()
     {
-        animator.SetBool("isIdle", rb.velocity == Vector2.zero);
-        animator.SetFloat("Horizontal", rb.velocity.x);
-        animator.SetFloat("Vertical", rb.velocity.y);
+        //animator.SetBool("isIdle", rb.velocity == Vector2.zero);
+        animator.SetFloat("Horizontal", directionWhereIsLooking.x);
+        animator.SetFloat("Vertical", directionWhereIsLooking.y);
     }
     
     public Vector2 GetDirectionWhereIsLooking()
     {
-        return rb.velocity;
+        return directionWhereIsLooking;
     }
 }
