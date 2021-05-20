@@ -13,6 +13,7 @@ public class EnemyPathFinder : MonoBehaviour
     public int currentWaypoint = 0;
     
     private Transform target;
+    private Transform wanderer;
     private Path path;
     private bool reachedEndOfPath = false;
     private Seeker seeker;
@@ -30,6 +31,8 @@ public class EnemyPathFinder : MonoBehaviour
         animator = GetComponent<Animator>();
         directionWhereIsLooking = transform.position;
         healthManager = gameObject.GetComponent<EnemyHealthManager>();
+        wanderer = transform.GetChild(transform.childCount - 1);
+        target = wanderer;
         InvokeRepeating(nameof(UpdatePath), 0f, .5f);
     }
 
@@ -49,6 +52,7 @@ public class EnemyPathFinder : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        if (target == null) target = wanderer;
         SetAnimationDirection();
         if (!healthManager.IsAlive())
         {
@@ -56,15 +60,13 @@ public class EnemyPathFinder : MonoBehaviour
             return;
         }
 
-        if (target == null)
+        if (!target.CompareTag(TagEnum.Player.ToString()))
         {
             SearchForTargetInArea();
-            return;
         };
         if (path == null) return;
 
         reachedEndOfPath = currentWaypoint >= path.vectorPath.Count || hasReachedPlayer;
-
         if (reachedEndOfPath)
         {
             return;
