@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,17 +11,32 @@ public class EnemyHealthManager : MonoBehaviour
     public float experience;
     public EnemyAnimationManager enemyAnimationManager;
 
+    private CircleCollider2D cl;
     public event System.Action OnDeath;
     // Start is called before the first frame update
     void Start()
     {
         health = maxHealth;
+        cl = GetComponent<CircleCollider2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!IsAlive())
+        {
+            cl.isTrigger = true;
+        }
         enemyAnimationManager.StartDieAnimation(health);
+    }
+
+    private void OnDestroy()
+    {
+        var childC = transform.childCount;
+        for (var i = 0; i < childC; i++)
+        {
+            Destroy(transform.GetChild(i));
+        }
     }
 
     public bool IsAlive()
