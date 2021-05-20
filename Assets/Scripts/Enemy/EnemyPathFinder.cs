@@ -96,14 +96,6 @@ public class EnemyPathFinder : MonoBehaviour
         }
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.collider.CompareTag(TagEnum.Player.ToString()))
-        {
-            MoveTowardsWaypoint();
-        }
-    }
-    
     private void CheckIfTargetIsTooFarAway()
     {
         if (Vector2.Distance(transform.position, target.position) > lineOfSight * 2)
@@ -146,7 +138,7 @@ public class EnemyPathFinder : MonoBehaviour
 
     private void SetAnimationDirection()
     {
-        //animator.SetBool("isIdle", rb.velocity == Vector2.zero);
+        animator.SetBool("isIdle", rb.velocity == Vector2.zero);
         animator.SetFloat("Horizontal", directionWhereIsLooking.x);
         animator.SetFloat("Vertical", directionWhereIsLooking.y);
     }
