@@ -10,11 +10,13 @@ public class EnemyWandererManager : MonoBehaviour
 
     private Vector2 wayPoint;
     private Vector2 startPosition;
+    private Rigidbody2D rb;
     
     private void Start()
     {
         startPosition = transform.position;
-        speed = gameObject.transform.parent.GetComponent<EnemyPathFinder>().speed;
+        speed = gameObject.transform.parent.GetComponent<EnemyPathFinder>().speed * 2;
+        rb = GetComponent<Rigidbody2D>();
         SetNewDestination();
     }
     
@@ -29,7 +31,7 @@ public class EnemyWandererManager : MonoBehaviour
     
     private void Move()
     {
-        transform.position = Vector2.MoveTowards(transform.position, wayPoint, speed * Time.deltaTime);
+        rb.velocity = (wayPoint - (Vector2)transform.position).normalized * speed;
     }
 
     private void SetNewDestination()
@@ -43,4 +45,5 @@ public class EnemyWandererManager : MonoBehaviour
             Random.Range(minY, maxY)
             );
     }
+    
 }

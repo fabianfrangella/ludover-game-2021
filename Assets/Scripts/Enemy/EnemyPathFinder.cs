@@ -12,7 +12,7 @@ public class EnemyPathFinder : MonoBehaviour
     public float lineOfSight = 4;
     public int currentWaypoint = 0;
     
-    private Transform target;
+    public Transform target;
     private Transform wanderer;
     private Path path;
     private bool reachedEndOfPath = false;
@@ -28,7 +28,7 @@ public class EnemyPathFinder : MonoBehaviour
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        healthManager = gameObject.GetComponent<EnemyHealthManager>();
+        healthManager = GetComponent<EnemyHealthManager>();
         wanderer = transform.GetChild(transform.childCount - 1);
         target = wanderer;
         InvokeRepeating(nameof(UpdatePath), 0f, 1f);
@@ -48,31 +48,25 @@ public class EnemyPathFinder : MonoBehaviour
             currentWaypoint = 0;
         }
     }
-    private void FixedUpdate()
+    private void Update()
     {
         if (target == null) target = wanderer;
-        SetAnimationDirection();
+        if (path == null) return;
         if (!healthManager.IsAlive())
         {
             StopMoving();
             return;
         }
-
-        if (!target.CompareTag(TagEnum.Player.ToString()))
-        {
-            SearchForTargetInArea();
-        };
-        if (path == null) return;
-
+        
+        SearchForTargetInArea();
         reachedEndOfPath = currentWaypoint >= path.vectorPath.Count || hasReachedPlayer;
-        if (reachedEndOfPath)
-        {
-            return;
-        }
-
+        
+        if (reachedEndOfPath) return;
+        
         MoveTowardsWaypoint();
         SetNextWaypoint();
         CheckIfTargetIsTooFarAway();
+        SetAnimationDirection();
     }
     
 
@@ -106,6 +100,7 @@ public class EnemyPathFinder : MonoBehaviour
 
     private void SearchForTargetInArea()
     {
+        if (target.CompareTag(TagEnum.Player.ToString())) return;
         if (hasReachedPlayer) return;
         var collisions = Physics2D.OverlapCircleAll(transform.position, lineOfSight);
         foreach (var col in collisions)
