@@ -33,7 +33,7 @@ public class EnemyPathFinder : MonoBehaviour
         healthManager = gameObject.GetComponent<EnemyHealthManager>();
         wanderer = transform.GetChild(transform.childCount - 1);
         target = wanderer;
-        InvokeRepeating(nameof(UpdatePath), 0f, .5f);
+        InvokeRepeating(nameof(UpdatePath), 0f, 2.5f);
     }
 
     private void UpdatePath()
