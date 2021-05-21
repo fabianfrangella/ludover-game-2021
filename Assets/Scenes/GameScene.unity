@@ -62415,7 +62415,7 @@ PrefabInstance:
     - target: {fileID: 3112926715794206942, guid: ac826389f7bd344469f9cfbba31201e1,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3112926715794206942, guid: ac826389f7bd344469f9cfbba31201e1,
         type: 3}
@@ -67076,7 +67076,7 @@ PrefabInstance:
     - target: {fileID: 3112926715794206942, guid: ac826389f7bd344469f9cfbba31201e1,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3112926715794206942, guid: ac826389f7bd344469f9cfbba31201e1,
         type: 3}
@@ -67680,7 +67680,7 @@ PrefabInstance:
     - target: {fileID: 3112926715794206942, guid: ac826389f7bd344469f9cfbba31201e1,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3112926715794206942, guid: ac826389f7bd344469f9cfbba31201e1,
         type: 3}
@@ -67889,7 +67889,7 @@ PrefabInstance:
     - target: {fileID: 3112926715794206942, guid: ac826389f7bd344469f9cfbba31201e1,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3112926715794206942, guid: ac826389f7bd344469f9cfbba31201e1,
         type: 3}
@@ -68606,7 +68606,7 @@ PrefabInstance:
     - target: {fileID: 5871709682391251137, guid: 5b3fb2067331bb746a0ed5540e7784a8,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5871709682391251137, guid: 5b3fb2067331bb746a0ed5540e7784a8,
         type: 3}
@@ -68666,7 +68666,12 @@ PrefabInstance:
     - target: {fileID: 5871709682391251153, guid: 5b3fb2067331bb746a0ed5540e7784a8,
         type: 3}
       propertyPath: maxHealth
-      value: 100000
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 5871709682391251153, guid: 5b3fb2067331bb746a0ed5540e7784a8,
+        type: 3}
+      propertyPath: meleeDamage
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 5871709682391251156, guid: 5b3fb2067331bb746a0ed5540e7784a8,
         type: 3}
