@@ -18,7 +18,6 @@ public class EnemyPathFinder : MonoBehaviour
     private bool reachedEndOfPath = false;
     private Seeker seeker;
     private Rigidbody2D rb;
-    private Vector2 directionWhereIsLooking;
     private Animator animator;
     
     private EnemyHealthManager healthManager;
@@ -29,11 +28,10 @@ public class EnemyPathFinder : MonoBehaviour
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        directionWhereIsLooking = transform.position;
         healthManager = gameObject.GetComponent<EnemyHealthManager>();
         wanderer = transform.GetChild(transform.childCount - 1);
         target = wanderer;
-        InvokeRepeating(nameof(UpdatePath), 0f, 2.5f);
+        InvokeRepeating(nameof(UpdatePath), 0f, 1f);
     }
 
     private void UpdatePath()
@@ -75,16 +73,8 @@ public class EnemyPathFinder : MonoBehaviour
         MoveTowardsWaypoint();
         SetNextWaypoint();
         CheckIfTargetIsTooFarAway();
-
-        SetLastDirectionWhereIsLooking();
     }
-
-    private void SetLastDirectionWhereIsLooking()
-    {
-        if (rb.velocity == Vector2.zero) return;
-        directionWhereIsLooking = rb.velocity;
-        
-    }
+    
 
     private void StopMoving()
     {
@@ -145,12 +135,8 @@ public class EnemyPathFinder : MonoBehaviour
 
     private void SetAnimationDirection()
     {
-        animator.SetFloat("Horizontal", directionWhereIsLooking.x);
-        animator.SetFloat("Vertical", directionWhereIsLooking.y);
+        animator.SetFloat("Horizontal", rb.velocity.x);
+        animator.SetFloat("Vertical", rb.velocity.y);
     }
     
-    public Vector2 GetDirectionWhereIsLooking()
-    {
-        return directionWhereIsLooking;
-    }
 }

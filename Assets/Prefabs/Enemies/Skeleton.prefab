@@ -325,6 +325,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  nextWaypointDistance: 0.5
+  nextWaypointDistance: 3
   lineOfSight: 4
   currentWaypoint: 0
