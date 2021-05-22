@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Audio;
+using UnityEngine;
 
 public class PlayerHealthManager : MonoBehaviour
 {
@@ -6,6 +7,7 @@ public class PlayerHealthManager : MonoBehaviour
     private PlayerAnimationsManager playerAnimationsManager;
     private PlayerStats playerStats;
     private Rigidbody2D rb;
+    private AudioManager audioManager;
 
     public event System.Action OnPlayerDeath;
 
@@ -17,6 +19,7 @@ public class PlayerHealthManager : MonoBehaviour
         playerStats = GetComponent<PlayerStats>();
         healthBar.SetMaxHealth(playerStats.maxHealth);
         damageAbsorption = 0;
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     void FixedUpdate()
@@ -50,6 +53,7 @@ public class PlayerHealthManager : MonoBehaviour
 
     public void OnDamageReceived(float damage)
     {
+        audioManager.Play("BodyHit");
         var finalDamage = damageAbsorption >= damage ? 0 : damage - damageAbsorption;
         playerStats.health -= finalDamage;
     }
