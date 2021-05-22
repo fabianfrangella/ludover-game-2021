@@ -87,6 +87,7 @@ public class EnemyPathFinder : MonoBehaviour
     private void StopMoving()
     {
         rb.velocity = Vector2.zero;
+        animator.SetBool("isIdle", true);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -138,6 +139,7 @@ public class EnemyPathFinder : MonoBehaviour
 
     private void MoveTowardsWaypoint()
     {
+        animator.SetBool("isIdle", false);
         var dir = ((Vector2) path.vectorPath[currentWaypoint] - rb.position).normalized;
         rb.velocity = dir * speed;
     }
