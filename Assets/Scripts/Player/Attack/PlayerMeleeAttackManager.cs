@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Audio;
+using UnityEngine;
 
 public class PlayerMeleeAttackManager : MonoBehaviour, PlayerAttackState
 {
@@ -14,6 +15,7 @@ public class PlayerMeleeAttackManager : MonoBehaviour, PlayerAttackState
     private PlayerHealthManager playerHealthManager;
     private PlayerStats playerStats;
     private Vector2 directionToAttack;
+    private AudioManager audioManager;
 
     void Start()
     {
@@ -23,6 +25,7 @@ public class PlayerMeleeAttackManager : MonoBehaviour, PlayerAttackState
         playerExperienceManager = GetComponent<PlayerExperienceManager>();
         playerHealthManager = GetComponent<PlayerHealthManager>();
         playerStats = GetComponent<PlayerStats>();
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     void FixedUpdate()
@@ -89,6 +92,7 @@ public class PlayerMeleeAttackManager : MonoBehaviour, PlayerAttackState
     {
         if (hit.collider.CompareTag(TagEnum.Enemy.ToString()))
         {
+            audioManager.Play("BodyHit");
             var experience = hit.collider.gameObject.GetComponent<EnemyHealthManager>().OnDamageReceived(playerStats.meleeDamage);
             playerExperienceManager.GainExperience(experience);
         }

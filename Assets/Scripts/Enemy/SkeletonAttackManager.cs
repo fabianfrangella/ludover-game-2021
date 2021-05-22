@@ -12,6 +12,8 @@ public class SkeletonAttackManager : MonoBehaviour
     private Rigidbody2D rb;
     private EnemyHealthManager enemyHealthManager;
 
+    private Vector2 direction;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,16 +23,18 @@ public class SkeletonAttackManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         if (hasFoundPlayer)
         {
             Attack();
         }
-        Debug.DrawRay(transform.position, rb.velocity, Color.red);
+
+        if (rb.velocity != Vector2.zero) direction = rb.velocity;
+        Debug.DrawRay(transform.position, direction, Color.red);
     }
 
-    void Attack()
+    private void Attack()
     {
         if (CanAttack() && enemyHealthManager.IsAlive())
         {
@@ -50,7 +54,7 @@ public class SkeletonAttackManager : MonoBehaviour
     private void DoAttack()
     {
         animationManager.PlayAttackAnimation();
-        RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, rb.velocity, attackDistance);
+        var hits = Physics2D.RaycastAll(transform.position, direction, attackDistance);
         foreach (var hit in hits)
         {
             if (hit.collider.CompareTag(TagEnum.Player.ToString()))
@@ -63,7 +67,7 @@ public class SkeletonAttackManager : MonoBehaviour
 
     void SetNextAttackTime()
     {
-        nextAttackTime = Time.time + 1f / attackRate;
+        nextAttackTime = Time.time + 2f / attackRate;
     }
 
     private bool CanAttack()
