@@ -26,9 +26,15 @@ namespace Audio
                 sound.source.clip = sound.clip;
                 sound.source.volume = sound.volume;
                 sound.source.pitch = sound.pitch;
+                sound.source.loop = sound.loop;
                 sound.source.spatialBlend = Array.Exists(skeletonSounds, s => s.Equals(sound.name)) ? 1 : 0.5f;
             }
 
+        }
+
+        private void Start()
+        {
+            Play("Theme");
         }
 
         public void Play(string name)
