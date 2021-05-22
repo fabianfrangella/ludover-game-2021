@@ -76,6 +76,7 @@ public class PlayerMeleeAttackManager : MonoBehaviour, PlayerAttackState
         {
             HandleHits(hits);
         }
+        audioManager.Play("SwordSwing");
         playerAnimationsManager.PlayAttackAnimation();
         playerStaminaManager.OnStaminaLost(40);
     }
