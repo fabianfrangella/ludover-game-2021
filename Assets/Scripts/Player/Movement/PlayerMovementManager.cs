@@ -19,15 +19,15 @@ public class PlayerMovementManager : MonoBehaviour
     {
         Move();
     }
-
+    
     private void PlayFootstep()
     {
         if (rb.velocity == Vector2.zero) return;
         audioManager.Play("Footstep" + currentFootstep);
         currentFootstep++;
         if (currentFootstep > 5) currentFootstep = 1;
-        
     }
+    
     private void Move()
     {
         rb.velocity = DirectionWhereIsMoving().normalized * speed;

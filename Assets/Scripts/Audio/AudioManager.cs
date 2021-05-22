@@ -17,19 +17,20 @@ namespace Audio
                 sound.source.clip = sound.clip;
                 sound.source.volume = sound.volume;
                 sound.source.pitch = sound.pitch;
+                sound.source.spatialBlend = 0.5f;
             }
 
         }
 
-
         public void Play(string name)
         {
-            Debug.Log("Play " + name);
             var s = Array.Find(sounds, sound => sound.name.Equals(name));
+            if (s == null)
+            {
+                Debug.Log("Sound " + name + " Not Found");
+                return;
+            }
             s.source.Play();
-        }
-        private void Update()
-        {
         }
     }
 }

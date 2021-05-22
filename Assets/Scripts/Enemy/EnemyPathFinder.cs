@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Audio;
 using UnityEngine;
 using Pathfinding;
 
@@ -23,15 +24,28 @@ public class EnemyPathFinder : MonoBehaviour
     private EnemyHealthManager healthManager;
     private bool hasReachedPlayer;
     
+    private AudioManager audioManager;
+    private int currentFootstep = 1;
+    
     private void Start()
     {
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         healthManager = GetComponent<EnemyHealthManager>();
+        audioManager = FindObjectOfType<AudioManager>();
         wanderer = transform.GetChild(transform.childCount - 1);
         target = wanderer;
         InvokeRepeating(nameof(UpdatePath), 0f, 1f);
+        InvokeRepeating(nameof(PlayFootstep), 0f, 0.5f);
+    }
+    
+    private void PlayFootstep()
+    {
+        if (rb.velocity == Vector2.zero) return;
+        audioManager.Play("Footstep" + currentFootstep);
+        currentFootstep++;
+        if (currentFootstep > 5) currentFootstep = 1;
     }
 
     private void UpdatePath()
