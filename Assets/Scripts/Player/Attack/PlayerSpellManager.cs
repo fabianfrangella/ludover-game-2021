@@ -1,4 +1,5 @@
 ﻿using System;
+using Audio;
 using UnityEngine;
 
 public class PlayerSpellManager : MonoBehaviour, PlayerAttackState
@@ -17,6 +18,7 @@ public class PlayerSpellManager : MonoBehaviour, PlayerAttackState
     private PlayerHealthManager playerHealthManager;
     private PlayerManaManager playerManaManager;
     private PlayerStats playerStats;
+    private AudioManager audioManager;
 
 
     void Start()
@@ -27,6 +29,7 @@ public class PlayerSpellManager : MonoBehaviour, PlayerAttackState
         playerManaManager = GetComponent<PlayerManaManager>();
         playerStats = GetComponent<PlayerStats>();
         selectedSpell = availableSpells[0];
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     void Update()
@@ -72,6 +75,7 @@ public class PlayerSpellManager : MonoBehaviour, PlayerAttackState
 
     private void CastShock()
     {
+        audioManager.Play("ShockSpell");
         playerAnimationsManager.PlayCastAnimation();
         playerManaManager.OnManaLost(40);
         var shock = Instantiate(shockSpellPrefab, transform.position, Quaternion.identity);
@@ -82,6 +86,7 @@ public class PlayerSpellManager : MonoBehaviour, PlayerAttackState
 
     private void CastShield()
     {
+        audioManager.Play("ShieldSpell");
         isBuffActive = true;
         playerAnimationsManager.PlayCastAnimation();
         playerManaManager.OnManaLost(80);
