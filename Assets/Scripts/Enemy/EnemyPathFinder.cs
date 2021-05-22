@@ -43,7 +43,7 @@ public class EnemyPathFinder : MonoBehaviour
     private void PlayFootstep()
     {
         if (rb.velocity == Vector2.zero) return;
-        audioManager.Play("Footstep" + currentFootstep);
+        audioManager.Play("FootstepSkeleton" + currentFootstep);
         currentFootstep++;
         if (currentFootstep > 5) currentFootstep = 1;
     }
