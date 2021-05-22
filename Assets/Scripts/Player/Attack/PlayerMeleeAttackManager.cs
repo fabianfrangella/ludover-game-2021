@@ -93,7 +93,6 @@ public class PlayerMeleeAttackManager : MonoBehaviour, PlayerAttackState
     {
         if (hit.collider.CompareTag(TagEnum.Enemy.ToString()))
         {
-            audioManager.Play("BodyHit");
             var experience = hit.collider.gameObject.GetComponent<EnemyHealthManager>().OnDamageReceived(playerStats.meleeDamage);
             playerExperienceManager.GainExperience(experience);
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Audio;
 using UnityEngine;
 
 public class EnemyHealthManager : MonoBehaviour
@@ -11,6 +12,7 @@ public class EnemyHealthManager : MonoBehaviour
     public float experience;
     public EnemyAnimationManager enemyAnimationManager;
 
+    private AudioManager audioManager;
     private CircleCollider2D cl;
     public event System.Action OnDeath;
     // Start is called before the first frame update
@@ -18,6 +20,7 @@ public class EnemyHealthManager : MonoBehaviour
     {
         health = maxHealth;
         cl = GetComponent<CircleCollider2D>();
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     // Update is called once per frame
@@ -51,6 +54,7 @@ public class EnemyHealthManager : MonoBehaviour
      */
     public float OnDamageReceived(float damage)
     {
+        audioManager.Play("BodyHit");
         health -= damage;
         if (!IsAlive())
         {
