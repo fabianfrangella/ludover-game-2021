@@ -1,17 +1,33 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Audio;
 using UnityEngine;
 
 public class PlayerMovementManager : MonoBehaviour
 {
     public float speed = 2.0f;
     public Rigidbody2D rb;
+    public AudioManager audioManager;
+    private int currentFootstep = 1;
 
-    void Update()
+    private void Start()
+    {
+        audioManager = FindObjectOfType<AudioManager>();
+        InvokeRepeating(nameof(PlayFootstep), 0f, 0.25f);
+    }
+    private void Update()
     {
         Move();
     }
 
+    private void PlayFootstep()
+    {
+        if (rb.velocity == Vector2.zero) return;
+        audioManager.Play("Footstep" + currentFootstep);
+        currentFootstep++;
+        if (currentFootstep > 5) currentFootstep = 1;
+        
+    }
     private void Move()
     {
         rb.velocity = DirectionWhereIsMoving().normalized * speed;
