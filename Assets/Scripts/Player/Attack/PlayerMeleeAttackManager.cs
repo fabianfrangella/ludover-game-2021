@@ -28,9 +28,12 @@ public class PlayerMeleeAttackManager : MonoBehaviour, PlayerAttackState
         audioManager = FindObjectOfType<AudioManager>();
     }
 
-    void FixedUpdate()
+    private void Update()
     {
         SetDirectionToAttack();
+    }
+    private void FixedUpdate()
+    {
         var swordPosition = new Vector2(transform.position.x, transform.position.y - 0.35f);
         Debug.DrawRay(swordPosition, directionToAttack.normalized, Color.red);
     }
@@ -52,7 +55,7 @@ public class PlayerMeleeAttackManager : MonoBehaviour, PlayerAttackState
 
     private void SetDirectionToAttack()
     {
-        var direction = playerMovementManager.DirectionWhereIsMoving();
+        var direction = playerMovementManager.DirectionWhereIsLooking(); //new Vector2(playerAnimationsManager.lastHorizontal, playerAnimationsManager.lastVertical);
         var standingPosition = new Vector2(0, 0);
         if (!standingPosition.Equals(direction))
         {

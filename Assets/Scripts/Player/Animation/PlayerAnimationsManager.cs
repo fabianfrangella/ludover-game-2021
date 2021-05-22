@@ -13,10 +13,25 @@ public class PlayerAnimationsManager : MonoBehaviour
     {
         isAlive = true;
     }
-    private void FixedUpdate()
+    private void Update()
     {
+        SetLastDirection();
         SetIdleAnimation();
         PlayRunAnimation();
+    }
+
+    private void SetLastDirection()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Vector2 direction = Input.mousePosition;
+            direction = Camera.main.ScreenToWorldPoint(direction);
+            direction -= (Vector2) transform.position;
+            lastHorizontal = direction.x;
+            lastVertical = direction.y;
+            animator.SetFloat("Horizontal", direction.x);
+            animator.SetFloat("Vertical", direction.y);
+        }
     }
 
     public void SetIsUsingMagic(bool isUsingMagic)

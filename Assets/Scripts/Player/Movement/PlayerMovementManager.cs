@@ -33,11 +33,20 @@ public class PlayerMovementManager : MonoBehaviour
         rb.velocity = DirectionWhereIsMoving().normalized * speed;
     }
 
-    public Vector3 DirectionWhereIsMoving()
+    private static Vector2 DirectionWhereIsMoving()
     {
         var horizontal = Input.GetAxisRaw("Horizontal");
         var vertical = Input.GetAxisRaw("Vertical");
         return new Vector2(horizontal, vertical);
+    }
+
+    public Vector2 DirectionWhereIsLooking()
+    {
+        if (!Input.GetMouseButtonDown(0)) DirectionWhereIsMoving();
+        Vector2 direction = Input.mousePosition;
+        direction = Camera.main.ScreenToWorldPoint(direction);
+        direction -= (Vector2) transform.position;
+        return direction;
     }
 
 }
