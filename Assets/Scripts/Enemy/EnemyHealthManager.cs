@@ -54,7 +54,7 @@ public class EnemyHealthManager : MonoBehaviour
         health -= damage;
         if (!IsAlive())
         {
-            OnDeath();
+            if (OnDeath != null) OnDeath();
             return experience;
         }
         return 0;

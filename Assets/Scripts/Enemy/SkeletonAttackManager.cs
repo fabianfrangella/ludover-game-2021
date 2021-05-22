@@ -67,7 +67,7 @@ public class SkeletonAttackManager : MonoBehaviour
 
     void SetNextAttackTime()
     {
-        nextAttackTime = Time.time + 1f / attackRate;
+        nextAttackTime = Time.time + 2f / attackRate;
     }
 
     private bool CanAttack()
