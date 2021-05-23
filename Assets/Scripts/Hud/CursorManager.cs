@@ -11,7 +11,7 @@ namespace Hud
 
         private void Start()
         {
-            SetCursor(cursor);
+            SetCursor(melee);
         }
 
         public void SetMeleeCursor()
