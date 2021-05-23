@@ -1,16 +1,17 @@
-﻿using UnityEngine;
+﻿using System;
+using Hud;
+using UnityEngine;
 
 public class PlayerAttackManager : MonoBehaviour
 {
 
     private PlayerAttackState playerAttackState;
-
-    // Start is called before the first frame update
-    void Start()
+    
+    private void Start()
     {
         playerAttackState = GetComponent<PlayerMeleeAttackManager>();
     }
-
+    
     private void Update()
     {
         HandleAttack();

@@ -6,12 +6,12 @@ namespace Hud
     public class CursorManager : MonoBehaviour
     {
         public Texture2D melee;
-        public Texture2D cursor;
+        public Texture2D defaultCursor;
         public Texture2D magic;
 
         private void Start()
         {
-            SetCursor(melee);
+            SetCursor(defaultCursor);
         }
 
         public void SetMeleeCursor()
@@ -24,7 +24,7 @@ namespace Hud
             SetCursor(magic);
         }
 
-        private void SetCursor(Texture2D c)
+        private static void SetCursor(Texture2D c)
         {
             Cursor.SetCursor(c, Vector2.zero, CursorMode.ForceSoftware);
         }
