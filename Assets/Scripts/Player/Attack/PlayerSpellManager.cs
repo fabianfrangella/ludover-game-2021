@@ -1,5 +1,6 @@
 ﻿using System;
 using Audio;
+using Hud;
 using UnityEngine;
 
 public class PlayerSpellManager : MonoBehaviour, PlayerAttackState
@@ -130,6 +131,7 @@ public class PlayerSpellManager : MonoBehaviour, PlayerAttackState
     public PlayerAttackState GetNextState()
     {
         playerAnimationsManager.SetIsUsingMagic(false);
+        FindObjectOfType<CursorManager>().SetMeleeCursor();
         return GetComponent<PlayerMeleeAttackManager>();
     }
 }
