@@ -210,9 +210,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9deb680cf63abe34885e2348ef5e4a10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
-  maxHealth: 100
-  experience: 50
+  health: 150
+  maxHealth: 150
+  experience: 20
   enemyAnimationManager: {fileID: 3112926715794206941}
 --- !u!95 &3112926715794206940
 Animator:
