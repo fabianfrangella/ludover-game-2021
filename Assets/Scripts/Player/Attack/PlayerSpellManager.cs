@@ -70,6 +70,7 @@ public class PlayerSpellManager : MonoBehaviour, PlayerAttackState
 
     private void CastHealing()
     {
+        audioManager.Play("HealingSpell");
         playerAnimationsManager.PlayCastAnimation();
         Instantiate(healingSpellPrefab, transform.position, Quaternion.identity);
         playerManaManager.OnManaLost(50);
