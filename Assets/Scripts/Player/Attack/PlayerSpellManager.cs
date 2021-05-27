@@ -20,6 +20,7 @@ public class PlayerSpellManager : MonoBehaviour, PlayerAttackState
     private PlayerManaManager playerManaManager;
     private PlayerStats playerStats;
     private AudioManager audioManager;
+    private AttackMode ui;
 
 
     void Start()
@@ -31,6 +32,7 @@ public class PlayerSpellManager : MonoBehaviour, PlayerAttackState
         playerStats = GetComponent<PlayerStats>();
         selectedSpell = availableSpells[0];
         audioManager = FindObjectOfType<AudioManager>();
+        ui = FindObjectOfType<AttackMode>();
     }
 
     void Update()
@@ -102,14 +104,17 @@ public class PlayerSpellManager : MonoBehaviour, PlayerAttackState
         if (Input.GetKeyDown(KeyCode.F1) && HasSpell(Spell.Shock))
         {
             selectedSpell = Spell.Shock;
+            ui.SetSelectedSpell(Spell.Shock.ToString());
         }
         if (Input.GetKeyDown(KeyCode.F2) && HasSpell(Spell.Shield))
         {
             selectedSpell = Spell.Shield;
+            ui.SetSelectedSpell(Spell.Shield.ToString());
         }
         if (Input.GetKeyDown(KeyCode.F3) && HasSpell(Spell.Healing))
         {
             selectedSpell = Spell.Healing;
+            ui.SetSelectedSpell(Spell.Healing.ToString());
         }
     }
 
@@ -132,6 +137,7 @@ public class PlayerSpellManager : MonoBehaviour, PlayerAttackState
     {
         playerAnimationsManager.SetIsUsingMagic(false);
         FindObjectOfType<CursorManager>().SetMeleeCursor();
+        ui.isUsingMagic = false;
         return GetComponent<PlayerMeleeAttackManager>();
     }
 }

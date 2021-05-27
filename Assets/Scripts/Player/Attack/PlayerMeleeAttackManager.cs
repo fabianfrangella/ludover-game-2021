@@ -52,6 +52,7 @@ public class PlayerMeleeAttackManager : MonoBehaviour, PlayerAttackState
     {
         playerAnimationsManager.SetIsUsingMagic(true);
         FindObjectOfType<CursorManager>().SetMagicCursor();
+        FindObjectOfType<AttackMode>().isUsingMagic = true;
         return GetComponent<PlayerSpellManager>();
     }
 
