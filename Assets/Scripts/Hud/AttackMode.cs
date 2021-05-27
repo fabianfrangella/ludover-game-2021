@@ -11,9 +11,10 @@ public class AttackMode : MonoBehaviour
     {
         isUsingMagic = false;
         SetSelectedSpell("Shock");
+        HighLightAttackMode();
     }
 
-    private void HighLightAttackMode()
+    public void HighLightAttackMode()
     {
         if (!isUsingMagic)
         {
@@ -40,10 +41,5 @@ public class AttackMode : MonoBehaviour
                 child.GetChild(0).GetComponent<Image>().enabled = false;
             }
         }
-    }
-    // Update is called once per frame
-    private void Update()
-    {
-        HighLightAttackMode();
     }
 }
