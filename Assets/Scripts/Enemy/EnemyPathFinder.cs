@@ -34,12 +34,24 @@ public class EnemyPathFinder : MonoBehaviour
         animator = GetComponent<Animator>();
         healthManager = GetComponent<EnemyHealthManager>();
         audioManager = FindObjectOfType<AudioManager>();
-        wanderer = transform.GetChild(transform.childCount - 1);
+        SetWanderer();
         target = wanderer;
         InvokeRepeating(nameof(UpdatePath), 0f, 1f);
         InvokeRepeating(nameof(PlayFootstep), 0f, 0.5f);
     }
-    
+
+    private void SetWanderer()
+    {
+        var i = 0;
+        while (wanderer == null || i < transform.childCount) {
+            var child = transform.GetChild(i);
+            if (child.name.Equals("EnemyWanderer"))
+            {
+                wanderer = child;
+            }
+            i++;
+        }
+    }
     private void PlayFootstep()
     {
         if (rb.velocity == Vector2.zero) return;
