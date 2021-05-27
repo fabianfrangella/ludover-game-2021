@@ -10,6 +10,7 @@ public class AttackMode : MonoBehaviour
     private void Start()
     {
         isUsingMagic = false;
+        SetSelectedSpell("Shock");
     }
 
     private void HighLightAttackMode()
@@ -23,8 +24,7 @@ public class AttackMode : MonoBehaviour
         sword.GetChild(0).GetComponent<Image>().enabled = false;
         wand.GetChild(0).GetComponent<Image>().enabled = true;
     }
-
-
+    
     public void SetSelectedSpell(string spell)
     {
         for (var i = 0; i < wand.childCount; i++)
