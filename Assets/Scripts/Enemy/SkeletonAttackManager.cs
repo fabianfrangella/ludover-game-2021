@@ -57,15 +57,23 @@ public class SkeletonAttackManager : MonoBehaviour
         var hits = Physics2D.RaycastAll(transform.position, direction, attackDistance);
         foreach (var hit in hits)
         {
-            if (hit.collider.CompareTag(TagEnum.Player.ToString()))
-            {
-                hit.collider.gameObject.GetComponent<PlayerHealthManager>().OnDamageReceived(damage);
-            }
+            AttackPlayer(hit);
         }
         SetNextAttackTime();
     }
 
-    void SetNextAttackTime()
+    private void AttackPlayer(RaycastHit2D hit)
+    {
+        if (!hit.collider.CompareTag(TagEnum.Player.ToString())) return;
+        var healthManager = hit.collider.gameObject.GetComponent<PlayerHealthManager>();
+        healthManager.OnDamageReceived(damage);
+        if (!healthManager.IsAlive())
+        {
+            hasFoundPlayer = false;
+        }
+    }
+
+    private void SetNextAttackTime()
     {
         nextAttackTime = Time.time + 2f / attackRate;
     }
