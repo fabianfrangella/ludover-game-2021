@@ -4,25 +4,37 @@ using UnityEngine;
 
 public class CameraFollowPlayer : MonoBehaviour
 {
-    private Transform playerTransform;
-
+    private Transform player;
+    
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+
     }
 
     // Update is called once per frame
-    void LateUpdate()
+    private void Update()
     {
-        Vector3 temp = transform.position;
+        var cameraMoveDir = (player.position - transform.position).normalized;
+        var distance = Vector2.Distance(player.position,transform.position);
+        const float cameraMoveSpeed = 30f;
 
-        temp.x = playerTransform.position.x;
-        temp.y = playerTransform.position.y;
+        if (distance > 0)
+        {
+            var newCameraPosition = transform.position + cameraMoveDir * distance * cameraMoveSpeed * Time.deltaTime;
+            var distanceAfterMoving = Vector2.Distance(newCameraPosition, player.position);
 
-        transform.position = temp;
+            if (distanceAfterMoving > distance)
+            {
+                newCameraPosition = player.position;
+            }
 
-       
+            transform.position = newCameraPosition;
+        }
+
+        transform.position = new Vector3(transform.position.x, transform.position.y, -10);
+
     }
 
 }
