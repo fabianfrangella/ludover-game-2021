@@ -10,6 +10,7 @@ public class PlayerHealthManager : MonoBehaviour
     private AudioManager audioManager;
 
     public event System.Action OnPlayerDeath;
+    public event System.Action OnHitReceived;
 
     public float damageAbsorption;
     void Start()
@@ -53,6 +54,7 @@ public class PlayerHealthManager : MonoBehaviour
 
     public void OnDamageReceived(float damage)
     {
+        if (OnHitReceived != null) OnHitReceived();
         audioManager.Play("BodyHit");
         var finalDamage = damageAbsorption >= damage ? 0 : damage - damageAbsorption;
         playerStats.health -= finalDamage;
