@@ -25,12 +25,7 @@ public class CameraFollowPlayer : MonoBehaviour
             var newCameraPosition = transform.position + cameraMoveDir * distance * cameraMoveSpeed * Time.deltaTime;
             var distanceAfterMoving = Vector2.Distance(newCameraPosition, player.position);
 
-            if (distanceAfterMoving > distance)
-            {
-                newCameraPosition = player.position;
-            }
-
-            transform.position = newCameraPosition;
+            transform.position = distanceAfterMoving > distance ? player.position : newCameraPosition;
         }
 
         transform.position = new Vector3(transform.position.x, transform.position.y, -10);
