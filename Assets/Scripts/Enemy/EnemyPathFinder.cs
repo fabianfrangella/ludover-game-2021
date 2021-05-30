@@ -88,7 +88,6 @@ public class EnemyPathFinder : MonoBehaviour
         reachedEndOfPath = currentWaypoint >= path.vectorPath.Count || hasReachedPlayer;
         
         if (reachedEndOfPath) return;
-        
         MoveTowardsWaypoint();
         SetNextWaypoint();
         CheckIfTargetIsTooFarAway();
@@ -127,8 +126,7 @@ public class EnemyPathFinder : MonoBehaviour
 
     private void SearchForTargetInArea()
     {
-        if (target.CompareTag(TagEnum.Player.ToString())) return;
-        if (hasReachedPlayer) return;
+        if (target.CompareTag(TagEnum.Player.ToString()) || hasReachedPlayer) return;
         var collisions = Physics2D.OverlapCircleAll(transform.position, lineOfSight);
         foreach (var col in collisions)
         {
