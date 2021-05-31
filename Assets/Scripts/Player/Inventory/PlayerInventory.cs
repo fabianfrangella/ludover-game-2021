@@ -4,23 +4,25 @@ using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
-    public List<Item> items;
-
     public int maxSize;
+    
+    private List<Item> items;
+    private PlayerStats playerStats;
 
-    void Start()
+    private void Start()
     {
+        playerStats = GetComponent<PlayerStats>();
         items = new List<Item>() { new HealthPotion(), new HealthPotion() };
     }
 
-    void Update()
+    private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q) && playerStats.health < playerStats.maxHealth)
         {
             var potion = FindItemByName(ItemEnum.HealthPotion);
             UseItem(potion);
         }
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) && playerStats.mana < playerStats.maxMana)
         {
             var potion = FindItemByName(ItemEnum.ManaPotion);
             UseItem(potion);
@@ -44,16 +46,6 @@ public class PlayerInventory : MonoBehaviour
             throw new InventoryFullException();
         }
         items.Add(item);
-    }
-    
-    public List<string> GetItemsNames()
-    {
-        List<string> mappedItems = new List<string>();
-        foreach (var item in items)
-        {
-            mappedItems.Add(item.GetName().ToString());
-        }
-        return mappedItems;
     }
 
     private void UseItem(Item item)
