@@ -7,7 +7,7 @@ namespace Spells
     public class InvokeSkeletons : MonoBehaviour
     {
         public Transform skeleton;
-
+        private int childCount;
         public void Invoke()
         {
             var position = transform.position;
@@ -26,8 +26,20 @@ namespace Spells
                 };
             foreach (var s in skeletons)
             {
-                s.parent = transform;
+                s.GetComponent<EnemyHealthManager>().OnDeath += HandleChildrenDeath;
             }
+
+            childCount = skeletons.Count;
+        }
+
+        private void HandleChildrenDeath()
+        {
+            childCount--;
+        }
+        
+        public bool AreChildrenAlive()
+        {
+            return childCount > 0;
         }
     }
 }

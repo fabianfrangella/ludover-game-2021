@@ -14,6 +14,7 @@ public class EnemyHealthManager : MonoBehaviour
 
     private AudioManager audioManager;
     private CircleCollider2D cl;
+    private float absorption = 0;
     public event System.Action OnDeath;
     // Start is called before the first frame update
     void Start()
@@ -55,13 +56,19 @@ public class EnemyHealthManager : MonoBehaviour
     public float OnDamageReceived(float damage)
     {
         audioManager.Play("BodyHit");
-        health -= damage;
+        var finalDamage = absorption >= damage ? 0 : damage - absorption;
+        health -= finalDamage;
         if (!IsAlive())
         {
             if (OnDeath != null) OnDeath();
             return experience;
         }
         return 0;
+    }
+
+    public void SetAbsorption(float val)
+    {
+        absorption = val;
     }
 
     public void OnHealing(int healing)

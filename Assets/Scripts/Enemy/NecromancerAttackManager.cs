@@ -10,25 +10,33 @@ namespace Enemy
         private int invokesDone = 0;
         private InvokeSkeletons invokeSkeletons;
         private NecromancerAnimationManager animationManager;
+        private EnemyHealthManager enemyHealthManager;
         private void Start()
         {
             invokeSkeletons = GetComponent<InvokeSkeletons>();
             animationManager = GetComponent<NecromancerAnimationManager>();
+            enemyHealthManager = GetComponent<EnemyHealthManager>();
         }
 
         private void Update()
         {
-            if (!AreChildrenAlive() && invokesDone != invokes)
+            if (enemyHealthManager.IsAlive() && !AreChildrenAlive() && invokesDone != invokes)
             {
+                enemyHealthManager.SetAbsorption(1000);
                 animationManager.PlayAttackAnimation();
                 invokeSkeletons.Invoke();
                 invokesDone++;
+            }
+
+            if (!AreChildrenAlive())
+            {
+                enemyHealthManager.SetAbsorption(0);
             }
         }
 
         private bool AreChildrenAlive()
         {
-            return transform.childCount > 0;
+            return invokeSkeletons.AreChildrenAlive();
         }
     }
 }
