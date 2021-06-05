@@ -6,8 +6,8 @@ namespace Enemy
 {
     public class NecromancerAttackManager : MonoBehaviour
     {
-        public int invokes = 2;
-        private const int InvokesDone = 0;
+        public int invokes = 5;
+        private int invokesDone = 0;
         private InvokeSkeletons invokeSkeletons;
         private void Start()
         {
@@ -16,9 +16,10 @@ namespace Enemy
 
         private void Update()
         {
-            if (!AreChildrenAlive() && InvokesDone != invokes)
+            if (!AreChildrenAlive() && invokesDone != invokes)
             {
                 invokeSkeletons.Invoke();
+                invokesDone++;
             }
         }
 
