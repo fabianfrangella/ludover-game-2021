@@ -9,15 +9,18 @@ namespace Enemy
         public int invokes = 5;
         private int invokesDone = 0;
         private InvokeSkeletons invokeSkeletons;
+        private NecromancerAnimationManager animationManager;
         private void Start()
         {
             invokeSkeletons = GetComponent<InvokeSkeletons>();
+            animationManager = GetComponent<NecromancerAnimationManager>();
         }
 
         private void Update()
         {
             if (!AreChildrenAlive() && invokesDone != invokes)
             {
+                animationManager.PlayAttackAnimation();
                 invokeSkeletons.Invoke();
                 invokesDone++;
             }

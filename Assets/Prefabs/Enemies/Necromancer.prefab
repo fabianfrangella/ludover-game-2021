@@ -14,6 +14,10 @@ GameObject:
   - component: {fileID: 228876862}
   - component: {fileID: 228876863}
   - component: {fileID: 228876864}
+  - component: {fileID: 8293541565288841792}
+  - component: {fileID: 700133493420396927}
+  - component: {fileID: 6747166582953124148}
+  - component: {fileID: 228876865}
   m_Layer: 0
   m_Name: Necromancer
   m_TagString: Enemy
@@ -157,3 +161,60 @@ CircleCollider2D:
   m_Offset: {x: -0.0020298958, y: -0.28823137}
   serializedVersion: 2
   m_Radius: 0.06962681
+--- !u!114 &8293541565288841792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4126618747498401897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11bbb71a66bd4f4f8a29943355e8cb51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 4126618747498401899}
+  timeToDisappearBody: 25
+--- !u!114 &700133493420396927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4126618747498401897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ad6b9f5bcdf49bc8805d5f92a91a231, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  invokes: 2
+--- !u!114 &6747166582953124148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4126618747498401897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9deb680cf63abe34885e2348ef5e4a10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 1
+  maxHealth: 100
+  experience: 8000
+  enemyAnimationManager: {fileID: 8293541565288841792}
+--- !u!114 &228876865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4126618747498401897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8734f36fa9f547099e2b72f18e7c5202, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skeleton: {fileID: 3112926715794206942, guid: ac826389f7bd344469f9cfbba31201e1,
+    type: 3}
