@@ -11,6 +11,8 @@ namespace Enemy
         private void Start()
         {
             animator = gameObject.GetComponent<Animator>();
+            animator.SetFloat("Horizontal", 0);
+            animator.SetFloat("Vertical", -1);
         }
 
         // Update is called once per frame
