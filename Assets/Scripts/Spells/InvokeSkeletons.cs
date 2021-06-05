@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Audio;
 using UnityEngine;
 
 namespace Spells
@@ -7,9 +8,16 @@ namespace Spells
     public class InvokeSkeletons : MonoBehaviour
     {
         public Transform skeleton;
+        private AudioManager audioManager;
         private int childCount;
+
+        private void Start()
+        {
+            audioManager = FindObjectOfType<AudioManager>();
+        }
         public void Invoke()
         {
+            audioManager.Play("InvokeSkeletons");
             var position = transform.position;
 
             var skeletons =
