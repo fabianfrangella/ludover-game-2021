@@ -21,6 +21,7 @@ namespace Enemy
             animationManager = GetComponent<NecromancerAnimationManager>();
             enemyHealthManager = GetComponent<EnemyHealthManager>();
             enemyHealthManager.SetAbsorption(10000);
+            enemyHealthManager.OnHit += Trigger;
         }
         
 
@@ -39,6 +40,11 @@ namespace Enemy
                 invokeSkeletons.Invoke();
                 invokesDone++;
             }
+        }
+
+        private void Trigger()
+        {
+            invokeSkeletons.Trigger();
         }
         
     }

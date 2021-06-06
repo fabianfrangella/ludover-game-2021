@@ -11,6 +11,7 @@ namespace Spells
         public Transform skeleton;
         private AudioManager audioManager;
         private int childCount;
+        private bool hasBeenTriggered = false;
 
         public event Action OnFinishWave;
 
@@ -21,7 +22,7 @@ namespace Spells
 
         private void Update()
         {
-            if (OnFinishWave != null && !AreChildrenAlive())
+            if (OnFinishWave != null && !AreChildrenAlive() && hasBeenTriggered)
             {
                 OnFinishWave();
             } 
@@ -56,8 +57,13 @@ namespace Spells
         {
             childCount--;
         }
+
+        public void Trigger()
+        {
+            hasBeenTriggered = true;
+        }
         
-        public bool AreChildrenAlive()
+        private bool AreChildrenAlive()
         {
             return childCount > 0;
         }
