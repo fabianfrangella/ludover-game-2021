@@ -40,6 +40,11 @@ namespace Enemy
 
         private void FixedUpdate()
         {
+            if (!enemyHealthManager.IsAlive())
+            {
+                rb.velocity = Vector2.zero;
+                return;
+            }
             if (hasFoundPlayer)
             {
                 Attack();
