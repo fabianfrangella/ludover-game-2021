@@ -17,29 +17,37 @@ namespace Enemy
         private void Start()
         {
             invokeSkeletons = GetComponent<InvokeSkeletons>();
-            invokeSkeletons.OnFinishWave += InvokeShield;
+            invokeSkeletons.OnWaveStart += InvokeShield;
+            invokeSkeletons.OnWaveFinished += InvokeWave;
             animationManager = GetComponent<NecromancerAnimationManager>();
             enemyHealthManager = GetComponent<EnemyHealthManager>();
             enemyHealthManager.SetAbsorption(10000);
             enemyHealthManager.OnHit += Trigger;
         }
-        
 
-        private void InvokeShield()
+
+        private void InvokeWave()
         {
             if (currentShield != null)
             {
                 enemyHealthManager.SetAbsorption(0);
                 Destroy(currentShield.gameObject);
             }
-            if (enemyHealthManager.IsAlive() && invokesDone < invokes)
+            if (invokesDone < invokes)
+            {
+                invokeSkeletons.Invoke();
+                invokesDone++;
+            }
+        }
+        
+        private void InvokeShield()
+        {
+            if (enemyHealthManager.IsAlive())
             {
                 enemyHealthManager.SetAbsorption(10000);
                 currentShield = Instantiate(shield, transform.position, Quaternion.identity);
                 currentShield.transform.parent = transform;
                 animationManager.PlayAttackAnimation();
-                invokeSkeletons.Invoke();
-                invokesDone++;
             }
         }
 

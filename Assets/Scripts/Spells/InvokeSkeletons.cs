@@ -12,11 +12,20 @@ namespace Spells
         private AudioManager audioManager;
         private bool hasBeenTriggered = false;
         private int childCount;
-        public event Action OnFinishWave;
+        public event Action OnWaveStart;
+        public event Action OnWaveFinished;
 
         private void Awake()
         {
             childCount = 0;
+        }
+
+        private void Update()
+        {
+            if (childCount == 0 && hasBeenTriggered)
+            {
+                OnWaveFinished();
+            }
         }
 
         private void Start()
@@ -24,35 +33,32 @@ namespace Spells
             audioManager = FindObjectOfType<AudioManager>();
         }
 
-        private void FixedUpdate()
-        {
-            if (OnFinishWave != null && childCount == 0 && hasBeenTriggered)
-            {
-                OnFinishWave();
-            }
-        }
-
         public void Invoke()
         {
-            audioManager.Play("InvokeSkeletons");
-            var position = transform.position;
-            
-            var skeletons =
-                new List<Transform>
-                {
-                    Instantiate(skeleton, new Vector2(position.x + 1, position.y + 1), Quaternion.identity),
-                    Instantiate(skeleton, new Vector2(position.x - 1, position.y - 1), Quaternion.identity),
-                    Instantiate(skeleton, new Vector2(position.x + 1, position.y - 1), Quaternion.identity),
-                    Instantiate(skeleton, new Vector2(position.x - 1, position.y + 1), Quaternion.identity),
-                    Instantiate(skeleton, new Vector2(position.x + 1.5f, position.y + 1.5f), Quaternion.identity),
-                    Instantiate(skeleton, new Vector2(position.x - 1.5f, position.y - 1.5f), Quaternion.identity),
-                    Instantiate(skeleton, new Vector2(position.x + 1.5f, position.y - 1.5f), Quaternion.identity),
-                    Instantiate(skeleton, new Vector2(position.x - 1.5f, position.y + 1.5f), Quaternion.identity)
-                };
-            foreach (var s in skeletons)
+            if (OnWaveStart != null)
             {
-                s.GetComponent<EnemyHealthManager>().OnDeath += HandleChildrenDeath;
-                childCount++;
+                OnWaveStart();
+                audioManager.Play("InvokeSkeletons");
+                var position = transform.position;
+                
+                var skeletons =
+                    new List<Transform>
+                    {
+                        Instantiate(skeleton, new Vector2(position.x + 1, position.y + 1), Quaternion.identity),
+                        Instantiate(skeleton, new Vector2(position.x - 1, position.y - 1), Quaternion.identity),
+                        Instantiate(skeleton, new Vector2(position.x + 1, position.y - 1), Quaternion.identity),
+                        Instantiate(skeleton, new Vector2(position.x - 1, position.y + 1), Quaternion.identity),
+                        Instantiate(skeleton, new Vector2(position.x + 1.5f, position.y + 1.5f), Quaternion.identity),
+                        Instantiate(skeleton, new Vector2(position.x - 1.5f, position.y - 1.5f), Quaternion.identity),
+                        Instantiate(skeleton, new Vector2(position.x + 1.5f, position.y - 1.5f), Quaternion.identity),
+                        Instantiate(skeleton, new Vector2(position.x - 1.5f, position.y + 1.5f), Quaternion.identity)
+                    };
+                foreach (var s in skeletons)
+                {
+                    s.GetComponent<EnemyHealthManager>().OnDeath += HandleChildrenDeath;
+                    childCount++;
+                }
+                
             }
             
         }
