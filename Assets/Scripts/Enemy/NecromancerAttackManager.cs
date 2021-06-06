@@ -37,14 +37,12 @@ namespace Enemy
             if (enemyHealthManager.IsAlive() && !AreChildrenAlive() && invokesDone != invokes)
             {
                 shield.ActivateShield();
-                enemyHealthManager.SetAbsorption(1000);
                 animationManager.PlayAttackAnimation();
                 invokeSkeletons.Invoke();
                 invokesDone++;
             }
             if (!AreChildrenAlive())
             {
-                enemyHealthManager.SetAbsorption(0);
                 shield.DestroyShield();
             }
         }
