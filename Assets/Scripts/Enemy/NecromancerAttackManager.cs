@@ -12,6 +12,7 @@ namespace Enemy
         private NecromancerAnimationManager animationManager;
         private EnemyHealthManager enemyHealthManager;
         private bool hasBeenTriggered;
+        private NecromancerShield shield;
         private void Start()
         {
             invokeSkeletons = GetComponent<InvokeSkeletons>();
@@ -19,6 +20,7 @@ namespace Enemy
             enemyHealthManager = GetComponent<EnemyHealthManager>();
             enemyHealthManager.OnHit += Trigger;
             enemyHealthManager.SetAbsorption(10000);
+            shield = GetComponent<NecromancerShield>();
         }
 
         private void Update()
@@ -34,6 +36,7 @@ namespace Enemy
         {
             if (enemyHealthManager.IsAlive() && !AreChildrenAlive() && invokesDone != invokes)
             {
+                shield.ActivateShield();
                 enemyHealthManager.SetAbsorption(1000);
                 animationManager.PlayAttackAnimation();
                 invokeSkeletons.Invoke();
@@ -42,6 +45,7 @@ namespace Enemy
             if (!AreChildrenAlive())
             {
                 enemyHealthManager.SetAbsorption(0);
+                shield.DestroyShield();
             }
         }
 
