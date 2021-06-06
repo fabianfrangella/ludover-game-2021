@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Audio;
 using UnityEngine;
@@ -11,10 +12,21 @@ namespace Spells
         private AudioManager audioManager;
         private int childCount;
 
+        public event Action OnFinishWave;
+
         private void Start()
         {
             audioManager = FindObjectOfType<AudioManager>();
         }
+
+        private void Update()
+        {
+            if (OnFinishWave != null && !AreChildrenAlive())
+            {
+                OnFinishWave();
+            } 
+        }
+
         public void Invoke()
         {
             audioManager.Play("InvokeSkeletons");

@@ -6,55 +6,45 @@ namespace Enemy
 {
     public class NecromancerAttackManager : MonoBehaviour
     {
-        public int invokes = 5;
+        public int invokes = 4;
         private int invokesDone = 0;
         private InvokeSkeletons invokeSkeletons;
         private NecromancerAnimationManager animationManager;
         private EnemyHealthManager enemyHealthManager;
-        private bool hasBeenTriggered;
-        private NecromancerShield shield;
+        public Transform shield;
+
+        private Transform currentShield;
         private void Start()
         {
             invokeSkeletons = GetComponent<InvokeSkeletons>();
+            invokeSkeletons.OnFinishWave += InvokeSkeletons;
             animationManager = GetComponent<NecromancerAnimationManager>();
             enemyHealthManager = GetComponent<EnemyHealthManager>();
             enemyHealthManager.OnHit += Trigger;
             enemyHealthManager.SetAbsorption(10000);
-            shield = GetComponent<NecromancerShield>();
         }
-
-        private void Update()
-        {
-            if (hasBeenTriggered)
-            {
-                InvokeSkeletons();
-            }
-            
-        }
+        
 
         private void InvokeSkeletons()
         {
-            if (enemyHealthManager.IsAlive() && !AreChildrenAlive() && invokesDone != invokes)
+            if (currentShield != null)
             {
-                shield.ActivateShield();
+                Destroy(currentShield.gameObject);
+            }
+            if (enemyHealthManager.IsAlive() && invokesDone < invokes)
+            {
+                enemyHealthManager.SetAbsorption(1000);
+                currentShield = Instantiate(shield, transform.position, Quaternion.identity);
+                currentShield.transform.parent = transform;
                 animationManager.PlayAttackAnimation();
                 invokeSkeletons.Invoke();
                 invokesDone++;
             }
-            if (!AreChildrenAlive())
-            {
-                shield.DestroyShield();
-            }
-        }
-
-        private bool AreChildrenAlive()
-        {
-            return invokeSkeletons.AreChildrenAlive();
         }
 
         private void Trigger()
         {
-            hasBeenTriggered = true;
+            InvokeSkeletons();
         }
     }
 }
