@@ -17,7 +17,14 @@ namespace Enemy
         private Transform currentShield;
         private GameObject target;
         private Vector2 prevLoc;
+        private Rigidbody2D rb;
         private bool hasFoundPlayer = false;
+        private Vector2 direction;
+        
+        public float attackDistance;
+        public float damage;
+        public float attackRate = 5f;
+        private float nextAttackTime = 0f;
         private void Start()
         {
             invokeSkeletons = GetComponent<InvokeSkeletons>();
@@ -28,19 +35,35 @@ namespace Enemy
             enemyHealthManager.SetAbsorption(10000);
             enemyHealthManager.OnHit += Trigger;
             prevLoc = transform.position;
+            rb = GetComponent<Rigidbody2D>();
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
+            if (hasFoundPlayer)
+            {
+                Attack();
+            }
+            if (rb.velocity != Vector2.zero) direction = rb.velocity;
+            Debug.DrawRay(transform.position, direction, Color.red);
             if (invokesDone > invokes && !hasFoundPlayer)
             {
-                AttackPlayer();
+                FindPlayer();
+            }
+        }
+        
+        private void Attack()
+        {
+            if (CanAttack() && enemyHealthManager.IsAlive())
+            {
+                DoAttack();
             }
         }
 
         private void OnCollisionEnter2D(Collision2D other)
         {
             hasFoundPlayer = (other.collider.CompareTag(TagEnum.Player.ToString()));
+            if (hasFoundPlayer) rb.velocity = Vector2.zero;
             animationManager.SetIdle(hasFoundPlayer);
         }
 
@@ -64,30 +87,28 @@ namespace Enemy
             invokesDone++;
         }
 
-        private void AttackPlayer()
+        private void FindPlayer()
         {
             var wayPoint = Vector2.MoveTowards(transform.position, target.transform.position, speed);
-            var step = speed * Time.deltaTime;
-            transform.position = Vector2.MoveTowards(transform.position, wayPoint, step);
+            rb.velocity = (wayPoint - rb.position).normalized * speed;
             SetAnimationDirection();
         }
         
         private void SetAnimationDirection()
         {
-            var dir = (Vector2) transform.position - prevLoc;
-            prevLoc = transform.position;
-            animationManager.SetMovingAnimation(dir.x, dir.y);
+            if (rb.velocity == Vector2.zero) return;
+            animationManager.SetMovingAnimation(rb.velocity.x, rb.velocity.y);
         }
         
         private void InvokeShield()
         {
-            if (enemyHealthManager.IsAlive())
-            {
-                enemyHealthManager.SetAbsorption(10000);
-                currentShield = Instantiate(shield, transform.position, Quaternion.identity);
-                currentShield.transform.parent = transform;
-                animationManager.PlayAttackAnimation();
-            }
+            if (!enemyHealthManager.IsAlive()) return;
+            
+            enemyHealthManager.SetAbsorption(10000);
+            currentShield = Instantiate(shield, transform.position, Quaternion.identity);
+            currentShield.transform.parent = transform;
+            animationManager.PlayCastAnimation();
+            
         }
 
         private void Trigger()
@@ -96,5 +117,37 @@ namespace Enemy
             target = GameObject.FindGameObjectWithTag("Player");
         }
         
+        private void DoAttack()
+        {
+            animationManager.PlayAttackAnimation();
+            animationManager.SetMovingAnimation(direction.x, direction.y);
+            var hits = Physics2D.RaycastAll(transform.position, direction, attackDistance);
+            foreach (var hit in hits)
+            {
+                AttackPlayer(hit);
+            }
+            SetNextAttackTime();
+        }
+
+        private void AttackPlayer(RaycastHit2D hit)
+        {
+            if (!hit.collider.CompareTag(TagEnum.Player.ToString())) return;
+            var healthManager = hit.collider.gameObject.GetComponent<PlayerHealthManager>();
+            healthManager.OnDamageReceived(damage);
+            if (!healthManager.IsAlive())
+            {
+                hasFoundPlayer = false;
+            }
+        }
+
+        private void SetNextAttackTime()
+        {
+            nextAttackTime = Time.time + 2f / attackRate;
+        }
+
+        private bool CanAttack()
+        {
+            return Time.time >= nextAttackTime;
+        }
     }
 }

@@ -45,6 +45,11 @@ namespace Enemy
         
         public override void PlayAttackAnimation()
         {
+            animator.SetTrigger("Attack");
+        }
+
+        public void PlayCastAnimation()
+        {
             animator.SetTrigger("Cast");
         }
         
