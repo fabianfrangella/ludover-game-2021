@@ -17,15 +17,14 @@ namespace Enemy
         private void Start()
         {
             invokeSkeletons = GetComponent<InvokeSkeletons>();
-            invokeSkeletons.OnFinishWave += InvokeSkeletons;
+            invokeSkeletons.OnFinishWave += InvokeShield;
             animationManager = GetComponent<NecromancerAnimationManager>();
             enemyHealthManager = GetComponent<EnemyHealthManager>();
-            enemyHealthManager.OnHit += Trigger;
             enemyHealthManager.SetAbsorption(10000);
         }
         
 
-        private void InvokeSkeletons()
+        private void InvokeShield()
         {
             if (currentShield != null)
             {
@@ -41,10 +40,6 @@ namespace Enemy
                 invokesDone++;
             }
         }
-
-        private void Trigger()
-        {
-            InvokeSkeletons();
-        }
+        
     }
 }
