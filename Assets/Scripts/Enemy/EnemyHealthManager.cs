@@ -28,7 +28,7 @@ public class EnemyHealthManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    private void Update()
+    private void FixedUpdate()
     {
         if (!IsAlive())
         {
@@ -63,6 +63,7 @@ public class EnemyHealthManager : MonoBehaviour
         var finalDamage = absorption >= damage ? 0 : damage - absorption;
         health -= finalDamage;
         if (IsAlive()) return 0;
+        Debug.Log("Skeleton died");
         OnDeath?.Invoke();
         return experience;
     }
@@ -71,14 +72,5 @@ public class EnemyHealthManager : MonoBehaviour
     {
         absorption = val;
     }
-
-    public void OnHealing(int healing)
-    {
-        if (health + healing >= maxHealth)
-        {
-            health = maxHealth;
-            return;
-        }
-        health += healing;
-    }
+    
 }

@@ -18,7 +18,7 @@ public class PlayerMeleeAttackManager : MonoBehaviour, PlayerAttackState
     private Vector2 directionToAttack;
     private AudioManager audioManager;
 
-    void Start()
+    private void Start()
     {
         playerStaminaManager = GetComponent<PlayerStaminaManager>();
         playerAnimationsManager = GetComponent<PlayerAnimationsManager>();
@@ -91,16 +91,10 @@ public class PlayerMeleeAttackManager : MonoBehaviour, PlayerAttackState
     {
         foreach (var hit in hits)
         {
-            HandleHit(hit);
-        }
-    }
-
-    private void HandleHit(RaycastHit2D hit)
-    {
-        if (hit.collider.CompareTag(TagEnum.Enemy.ToString()))
-        {
+            if (!hit.collider.CompareTag(TagEnum.Enemy.ToString())) continue;
             var experience = hit.collider.gameObject.GetComponent<EnemyHealthManager>().OnDamageReceived(playerStats.meleeDamage);
             playerExperienceManager.GainExperience(experience);
+            break;
         }
     }
 

@@ -45,7 +45,7 @@ namespace Enemy
 
         private void Trigger()
         {
-            invokeSkeletons.Trigger();
+            invokeSkeletons.SetTrigger();
         }
         
     }
