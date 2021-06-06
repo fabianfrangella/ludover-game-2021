@@ -16,7 +16,6 @@ namespace Enemy
         private EnemyHealthManager enemyHealthManager;
         private Transform currentShield;
         private GameObject target;
-        private Vector2 prevLoc;
         private Rigidbody2D rb;
         private bool hasFoundPlayer = false;
         private Vector2 direction;
@@ -34,7 +33,6 @@ namespace Enemy
             enemyHealthManager = GetComponent<EnemyHealthManager>();
             enemyHealthManager.SetAbsorption(10000);
             enemyHealthManager.OnHit += Trigger;
-            prevLoc = transform.position;
             rb = GetComponent<Rigidbody2D>();
         }
 
