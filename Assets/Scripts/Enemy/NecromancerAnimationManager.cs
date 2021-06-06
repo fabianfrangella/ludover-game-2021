@@ -11,6 +11,7 @@ namespace Enemy
         private void Start()
         {
             animator = gameObject.GetComponent<Animator>();
+            animator.SetBool("IsIdle", true);
             animator.SetFloat("Horizontal", 0);
             animator.SetFloat("Vertical", -1);
         }
@@ -22,6 +23,16 @@ namespace Enemy
             {
                 HandleDeath();
             }
+        }
+
+        public void SetIdle(bool idle)
+        {
+            animator.SetBool("IsIdle", idle);
+        }
+        public void SetMovingAnimation(float x, float y)
+        {
+            animator.SetFloat("Horizontal", x);
+            animator.SetFloat("Vertical", y);
         }
         public override void StartDieAnimation(float health)
         {
