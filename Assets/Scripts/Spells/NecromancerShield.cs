@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Spells
 {
@@ -13,10 +14,15 @@ namespace Spells
         {
             enemyHealthManager = GetComponent<EnemyHealthManager>();
         }
-        public void DestroyShield()
+
+        private void OnDestroy()
         {
             enemyHealthManager.SetAbsorption(0);
-            Destroy(currentShield);
+        }
+
+        public void DestroyShield()
+        {
+            Destroy(gameObject);
         }
 
         public void ActivateShield()
