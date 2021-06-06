@@ -58,16 +58,13 @@ public class EnemyHealthManager : MonoBehaviour
      */
     public float OnDamageReceived(float damage)
     {
-        if (OnHit != null) OnHit();
+        OnHit?.Invoke();
         audioManager.Play("BodyHit");
         var finalDamage = absorption >= damage ? 0 : damage - absorption;
         health -= finalDamage;
-        if (!IsAlive())
-        {
-            if (OnDeath != null) OnDeath();
-            return experience;
-        }
-        return 0;
+        if (IsAlive()) return 0;
+        OnDeath?.Invoke();
+        return experience;
     }
 
     public void SetAbsorption(float val)

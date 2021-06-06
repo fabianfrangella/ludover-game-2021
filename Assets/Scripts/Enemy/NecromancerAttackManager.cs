@@ -29,11 +29,12 @@ namespace Enemy
         {
             if (currentShield != null)
             {
+                enemyHealthManager.SetAbsorption(0);
                 Destroy(currentShield.gameObject);
             }
             if (enemyHealthManager.IsAlive() && invokesDone < invokes)
             {
-                enemyHealthManager.SetAbsorption(1000);
+                enemyHealthManager.SetAbsorption(10000);
                 currentShield = Instantiate(shield, transform.position, Quaternion.identity);
                 currentShield.transform.parent = transform;
                 animationManager.PlayAttackAnimation();
