@@ -18,7 +18,7 @@ public class SkeletonAnimationManager : EnemyAnimationManager
         animator.SetBool("isIdle", isIdle);
     }
 
-    override public void PlayAttackAnimation()
+    public override void PlayAttackAnimation()
     {
         animator.SetTrigger("Attack");
     }
@@ -31,7 +31,7 @@ public class SkeletonAnimationManager : EnemyAnimationManager
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (isDead)
         {
@@ -39,7 +39,7 @@ public class SkeletonAnimationManager : EnemyAnimationManager
         }
     }
 
-    void HandleDeath()
+    private void HandleDeath()
     {
         if (timeSinceDeath < timeToDisappearBody)
         {
@@ -47,7 +47,7 @@ public class SkeletonAnimationManager : EnemyAnimationManager
         }
         if (timeSinceDeath > timeToDisappearBody)
         {
-            gameObject.SetActive(false);
+            Destroy(gameObject);
         }
     }
 }

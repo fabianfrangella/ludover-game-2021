@@ -14,9 +14,13 @@ public class EnemyHealthManager : MonoBehaviour
 
     private AudioManager audioManager;
     private CircleCollider2D cl;
-    public event System.Action OnDeath;
+    private float absorption = 0;
+    public event Action OnDeath;
+
+    public event Action OnHit;
+    
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         health = maxHealth;
         cl = GetComponent<CircleCollider2D>();
@@ -24,7 +28,7 @@ public class EnemyHealthManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
         if (!IsAlive())
         {
@@ -54,23 +58,19 @@ public class EnemyHealthManager : MonoBehaviour
      */
     public float OnDamageReceived(float damage)
     {
+        OnHit?.Invoke();
         audioManager.Play("BodyHit");
-        health -= damage;
-        if (!IsAlive())
-        {
-            if (OnDeath != null) OnDeath();
-            return experience;
-        }
-        return 0;
+        var finalDamage = absorption >= damage ? 0 : damage - absorption;
+        health -= finalDamage;
+        if (IsAlive()) return 0;
+        Debug.Log("Skeleton died");
+        OnDeath?.Invoke();
+        return experience;
     }
 
-    public void OnHealing(int healing)
+    public void SetAbsorption(float val)
     {
-        if (health + healing >= maxHealth)
-        {
-            health = maxHealth;
-            return;
-        }
-        health += healing;
+        absorption = val;
     }
+    
 }
