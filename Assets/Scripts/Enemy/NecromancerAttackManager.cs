@@ -38,6 +38,7 @@ namespace Enemy
 
         private void FixedUpdate()
         {
+            animationManager.SetIdle(rb.velocity == Vector2.zero);
             if (!enemyHealthManager.IsAlive())
             {
                 rb.velocity = Vector2.zero;
@@ -65,7 +66,7 @@ namespace Enemy
 
         private void OnCollisionEnter2D(Collision2D other)
         {
-            hasFoundPlayer = (other.collider.CompareTag(TagEnum.Player.ToString()));
+            hasFoundPlayer = other.collider.CompareTag(TagEnum.Player.ToString());
             if (hasFoundPlayer) rb.velocity = Vector2.zero;
             animationManager.SetIdle(hasFoundPlayer);
         }
