@@ -135675,6 +135675,11 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1350290589764102516, guid: 775e04b12929e8b489e5dfcd46559631,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.2340889
+      objectReference: {fileID: 0}
     - target: {fileID: 1350290590278039494, guid: 775e04b12929e8b489e5dfcd46559631,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -135817,6 +135822,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EntradaDungeon
+      objectReference: {fileID: 0}
+    - target: {fileID: 1745642889810338203, guid: 85bad14b985a2de4a8742cc5ea632bfa,
+        type: 3}
+      propertyPath: m_TagString
+      value: Dungeon
       objectReference: {fileID: 0}
     - target: {fileID: 5665607928439119290, guid: 85bad14b985a2de4a8742cc5ea632bfa,
         type: 3}

@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Audio;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovementManager : MonoBehaviour
 {
@@ -19,7 +21,12 @@ public class PlayerMovementManager : MonoBehaviour
     {
         Move();
     }
-    
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.collider.CompareTag("Dungeon")) SceneManager.LoadScene("Dungeon");
+    }
+
     private void PlayFootstep()
     {
         if (rb.velocity == Vector2.zero) return;
