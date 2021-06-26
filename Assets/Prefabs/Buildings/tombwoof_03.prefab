@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 7797915702982648625}
   - component: {fileID: 7797915702982648626}
-  m_Layer: 0
+  - component: {fileID: 205678353}
+  m_Layer: 11
   m_Name: tombwoof_03
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -69,7 +70,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 100
   m_Sprite: {fileID: 21300000, guid: 237e5c3de39201e40b3fd26f55f4b933, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -81,3 +82,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!68 &205678353
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7797915702982648627}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: 0.14659682, y: -0.030498028}
+  - {x: -0.41565347, y: -0.31205988}
+  - {x: -0.16080803, y: -0.432518}
+  - {x: 0.38076508, y: -0.15267134}
+  - {x: 0.15006635, y: -0.033270597}
