@@ -86,7 +86,7 @@ namespace Enemy
             }
             if (invokesDone < invokes)
             {
-                invokeSkeletons.Invoke();
+                invokeSkeletons.Invoke(4 + (invokesDone * 2));
             }
             invokesDone++;
         }
