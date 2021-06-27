@@ -17,7 +17,7 @@ public class PlayerMovementManager : MonoBehaviour
         audioManager = FindObjectOfType<AudioManager>();
         InvokeRepeating(nameof(PlayFootstep), 0f, 0.25f);
     }
-    private void Update()
+    private void FixedUpdate()
     {
         Move();
     }
