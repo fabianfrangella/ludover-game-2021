@@ -34,7 +34,7 @@ public class CameraFollowPlayer : MonoBehaviour
     {
         var cameraMoveDir = (player.position - transform.position).normalized;
         var distance = Vector2.Distance(player.position, transform.position);
-        const float cameraMoveSpeed = 30f;
+        const float cameraMoveSpeed = 70f;
         if (distance > 0)
         {
             var newCameraPosition = transform.position + cameraMoveDir * distance * cameraMoveSpeed * Time.deltaTime;
