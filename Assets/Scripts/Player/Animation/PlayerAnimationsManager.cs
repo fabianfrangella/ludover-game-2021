@@ -5,16 +5,19 @@ using UnityEngine;
 public class PlayerAnimationsManager : MonoBehaviour
 {
     public Animator animator;
+    private PlayerHealthManager playerHealthManager;
     private float lastHorizontal;
     private float lastVertical;
     private bool isAlive;
 
     private void Start()
     {
+        playerHealthManager = GetComponent<PlayerHealthManager>();
         isAlive = true;
     }
     private void Update()
     {
+        if (!playerHealthManager.IsAlive()) return;
         SetLastDirection();
         SetIdleAnimation();
         PlayRunAnimation();

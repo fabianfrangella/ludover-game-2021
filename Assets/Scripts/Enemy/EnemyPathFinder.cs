@@ -68,6 +68,9 @@ public class EnemyPathFinder : MonoBehaviour
             StopMoving();
             return;
         }
+        
+        if (hasReachedPlayer) return;
+        
         MoveTowardsWaypoint();
         SetNextWaypoint();
         CheckIfTargetIsTooFarAway();
