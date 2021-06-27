@@ -28,7 +28,7 @@ namespace Hud
 
         public void RestartGame()
         {
-            SceneManager.LoadScene("GameScene");
+            SceneManager.LoadScene("SafeZone");
         }
     }
 }
