@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using Audio;
+﻿using Audio;
 using UnityEngine;
 using Pathfinding;
 
@@ -14,9 +11,7 @@ public class EnemyPathFinder : MonoBehaviour
     public int currentWaypoint = 0;
     
     public Transform target;
-    private Transform wanderer;
     private Path path;
-    private bool reachedEndOfPath = false;
     private Seeker seeker;
     private Rigidbody2D rb;
     private Animator animator;
@@ -34,24 +29,11 @@ public class EnemyPathFinder : MonoBehaviour
         animator = GetComponent<Animator>();
         healthManager = GetComponent<EnemyHealthManager>();
         audioManager = FindObjectOfType<AudioManager>();
-        SetWanderer();
-        target = wanderer;
+        target = null;
         InvokeRepeating(nameof(UpdatePath), 0f, 1f);
         InvokeRepeating(nameof(PlayFootstep), 0f, 0.5f);
     }
-
-    private void SetWanderer()
-    {
-        var i = 0;
-        while (wanderer == null || i < transform.childCount) {
-            var child = transform.GetChild(i);
-            if (child.name.Equals("EnemyWanderer"))
-            {
-                wanderer = child;
-            }
-            i++;
-        }
-    }
+    
     private void PlayFootstep()
     {
         if (rb.velocity == Vector2.zero) return;
@@ -62,32 +44,28 @@ public class EnemyPathFinder : MonoBehaviour
 
     private void UpdatePath()
     {
-        if (target == null || !seeker.IsDone() || hasReachedPlayer || !healthManager.IsAlive()) return;
-        seeker.StartPath(rb.position, target.position, OnPathComplete);
+        if (target == null || !seeker.IsDone() || !healthManager.IsAlive()) return;
+       seeker.StartPath(rb.position, target.position, OnPathComplete);
     }
 
     private void OnPathComplete(Path p)
     {
-        if (!p.error)
-        {
-            path = p;
-            currentWaypoint = 0;
-        }
+        if (p.error) return;
+        path = p;
+        currentWaypoint = 0;
     }
     private void Update()
     {
-        if (target == null) target = wanderer;
-        if (path == null) return;
+        if (target == null || path == null)
+        {
+            SearchForTargetInArea();
+            return;
+        }
         if (!healthManager.IsAlive())
         {
             StopMoving();
             return;
         }
-        
-        SearchForTargetInArea();
-        reachedEndOfPath = currentWaypoint >= path.vectorPath.Count || hasReachedPlayer;
-        
-        if (reachedEndOfPath) return;
         MoveTowardsWaypoint();
         SetNextWaypoint();
         CheckIfTargetIsTooFarAway();
@@ -117,41 +95,44 @@ public class EnemyPathFinder : MonoBehaviour
 
     private void CheckIfTargetIsTooFarAway()
     {
+        if (target == null) return;
         if (Vector2.Distance(transform.position, target.position) > lineOfSight * 2)
         {
-            target = null;
             StopMoving();
         }
     }
 
     private void SearchForTargetInArea()
     {
-        if (target.CompareTag(TagEnum.Player.ToString()) || hasReachedPlayer) return;
+        if (hasReachedPlayer) return;
         var collisions = Physics2D.OverlapCircleAll(transform.position, lineOfSight);
         foreach (var col in collisions)
         {
-            var playerFound = col.CompareTag(TagEnum.Player.ToString());
-            if (playerFound)
-            {
-                target = col.transform;
-                break;
-            }
+            if (!col.CompareTag(TagEnum.Player.ToString())) continue;
+            target = col.transform;
+            break;
         }
     }
 
     private void SetNextWaypoint()
     {
+        if (path.vectorPath.Count <= currentWaypoint) return;
+        
         var distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
-
+        
         if (distance < nextWaypointDistance)
+        {
             currentWaypoint++;
+        }
     }
 
     private void MoveTowardsWaypoint()
     {
+        if (path.vectorPath.Count <= currentWaypoint) return;
         animator.SetBool("isIdle", false);
         var dir = ((Vector2) path.vectorPath[currentWaypoint] - rb.position).normalized;
         rb.velocity = dir * speed;
+        
     }
 
     private void SetAnimationDirection()

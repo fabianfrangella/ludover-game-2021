@@ -140,3 +140,9 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
+  - name: InvokeSkeletons
+    clip: {fileID: 8300000, guid: 4b7e981dc0932db4597b7e218838db18, type: 3}
+    volume: 0.504
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}

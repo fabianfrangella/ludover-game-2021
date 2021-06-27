@@ -47,11 +47,7 @@ namespace Spells
                         Instantiate(skeleton, new Vector2(position.x + 1, position.y + 1), Quaternion.identity),
                         Instantiate(skeleton, new Vector2(position.x - 1, position.y - 1), Quaternion.identity),
                         Instantiate(skeleton, new Vector2(position.x + 1, position.y - 1), Quaternion.identity),
-                        Instantiate(skeleton, new Vector2(position.x - 1, position.y + 1), Quaternion.identity),
-                        Instantiate(skeleton, new Vector2(position.x + 1.5f, position.y + 1.5f), Quaternion.identity),
-                        Instantiate(skeleton, new Vector2(position.x - 1.5f, position.y - 1.5f), Quaternion.identity),
-                        Instantiate(skeleton, new Vector2(position.x + 1.5f, position.y - 1.5f), Quaternion.identity),
-                        Instantiate(skeleton, new Vector2(position.x - 1.5f, position.y + 1.5f), Quaternion.identity)
+                        Instantiate(skeleton, new Vector2(position.x - 1, position.y + 1), Quaternion.identity)
                     };
                 foreach (var s in skeletons)
                 {

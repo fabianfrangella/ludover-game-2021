@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// DEPRECADISIMO NO USAR BAJO NINGUNA CIRCUNSTANCIA AAAAAAAAAAAAAAAAAAAAA
 public class EnemyWandererManager : MonoBehaviour
 {
     public float speed = 1.0f;
