@@ -32,6 +32,7 @@ public class EnemyPathFinder : MonoBehaviour
         target = null;
         InvokeRepeating(nameof(UpdatePath), 0f, 1f);
         InvokeRepeating(nameof(PlayFootstep), 0f, 0.5f);
+        animator.SetBool("isIdle", true);
     }
     
     private void PlayFootstep()
@@ -56,6 +57,7 @@ public class EnemyPathFinder : MonoBehaviour
     }
     private void Update()
     {
+        animator.SetBool("isIdle", rb.velocity == Vector2.zero);
         if (target == null || path == null)
         {
             SearchForTargetInArea();
