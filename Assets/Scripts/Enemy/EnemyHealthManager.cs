@@ -19,16 +19,14 @@ public class EnemyHealthManager : MonoBehaviour
 
     public event Action OnHit;
     
-    // Start is called before the first frame update
     private void Start()
     {
         health = maxHealth;
         cl = GetComponent<CircleCollider2D>();
         audioManager = FindObjectOfType<AudioManager>();
     }
-
-    // Update is called once per frame
-    private void FixedUpdate()
+    
+    private void Update()
     {
         if (!IsAlive())
         {

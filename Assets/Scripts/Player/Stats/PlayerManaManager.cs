@@ -13,9 +13,9 @@ public class PlayerManaManager : MonoBehaviour
         manaBar.SetMaxMana(playerStats.maxMana);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        OnManaReceived(0.10f);
+        OnManaReceived(0.30f);
         SetManaBar();
     }
 
