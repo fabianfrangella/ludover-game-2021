@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Audio;
+using Menu;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -24,7 +25,11 @@ public class PlayerMovementManager : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.collider.CompareTag("Dungeon")) SceneManager.LoadScene("LoadingScreen");
+        if (other.collider.CompareTag("Dungeon"))
+        {
+            SceneManager.LoadScene("LoadingScreen");
+            SceneLoader.instance.prevScene = "SafeZone";
+        }
     }
 
     private void PlayFootstep()

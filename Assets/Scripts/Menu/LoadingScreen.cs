@@ -1,4 +1,4 @@
-﻿using System;
+﻿
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -20,15 +20,25 @@ namespace Menu
 
         private void Update()
         {
-            StartCoroutine(nameof(EnableButton));
+            StartCoroutine(nameof(EnableButtons));
         }
 
-        private IEnumerator EnableButton()
+        private IEnumerator EnableButtons()
         {
-            yield return new WaitForSeconds(5);
-            button.enabled = true;
-            GetComponent<Image>().enabled = true;
-            transform.GetChild(0).GetComponent<TextMeshProUGUI>().enabled = true;
+            if (SceneLoader.instance.prevScene.Equals("MainMenu") && button.name.ToLower().Equals("safezonebutton"))
+            {
+                yield return new WaitForSeconds(5);
+                button.enabled = true;
+                GetComponent<Image>().enabled = true;
+                transform.GetChild(0).GetComponent<TextMeshProUGUI>().enabled = true;
+            }
+            else if (SceneLoader.instance.prevScene.Equals("SafeZone"))
+            {
+                yield return new WaitForSeconds(5);
+                button.enabled = true;
+                GetComponent<Image>().enabled = true;
+                transform.GetChild(0).GetComponent<TextMeshProUGUI>().enabled = true; 
+            }
         }
         public void EnterDungeon()
         {
