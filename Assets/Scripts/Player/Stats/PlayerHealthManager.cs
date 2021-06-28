@@ -8,7 +8,7 @@ public class PlayerHealthManager : MonoBehaviour
     private PlayerStats playerStats;
     private Rigidbody2D rb;
     private AudioManager audioManager;
-
+    private bool isDead = false;
     public event System.Action OnPlayerDeath;
     public event System.Action OnHitReceived;
 
@@ -18,15 +18,24 @@ public class PlayerHealthManager : MonoBehaviour
         playerAnimationsManager = GetComponent<PlayerAnimationsManager>();
         rb = GetComponent<Rigidbody2D>();
         playerStats = GetComponent<PlayerStats>();
-        healthBar.SetMaxHealth(playerStats.maxHealth);
+        if (healthBar != null)
+        {
+            healthBar.SetMaxHealth(playerStats.maxHealth);
+        } 
         damageAbsorption = 0;
         audioManager = FindObjectOfType<AudioManager>();
     }
 
     void FixedUpdate()
     {
+        if (isDead) return;
+        
         CheckDeath();
-        SetHealthBar();
+        if (healthBar != null)
+        {
+            SetHealthBar();
+        }
+        
     }
 
     public void SetHealthBar()
@@ -45,8 +54,10 @@ public class PlayerHealthManager : MonoBehaviour
         {
             rb.constraints = RigidbodyConstraints2D.FreezeAll;
             playerAnimationsManager.PlayDeathAnimation();
+            isDead = true;
             if (OnPlayerDeath != null)
             {
+                Debug.Log("Player died");
                 OnPlayerDeath();
             }
         }

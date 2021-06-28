@@ -1,7 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Audio;
+using Menu;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovementManager : MonoBehaviour
 {
@@ -15,11 +18,20 @@ public class PlayerMovementManager : MonoBehaviour
         audioManager = FindObjectOfType<AudioManager>();
         InvokeRepeating(nameof(PlayFootstep), 0f, 0.25f);
     }
-    private void Update()
+    private void FixedUpdate()
     {
         Move();
     }
-    
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.collider.CompareTag("Dungeon"))
+        {
+            SceneManager.LoadScene("LoadingScreen");
+            SceneLoader.instance.prevScene = "SafeZone";
+        }
+    }
+
     private void PlayFootstep()
     {
         if (rb.velocity == Vector2.zero) return;

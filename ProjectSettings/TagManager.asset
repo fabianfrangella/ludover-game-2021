@@ -8,6 +8,7 @@ TagManager:
   - HealthPotion
   - Npc
   - Building
+  - Dungeon
   layers:
   - Default
   - TransparentFX

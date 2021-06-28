@@ -11,7 +11,8 @@ public class EnemyHealthManager : MonoBehaviour
     public float maxHealth;
     public float experience;
     public EnemyAnimationManager enemyAnimationManager;
-
+    public HealthBar healthBar;
+    
     private AudioManager audioManager;
     private CircleCollider2D cl;
     private float absorption = 0;
@@ -19,24 +20,30 @@ public class EnemyHealthManager : MonoBehaviour
 
     public event Action OnHit;
     
-    // Start is called before the first frame update
     private void Start()
     {
         health = maxHealth;
         cl = GetComponent<CircleCollider2D>();
         audioManager = FindObjectOfType<AudioManager>();
     }
-
-    // Update is called once per frame
-    private void FixedUpdate()
+    
+    private void Update()
     {
         if (!IsAlive())
         {
             cl.isTrigger = true;
         }
+
+        SetHealthBar();
         enemyAnimationManager.StartDieAnimation(health);
     }
 
+    private void SetHealthBar()
+    {
+        healthBar.SetHealth(health);
+        healthBar.SetMaxHealth(maxHealth);
+    }
+    
     private void OnDestroy()
     {
         var childC = transform.childCount;

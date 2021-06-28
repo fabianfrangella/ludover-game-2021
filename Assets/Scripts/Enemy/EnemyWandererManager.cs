@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// DEPRECADISIMO NO USAR BAJO NINGUNA CIRCUNSTANCIA AAAAAAAAAAAAAAAAAAAAA
 public class EnemyWandererManager : MonoBehaviour
 {
     public float speed = 1.0f;
     public float range = 2;
-    public float maxDistance = 4;
+    public float maxDistance = 2;
 
     private Vector2 wayPoint;
     private Vector2 startPosition;

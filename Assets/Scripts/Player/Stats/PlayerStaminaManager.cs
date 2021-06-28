@@ -9,13 +9,19 @@ public class PlayerStaminaManager : MonoBehaviour
     void Start()
     {
         playerStats = GetComponent<PlayerStats>();
-        staminaBar.SetMaxStamina(playerStats.maxStamina);
+        if (staminaBar != null)
+        {
+            staminaBar.SetMaxStamina(playerStats.maxStamina);
+        }
     }
 
     private void FixedUpdate()
     {
         OnStaminaReceived(0.25f);
-        SetStaminaBar();
+        if (staminaBar != null)
+        {
+            SetStaminaBar();
+        }
     }
 
     public void SetStaminaBar()

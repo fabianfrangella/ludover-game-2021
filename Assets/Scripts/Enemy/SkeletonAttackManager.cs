@@ -44,7 +44,8 @@ public class SkeletonAttackManager : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        hasFoundPlayer = collision.collider.CompareTag(TagEnum.Player.ToString());
+        hasFoundPlayer = collision.collider.CompareTag(TagEnum.Player.ToString()) 
+                         && collision.collider.GetComponent<PlayerHealthManager>().IsAlive();
     }
 
     private void OnCollisionExit2D(Collision2D collision)

@@ -10,13 +10,19 @@ public class PlayerManaManager : MonoBehaviour
     private void Start()
     {
         playerStats = GetComponent<PlayerStats>();
-        manaBar.SetMaxMana(playerStats.maxMana);
+        if (manaBar != null)
+        {
+            manaBar.SetMaxMana(playerStats.maxMana);
+        }
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        OnManaReceived(0.10f);
-        SetManaBar();
+        OnManaReceived(0.30f);
+        if (manaBar != null)
+        {
+            SetManaBar();
+        }
     }
 
     public void SetManaBar()

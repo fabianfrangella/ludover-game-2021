@@ -33,7 +33,8 @@ public class PlayerAttackManager : MonoBehaviour
             playerAttackState = playerAttackState.GetNextState();
         }
 
-        FindObjectOfType<AttackMode>().HighLightAttackMode();
+        var attackMode = FindObjectOfType<AttackMode>();
+        if (attackMode != null) attackMode.HighLightAttackMode();
     }
 
 }

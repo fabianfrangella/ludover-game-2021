@@ -21,6 +21,7 @@ namespace Hud
 
         private void EnableButton()
         {
+            Debug.Log("Can restart now");
             button.enabled = true;
             GetComponent<Image>().enabled = true;
             transform.GetChild(0).GetComponent<TextMeshProUGUI>().enabled = true;
@@ -28,7 +29,7 @@ namespace Hud
 
         public void RestartGame()
         {
-            SceneManager.LoadScene("GameScene");
+            SceneManager.LoadScene("SafeZone");
         }
     }
 }
