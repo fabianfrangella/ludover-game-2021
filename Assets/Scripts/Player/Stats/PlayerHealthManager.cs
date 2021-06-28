@@ -18,7 +18,10 @@ public class PlayerHealthManager : MonoBehaviour
         playerAnimationsManager = GetComponent<PlayerAnimationsManager>();
         rb = GetComponent<Rigidbody2D>();
         playerStats = GetComponent<PlayerStats>();
-        healthBar.SetMaxHealth(playerStats.maxHealth);
+        if (healthBar != null)
+        {
+            healthBar.SetMaxHealth(playerStats.maxHealth);
+        } 
         damageAbsorption = 0;
         audioManager = FindObjectOfType<AudioManager>();
     }
@@ -28,7 +31,10 @@ public class PlayerHealthManager : MonoBehaviour
         if (isDead) return;
         
         CheckDeath();
-        SetHealthBar();
+        if (healthBar != null)
+        {
+            SetHealthBar();
+        }
         
     }
 

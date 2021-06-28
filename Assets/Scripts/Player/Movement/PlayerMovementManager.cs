@@ -24,7 +24,7 @@ public class PlayerMovementManager : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.collider.CompareTag("Dungeon")) SceneManager.LoadScene("Dungeon");
+        if (other.collider.CompareTag("Dungeon")) SceneManager.LoadScene("LoadingScreen");
     }
 
     private void PlayFootstep()

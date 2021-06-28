@@ -23,9 +23,12 @@ public class PlayerExperienceManager : MonoBehaviour
         level = 1;
         currentExperience = 0;
         nextLevelExperience = 100;
-        experienceBar.SetLevelBar(level);
-        experienceBar.SetExperience(currentExperience);
-        experienceBar.SetNextLevelExperience(nextLevelExperience);
+        if (experienceBar != null)
+        {
+            experienceBar.SetLevelBar(level);
+            experienceBar.SetExperience(currentExperience);
+            experienceBar.SetNextLevelExperience(nextLevelExperience);
+        }
     }
     public int GetLevel()
     {
