@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6554688374167772093}
   - component: {fileID: 6554688374167772094}
   - component: {fileID: 6211062357305166412}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: tombwoof_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
