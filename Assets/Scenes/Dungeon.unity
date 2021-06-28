@@ -105845,6 +105845,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5871709682391251153, guid: 5b3fb2067331bb746a0ed5540e7784a8,
         type: 3}
+      propertyPath: meleeDamage
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5871709682391251153, guid: 5b3fb2067331bb746a0ed5540e7784a8,
+        type: 3}
       propertyPath: spellDamage
       value: 5
       objectReference: {fileID: 0}
