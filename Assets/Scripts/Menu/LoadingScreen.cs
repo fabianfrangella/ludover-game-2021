@@ -34,19 +34,23 @@ namespace Menu
                 transform.GetChild(0).GetComponent<TextMeshProUGUI>().enabled = true;
                 yield return null;
             }
-            if (SceneLoader.instance.prevScene.Equals("MainMenu") && button.name.ToLower().Equals("safezonebutton"))
+
+            if (SceneLoader.instance != null)
             {
-                yield return new WaitForSeconds(5);
-                button.enabled = true;
-                GetComponent<Image>().enabled = true;
-                transform.GetChild(0).GetComponent<TextMeshProUGUI>().enabled = true;
-            }
-            else if (SceneLoader.instance.prevScene.Equals("SafeZone"))
-            {
-                yield return new WaitForSeconds(5);
-                button.enabled = true;
-                GetComponent<Image>().enabled = true;
-                transform.GetChild(0).GetComponent<TextMeshProUGUI>().enabled = true; 
+                if (SceneLoader.instance.prevScene.Equals("MainMenu") && button.name.ToLower().Equals("safezonebutton"))
+                {
+                    yield return new WaitForSeconds(5);
+                    button.enabled = true;
+                    GetComponent<Image>().enabled = true;
+                    transform.GetChild(0).GetComponent<TextMeshProUGUI>().enabled = true;
+                }
+                else if (SceneLoader.instance.prevScene.Equals("SafeZone"))
+                {
+                    yield return new WaitForSeconds(5);
+                    button.enabled = true;
+                    GetComponent<Image>().enabled = true;
+                    transform.GetChild(0).GetComponent<TextMeshProUGUI>().enabled = true; 
+                }
             }
         }
         public void EnterDungeon()
