@@ -809,7 +809,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tmp: {fileID: 305481582}
   tips:
-  - The skeletons are powerful beings, be patience when trying to defeat one
+  - The skeletons are powerful beings, be patient when trying to defeat one
   - Don't try to engage multiple enemies at a time
   - Don't forget to use your potions!
   - The Sword is a mighty weapon, but it will get you tired fast
@@ -1411,7 +1411,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -122, y: 35}
+  m_AnchoredPosition: {x: 0, y: 122}
   m_SizeDelta: {x: 198.72961, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &537322521
@@ -2787,7 +2787,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 122, y: 35}
+  m_AnchoredPosition: {x: 0, y: 69.1}
   m_SizeDelta: {x: 198.72961, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1745429136
