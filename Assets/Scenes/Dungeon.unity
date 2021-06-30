@@ -112008,7 +112008,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2052814867}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1826935593
+--- !u!114 &1826935594
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -112430,12 +112430,12 @@ PrefabInstance:
     - target: {fileID: 5871709682391251137, guid: 5b3fb2067331bb746a0ed5540e7784a8,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.46
+      value: -16.1
       objectReference: {fileID: 0}
     - target: {fileID: 5871709682391251137, guid: 5b3fb2067331bb746a0ed5540e7784a8,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.25
+      value: -4.92
       objectReference: {fileID: 0}
     - target: {fileID: 5871709682391251137, guid: 5b3fb2067331bb746a0ed5540e7784a8,
         type: 3}
