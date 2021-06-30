@@ -1,21 +1,21 @@
 ﻿using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Hud
 {
     public class Hints : MonoBehaviour
     {
-        public TextMeshProUGUI text;
-
+        public Image image;
         private void Start()
         {
-            text.enabled = false;
+            image.enabled = false;
         }
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.H))
             {
-                text.enabled = !text.isActiveAndEnabled;
+                image.enabled = !image.isActiveAndEnabled;
             }
         }
     }
