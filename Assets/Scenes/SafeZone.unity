@@ -135613,6 +135613,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 896194872, guid: 775e04b12929e8b489e5dfcd46559631, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 23.190002
+      objectReference: {fileID: 0}
+    - target: {fileID: 1155083773, guid: 775e04b12929e8b489e5dfcd46559631, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.000015258789
+      objectReference: {fileID: 0}
     - target: {fileID: 1350290589199393531, guid: 775e04b12929e8b489e5dfcd46559631,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -136106,8 +136114,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9043739527792473523, guid: de7cc719a6b51d549b6a384538c98b21,
         type: 3}
+      propertyPath: sounds.Array.data[13].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: fa66dd2f3fe2f3546b1cb8e316d96779, type: 3}
+    - target: {fileID: 9043739527792473523, guid: de7cc719a6b51d549b6a384538c98b21,
+        type: 3}
       propertyPath: sounds.Array.data[13].volume
-      value: 0
+      value: 0.217
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: de7cc719a6b51d549b6a384538c98b21, type: 3}
