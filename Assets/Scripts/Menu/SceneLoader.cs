@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Menu
 {
@@ -8,8 +9,14 @@ namespace Menu
         
         public string prevScene = "MainMenu";
 
+        public void LoadScene(string currentScene, string nextScene)
+        {
+            instance.prevScene = currentScene;
+            SceneManager.LoadScene(nextScene);
+        }
+        
         private void Awake() {
-            if(!instance )
+            if(!instance)
                 instance = this;
             else {
                 Destroy(gameObject) ;
