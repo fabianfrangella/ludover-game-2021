@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class PlayerExperienceManager : MonoBehaviour
 {
-    public int maxLevel;
-
     /**
      * <summary>
      * Public event to handle actions on level up
@@ -13,33 +11,23 @@ public class PlayerExperienceManager : MonoBehaviour
     public event Action OnLevelUp;
     public ExperienceBar experienceBar;
 
-    public int level;
-
-    private float currentExperience;
-    private float nextLevelExperience;
-
-    void Start()
+    private void Start()
     {
-        level = 1;
-        currentExperience = 0;
-        nextLevelExperience = 100;
         if (experienceBar != null)
         {
-            experienceBar.SetLevelBar(level);
-            experienceBar.SetExperience(currentExperience);
-            experienceBar.SetNextLevelExperience(nextLevelExperience);
+            experienceBar.SetLevelBar(PlayerStats.instance.level);
+            experienceBar.SetExperience(PlayerStats.instance.currentExperience);
+            experienceBar.SetNextLevelExperience(PlayerStats.instance.nextLevelExperience);
         }
-    }
-    public int GetLevel()
-    {
-        return level;
+
+        PlayerStats.instance.SetExperienceManager(this);
     }
 
     public void GainExperience(float experience)
     {
-        currentExperience += experience;
-        experienceBar.SetExperience(currentExperience);
-        if (currentExperience >= nextLevelExperience)
+        PlayerStats.instance.currentExperience += experience;
+        experienceBar.SetExperience(PlayerStats.instance.currentExperience);
+        if (PlayerStats.instance.currentExperience >= PlayerStats.instance.nextLevelExperience)
         {
             LevelUp();
             SetNextLevelExperience();
@@ -48,20 +36,20 @@ public class PlayerExperienceManager : MonoBehaviour
     private void LevelUp()
     {
         OnLevelUp();
-        if (level + 1 >= maxLevel)
+        if (PlayerStats.instance.level + 1 >= PlayerStats.instance.maxLevel)
         {
-            level = maxLevel;
-            experienceBar.SetLevelBar(level);
+            PlayerStats.instance.level = PlayerStats.instance.maxLevel;
+            experienceBar.SetLevelBar(PlayerStats.instance.level);
             return;
         }
-        level+= 1;
-        experienceBar.SetLevelBar(level);
+        PlayerStats.instance.level+= 1;
+        experienceBar.SetLevelBar(PlayerStats.instance.level);
     }
 
     private void SetNextLevelExperience()
     {
-        var exp = nextLevelExperience * (2 + (level / 2));
-        nextLevelExperience = exp;
+        var exp = PlayerStats.instance.nextLevelExperience * (2 + (PlayerStats.instance.level / 2));
+        PlayerStats.instance.nextLevelExperience = exp;
         experienceBar.SetNextLevelExperience(exp);
     }
 }

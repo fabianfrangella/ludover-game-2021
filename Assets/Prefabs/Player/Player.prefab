@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 5871709682391251165}
   - component: {fileID: 5871709682391251156}
   - component: {fileID: 5871709682391251154}
-  - component: {fileID: 5871709682391251153}
+  - component: {fileID: 4744772571019323014}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -355,9 +355,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65e4b465b6e92cb47b53a3bba95b4bcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxLevel: 100
   experienceBar: {fileID: 0}
-  level: 1
 --- !u!114 &5871709682391251156
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -392,7 +390,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackRate: 2
   attackDistance: 1
---- !u!114 &5871709682391251153
+--- !u!114 &4744772571019323014
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -401,14 +399,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 5871709682391251138}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6782f3d6c69208140a773018bac068e6, type: 3}
+  m_Script: {fileID: 11500000, guid: 1904936ec3844b5ead9e09e33bb7f593, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
-  mana: 0
-  stamina: 0
-  maxHealth: 100
-  maxMana: 100
-  maxStamina: 100
-  meleeDamage: 10
-  spellDamage: 5

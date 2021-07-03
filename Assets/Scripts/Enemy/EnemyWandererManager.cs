@@ -1,13 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-// DEPRECADISIMO NO USAR BAJO NINGUNA CIRCUNSTANCIA AAAAAAAAAAAAAAAAAAAAA
 public class EnemyWandererManager : MonoBehaviour
 {
     public float speed = 1.0f;
     public float range = 2;
-    public float maxDistance = 2;
+    public float maxDistance = 10;
 
     private Vector2 wayPoint;
     private Vector2 startPosition;
@@ -16,7 +13,7 @@ public class EnemyWandererManager : MonoBehaviour
     private void Start()
     {
         startPosition = transform.position;
-        speed = gameObject.transform.parent.GetComponent<EnemyPathFinder>().speed * 2;
+        speed = gameObject.transform.parent.GetComponent<EnemyPathFinder>().speed;
         rb = GetComponent<Rigidbody2D>();
         SetNewDestination();
     }
@@ -37,6 +34,7 @@ public class EnemyWandererManager : MonoBehaviour
 
     private void SetNewDestination()
     {
+    
         var minX = startPosition.x - maxDistance;
         var maxX = startPosition.x + maxDistance;
         var minY = startPosition.y - maxDistance;
@@ -45,6 +43,7 @@ public class EnemyWandererManager : MonoBehaviour
             Random.Range(minX, maxX),
             Random.Range(minY, maxY)
             );
+            
     }
     
 }

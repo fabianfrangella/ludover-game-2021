@@ -3,15 +3,13 @@
 public class PlayerStaminaManager : MonoBehaviour
 {
     public StaminaBar staminaBar;
-
-    private PlayerStats playerStats;
+    
 
     void Start()
     {
-        playerStats = GetComponent<PlayerStats>();
         if (staminaBar != null)
         {
-            staminaBar.SetMaxStamina(playerStats.maxStamina);
+            staminaBar.SetMaxStamina(PlayerStats.instance.maxStamina);
         }
     }
 
@@ -26,28 +24,28 @@ public class PlayerStaminaManager : MonoBehaviour
 
     public void SetStaminaBar()
     {
-        staminaBar.SetStamina(playerStats.stamina);
-        staminaBar.SetMaxStamina(playerStats.maxStamina);
+        staminaBar.SetStamina(PlayerStats.instance.stamina);
+        staminaBar.SetMaxStamina(PlayerStats.instance.maxStamina);
     }
 
     public void OnStaminaLost(float stamina)
     {
-        if (playerStats.stamina - stamina < 0)
+        if (PlayerStats.instance.stamina - stamina < 0)
         {
-            playerStats.stamina = 0;
+            PlayerStats.instance.stamina = 0;
             return;
         }
-        playerStats.stamina -= stamina;
+        PlayerStats.instance.stamina -= stamina;
     }
 
     public void OnStaminaReceived(float stamina)
     {
-        if (playerStats.stamina + stamina >= playerStats.maxStamina)
+        if (PlayerStats.instance.stamina + stamina >= PlayerStats.instance.maxStamina)
         {
-            playerStats.stamina = playerStats.maxStamina;
+            PlayerStats.instance.stamina = PlayerStats.instance.maxStamina;
             return;
         }
-        playerStats.stamina += stamina;
+        PlayerStats.instance.stamina += stamina;
     }
 
 

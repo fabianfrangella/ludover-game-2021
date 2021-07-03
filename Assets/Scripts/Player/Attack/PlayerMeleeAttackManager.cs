@@ -14,7 +14,6 @@ public class PlayerMeleeAttackManager : MonoBehaviour, PlayerAttackState
     private PlayerAnimationsManager playerAnimationsManager;
     private PlayerMovementManager playerMovementManager;
     private PlayerHealthManager playerHealthManager;
-    private PlayerStats playerStats;
     private Vector2 directionToAttack;
     private AudioManager audioManager;
 
@@ -25,7 +24,6 @@ public class PlayerMeleeAttackManager : MonoBehaviour, PlayerAttackState
         playerMovementManager = GetComponent<PlayerMovementManager>();
         playerExperienceManager = GetComponent<PlayerExperienceManager>();
         playerHealthManager = GetComponent<PlayerHealthManager>();
-        playerStats = GetComponent<PlayerStats>();
         audioManager = FindObjectOfType<AudioManager>();
     }
 
@@ -72,7 +70,7 @@ public class PlayerMeleeAttackManager : MonoBehaviour, PlayerAttackState
     }
     private bool CanAttack()
     {
-        return Time.time >= nextAttackTime && playerStats.stamina >= 40 && playerHealthManager.IsAlive();
+        return Time.time >= nextAttackTime && PlayerStats.instance.stamina >= 40 && playerHealthManager.IsAlive();
     }
 
     private void DoBasicAttack()
@@ -92,7 +90,7 @@ public class PlayerMeleeAttackManager : MonoBehaviour, PlayerAttackState
         foreach (var hit in hits)
         {
             if (!hit.collider.CompareTag(TagEnum.Enemy.ToString())) continue;
-            var experience = hit.collider.gameObject.GetComponent<EnemyHealthManager>().OnDamageReceived(playerStats.meleeDamage);
+            var experience = hit.collider.gameObject.GetComponent<EnemyHealthManager>().OnDamageReceived(PlayerStats.instance.meleeDamage);
             playerExperienceManager.GainExperience(experience);
             break;
         }

@@ -21,7 +21,13 @@ public class EnemyPathFinder : MonoBehaviour
     
     private AudioManager audioManager;
     private int currentFootstep = 1;
-    
+    public State state = State.STILL;
+    public Transform wanderer;
+    public enum State
+    {
+        WANDERING,
+        STILL
+    }
     private void Start()
     {
         seeker = GetComponent<Seeker>();
@@ -30,7 +36,8 @@ public class EnemyPathFinder : MonoBehaviour
         healthManager = GetComponent<EnemyHealthManager>();
         audioManager = FindObjectOfType<AudioManager>();
         target = null;
-        InvokeRepeating(nameof(UpdatePath), 0f, 1f);
+        if (state == State.WANDERING) target = wanderer;
+        InvokeRepeating(nameof(UpdatePath), 0f, 0.5f);
         InvokeRepeating(nameof(PlayFootstep), 0f, 0.5f);
         animator.SetBool("isIdle", true);
     }
@@ -45,7 +52,7 @@ public class EnemyPathFinder : MonoBehaviour
 
     private void UpdatePath()
     {
-        if (target == null || !seeker.IsDone() || !healthManager.IsAlive()) return;
+       if (target == null || !seeker.IsDone() || !healthManager.IsAlive()) return;
        seeker.StartPath(rb.position, target.position, OnPathComplete);
     }
 
@@ -57,27 +64,38 @@ public class EnemyPathFinder : MonoBehaviour
     }
     private void Update()
     {
-        animator.SetBool("isIdle", rb.velocity == Vector2.zero);
-        if (target == null || path == null)
+        if (state == State.STILL)
         {
-            SearchForTargetInArea();
-            return;
+            animator.SetBool("isIdle", rb.velocity == Vector2.zero);
+            if (target == null || path == null)
+            {
+                SearchForTargetInArea();
+                return;
+            }
+            
         }
+        
         if (!healthManager.IsAlive())
         {
             StopMoving();
             return;
         }
-        
         if (hasReachedPlayer) return;
         
+        if (state == State.WANDERING)
+        {
+            if (path == null) return;
+            if (target == wanderer)
+            {
+                SearchForTargetInArea();
+            }
+        }
         MoveTowardsWaypoint();
         SetNextWaypoint();
         CheckIfTargetIsTooFarAway();
         SetAnimationDirection();
     }
     
-
     private void StopMoving()
     {
         rb.velocity = Vector2.zero;
@@ -95,15 +113,26 @@ public class EnemyPathFinder : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D other)
     {
-        hasReachedPlayer = !other.collider.CompareTag(TagEnum.Player.ToString());
+        if (other.collider.CompareTag(TagEnum.Player.ToString()))
+        {
+            hasReachedPlayer = false;
+        }
     }
 
     private void CheckIfTargetIsTooFarAway()
     {
-        if (target == null) return;
-        if (Vector2.Distance(transform.position, target.position) > lineOfSight * 2)
+        if (state == State.STILL)
         {
-            StopMoving();
+            if (target == null) return;
+            if (Vector2.Distance(transform.position, target.position) > lineOfSight * 2)
+            {
+                StopMoving();
+            }
+        }
+        if (state == State.WANDERING)
+        {
+            if (target != wanderer && Vector2.Distance(transform.position, target.position) > lineOfSight * 2) 
+                target = wanderer;
         }
     }
 
@@ -137,7 +166,6 @@ public class EnemyPathFinder : MonoBehaviour
         animator.SetBool("isIdle", false);
         var dir = ((Vector2) path.vectorPath[currentWaypoint] - rb.position).normalized;
         rb.velocity = dir * speed;
-        
     }
 
     private void SetAnimationDirection()

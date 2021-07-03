@@ -23,15 +23,6 @@ public class PlayerMovementManager : MonoBehaviour
         Move();
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
-    {
-        if (other.collider.CompareTag("Dungeon"))
-        {
-            SceneManager.LoadScene("LoadingScreen");
-            SceneLoader.instance.prevScene = "SafeZone";
-        }
-    }
-
     private void PlayFootstep()
     {
         if (rb.velocity == Vector2.zero) return;

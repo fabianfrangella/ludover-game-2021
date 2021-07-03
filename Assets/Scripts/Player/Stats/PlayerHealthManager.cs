@@ -5,7 +5,6 @@ public class PlayerHealthManager : MonoBehaviour
 {
     public HealthBar healthBar;
     private PlayerAnimationsManager playerAnimationsManager;
-    private PlayerStats playerStats;
     private Rigidbody2D rb;
     private AudioManager audioManager;
     private bool isDead = false;
@@ -17,10 +16,9 @@ public class PlayerHealthManager : MonoBehaviour
     {
         playerAnimationsManager = GetComponent<PlayerAnimationsManager>();
         rb = GetComponent<Rigidbody2D>();
-        playerStats = GetComponent<PlayerStats>();
         if (healthBar != null)
         {
-            healthBar.SetMaxHealth(playerStats.maxHealth);
+            healthBar.SetMaxHealth(PlayerStats.instance.maxHealth);
         } 
         damageAbsorption = 0;
         audioManager = FindObjectOfType<AudioManager>();
@@ -40,17 +38,17 @@ public class PlayerHealthManager : MonoBehaviour
 
     public void SetHealthBar()
     {
-        healthBar.SetHealth(playerStats.health);
-        healthBar.SetMaxHealth(playerStats.maxHealth);
+        healthBar.SetHealth(PlayerStats.instance.health);
+        healthBar.SetMaxHealth(PlayerStats.instance.maxHealth);
     }
     public bool IsAlive()
     {
-        return playerStats.health > 0;
+        return PlayerStats.instance.health > 0;
     }
 
     void CheckDeath()
     {
-        if (playerStats.health <= 0)
+        if (PlayerStats.instance.health <= 0)
         {
             rb.constraints = RigidbodyConstraints2D.FreezeAll;
             playerAnimationsManager.PlayDeathAnimation();
@@ -68,7 +66,7 @@ public class PlayerHealthManager : MonoBehaviour
         if (OnHitReceived != null) OnHitReceived();
         audioManager.Play("BodyHit");
         var finalDamage = damageAbsorption >= damage ? 0 : damage - damageAbsorption;
-        playerStats.health -= finalDamage;
+        PlayerStats.instance.health -= finalDamage;
     }
 
     public void AddDamageAbsorption(float abs)
@@ -83,12 +81,12 @@ public class PlayerHealthManager : MonoBehaviour
 
     public void OnHealing(float healing)
     {
-        if (playerStats.health + healing >= playerStats.maxHealth)
+        if (PlayerStats.instance.health + healing >= PlayerStats.instance.maxHealth)
         {
-            playerStats.health = playerStats.maxHealth;
+            PlayerStats.instance.health = PlayerStats.instance.maxHealth;
             return;
         }
-        playerStats.health += healing;
+        PlayerStats.instance.health += healing;
     }
 
 }

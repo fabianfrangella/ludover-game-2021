@@ -18,7 +18,6 @@ public class PlayerSpellManager : MonoBehaviour, PlayerAttackState
     private PlayerAnimationsManager playerAnimationsManager;
     private PlayerHealthManager playerHealthManager;
     private PlayerManaManager playerManaManager;
-    private PlayerStats playerStats;
     private AudioManager audioManager;
     private AttackMode ui;
 
@@ -29,7 +28,6 @@ public class PlayerSpellManager : MonoBehaviour, PlayerAttackState
         playerAnimationsManager = GetComponent<PlayerAnimationsManager>();
         playerHealthManager = GetComponent<PlayerHealthManager>();
         playerManaManager = GetComponent<PlayerManaManager>();
-        playerStats = GetComponent<PlayerStats>();
         selectedSpell = availableSpells[0];
         audioManager = FindObjectOfType<AudioManager>();
         ui = FindObjectOfType<AttackMode>();
@@ -74,7 +72,7 @@ public class PlayerSpellManager : MonoBehaviour, PlayerAttackState
         playerAnimationsManager.PlayCastAnimation();
         Instantiate(healingSpellPrefab, transform.position, Quaternion.identity);
         playerManaManager.OnManaLost(50);
-        playerStats.health += 40;
+        PlayerStats.instance.health += 40;
     }
 
     private void CastShock()
@@ -84,7 +82,7 @@ public class PlayerSpellManager : MonoBehaviour, PlayerAttackState
         playerManaManager.OnManaLost(40);
         var shock = Instantiate(shockSpellPrefab, transform.position, Quaternion.identity);
         shock.SetDirection(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-        shock.SetExtraDamage(playerStats.spellDamage);
+        shock.SetExtraDamage(PlayerStats.instance.spellDamage);
         SetNextCastTime();
     }
 
