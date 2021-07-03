@@ -33,7 +33,6 @@ namespace Enemy
             {
                 var pos = new Vector2(Random.Range(xRange.x, xRange.y), Random.Range(yRange.x, yRange.y));
                 var spawn = Instantiate(character, pos, Quaternion.identity);
-                Debug.Log("x " + spawn.position.x + " " + " y" +  spawn.position.y);
                 spawn.GetComponent<EnemyHealthManager>().OnDeath += HandleDeath;
                 spawn.GetComponent<EnemyPathFinder>().state = EnemyPathFinder.State.WANDERING;
                 alive++;

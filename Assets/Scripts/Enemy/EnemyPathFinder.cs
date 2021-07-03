@@ -118,15 +118,18 @@ public class EnemyPathFinder : MonoBehaviour
 
     private void CheckIfTargetIsTooFarAway()
     {
-        if (state == State.STILL && target == null) return;
-        if (Vector2.Distance(transform.position, target.position) > lineOfSight * 2)
+        if (state == State.STILL)
         {
-            if (state == State.WANDERING)
+            if (target == null) return;
+            if (Vector2.Distance(transform.position, target.position) > lineOfSight * 2)
             {
-                target = wanderer;
-                return;
+                StopMoving();
             }
-            StopMoving();
+        }
+        if (state == State.WANDERING)
+        {
+            if (target != wanderer && Vector2.Distance(transform.position, target.position) > lineOfSight * 2) 
+                target = wanderer;
         }
     }
 
@@ -160,7 +163,6 @@ public class EnemyPathFinder : MonoBehaviour
         animator.SetBool("isIdle", false);
         var dir = ((Vector2) path.vectorPath[currentWaypoint] - rb.position).normalized;
         rb.velocity = dir * speed;
-        
     }
 
     private void SetAnimationDirection()
