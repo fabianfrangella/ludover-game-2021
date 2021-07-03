@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 1
   range: 2
-  maxDistance: 2
+  maxDistance: 4
 --- !u!50 &1360595954437940635
 Rigidbody2D:
   serializedVersion: 4
@@ -143,7 +143,7 @@ PrefabInstance:
     - target: {fileID: 3112926715794206946, guid: ac826389f7bd344469f9cfbba31201e1,
         type: 3}
       propertyPath: m_Name
-      value: Skeleton (1)
+      value: Skeleton (1) Variant
       objectReference: {fileID: 0}
     - target: {fileID: 5476292877599621138, guid: ac826389f7bd344469f9cfbba31201e1,
         type: 3}
