@@ -113,7 +113,10 @@ public class EnemyPathFinder : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D other)
     {
-        hasReachedPlayer = !other.collider.CompareTag(TagEnum.Player.ToString());
+        if (other.collider.CompareTag(TagEnum.Player.ToString()))
+        {
+            hasReachedPlayer = false;
+        }
     }
 
     private void CheckIfTargetIsTooFarAway()
