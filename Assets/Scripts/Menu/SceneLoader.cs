@@ -20,6 +20,7 @@ namespace Menu
                 return;
             }
             enabledButtons.Add("SafeZoneButton");
+            enabledButtons.Add("OpenLandsButton");
             DontDestroyOnLoad(gameObject) ;
         }
 
