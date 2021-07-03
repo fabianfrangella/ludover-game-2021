@@ -23,23 +23,6 @@ public class PlayerMovementManager : MonoBehaviour
         Move();
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
-    {
-        if (other.collider.CompareTag("Dungeon"))
-        {
-            SceneManager.LoadScene("LoadingScreen");
-            var buttons = new List<string>() { "DungeonButton", "SafeZoneButton" };
-            SceneLoader.instance.SetButtons(buttons);
-        }
-
-        if (other.collider.CompareTag("Portal"))
-        {
-            SceneManager.LoadScene("LoadingScreen");
-            var buttons = new List<string>() { "OpenLandsButton", "SafeZoneButton" };
-            SceneLoader.instance.SetButtons(buttons);
-        }
-    }
-
     private void PlayFootstep()
     {
         if (rb.velocity == Vector2.zero) return;
