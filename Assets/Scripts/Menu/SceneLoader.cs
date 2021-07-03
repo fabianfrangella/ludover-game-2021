@@ -9,6 +9,8 @@ namespace Menu
     public class SceneLoader : MonoBehaviour
     {
         public static SceneLoader instance = null;
+
+        public string currentScene = "MainMenu";
         
         public List<string> enabledButtons = new List<string>();
         
@@ -27,6 +29,12 @@ namespace Menu
         public void SetButtons(List<string> buttons)
         {
             enabledButtons = buttons;
+        }
+
+        public void LoadScene(string scene)
+        {
+            currentScene = scene;
+            SceneManager.LoadScene(scene);
         }
     }
 }

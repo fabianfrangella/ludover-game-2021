@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Menu;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Player.UI
 {
@@ -11,14 +10,14 @@ namespace Player.UI
         {
             if (other.collider.CompareTag("Dungeon"))
             {
-                SceneManager.LoadScene("LoadingScreen");
+                SceneLoader.instance.LoadScene("LoadingScreen");
                 var buttons = new List<string>() { "DungeonButton", "SafeZoneButton" };
                 SceneLoader.instance.SetButtons(buttons);
             }
 
             if (other.collider.CompareTag("Portal"))
             {
-                SceneManager.LoadScene("LoadingScreen");
+                SceneLoader.instance.LoadScene("LoadingScreen");
                 var buttons = new List<string>() { "OpenLandsButton", "SafeZoneButton" };
                 SceneLoader.instance.SetButtons(buttons);
             }

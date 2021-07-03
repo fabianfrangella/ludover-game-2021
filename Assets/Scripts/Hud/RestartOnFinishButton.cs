@@ -1,7 +1,7 @@
 ﻿using Enemy;
+using Menu;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Hud
@@ -33,7 +33,8 @@ namespace Hud
         
         public void Restart()
         {
-            SceneManager.LoadScene("SafeZone");
+            PlayerStats.instance.health = PlayerStats.instance.maxHealth;
+            SceneLoader.instance.LoadScene("SafeZone");
         }
     }
 }

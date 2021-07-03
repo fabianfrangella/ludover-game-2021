@@ -46,17 +46,17 @@ namespace Menu
         }
         public void EnterDungeon()
         {
-            SceneManager.LoadScene("Dungeon");
+            SceneLoader.instance.LoadScene("Dungeon");
         }
 
         public void GoToSafeZone()
         {
-            SceneManager.LoadScene("SafeZone");
+            SceneLoader.instance.LoadScene("SafeZone");
         }
 
         public void GoToOpenLands()
         {
-            SceneManager.LoadScene("OpenLand");
+            SceneLoader.instance.LoadScene("OpenLand");
         }
     }
 }
