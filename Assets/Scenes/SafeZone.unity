@@ -74174,8 +74174,35 @@ PrefabInstance:
       propertyPath: m_Name
       value: TeleportSite
       objectReference: {fileID: 0}
+    - target: {fileID: 8853191339638647134, guid: fc86f90895fdc914886a91a3e4d7208f,
+        type: 3}
+      propertyPath: m_TagString
+      value: Portal
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc86f90895fdc914886a91a3e4d7208f, type: 3}
+--- !u!1 &1552405369 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8853191339638647134, guid: fc86f90895fdc914886a91a3e4d7208f,
+    type: 3}
+  m_PrefabInstance: {fileID: 1552405368}
+  m_PrefabAsset: {fileID: 0}
+--- !u!58 &1552405370
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1552405369}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.032996178, y: 0.3299656}
+  serializedVersion: 2
+  m_Radius: 0.37564373
 --- !u!114 &1608459805 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1350290590424627994, guid: 775e04b12929e8b489e5dfcd46559631,
@@ -142410,7 +142437,7 @@ TilemapCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2116205101}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0

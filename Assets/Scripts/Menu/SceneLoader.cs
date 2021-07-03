@@ -1,5 +1,8 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 namespace Menu
 {
@@ -7,13 +10,7 @@ namespace Menu
     {
         public static SceneLoader instance = null;
         
-        public string prevScene = "MainMenu";
-
-        public void LoadScene(string currentScene, string nextScene)
-        {
-            instance.prevScene = currentScene;
-            SceneManager.LoadScene(nextScene);
-        }
+        public List<string> enabledButtons = new List<string>();
         
         private void Awake() {
             if(!instance)
@@ -22,7 +19,13 @@ namespace Menu
                 Destroy(gameObject) ;
                 return;
             }
+            enabledButtons.Add("SafeZoneButton");
             DontDestroyOnLoad(gameObject) ;
+        }
+
+        public void SetButtons(List<string> buttons)
+        {
+            enabledButtons = buttons;
         }
     }
 }

@@ -28,7 +28,15 @@ public class PlayerMovementManager : MonoBehaviour
         if (other.collider.CompareTag("Dungeon"))
         {
             SceneManager.LoadScene("LoadingScreen");
-            SceneLoader.instance.prevScene = "SafeZone";
+            var buttons = new List<string>() { "DungeonButton", "SafeZoneButton" };
+            SceneLoader.instance.SetButtons(buttons);
+        }
+
+        if (other.collider.CompareTag("Portal"))
+        {
+            SceneManager.LoadScene("LoadingScreen");
+            var buttons = new List<string>() { "OpenLandsButton", "SafeZoneButton" };
+            SceneLoader.instance.SetButtons(buttons);
         }
     }
 

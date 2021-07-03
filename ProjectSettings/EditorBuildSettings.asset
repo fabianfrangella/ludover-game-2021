@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LoadingScreen.unity
     guid: bab30d89a65a2af4582f285556c78bda
+  - enabled: 1
+    path: Assets/Scenes/OpenLand.unity
+    guid: 09eedad222e298344896102b4b92746f
   m_configObjects: {}

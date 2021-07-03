@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -7,7 +8,7 @@ using UnityEngine.UI;
 
 namespace Menu
 {
-    public class LoadingScreen : MonoBehaviour
+    public class LoadingScreenButton : MonoBehaviour
     {
         public Button button;
 
@@ -35,22 +36,12 @@ namespace Menu
                 yield return null;
             }
 
-            if (SceneLoader.instance != null)
+            if (SceneLoader.instance != null && SceneLoader.instance.enabledButtons.Contains(button.name))
             {
-                if (SceneLoader.instance.prevScene.Equals("MainMenu") && button.name.ToLower().Equals("safezonebutton"))
-                {
-                    yield return new WaitForSeconds(5);
-                    button.enabled = true;
-                    GetComponent<Image>().enabled = true;
-                    transform.GetChild(0).GetComponent<TextMeshProUGUI>().enabled = true;
-                }
-                else if (SceneLoader.instance.prevScene.Equals("SafeZone"))
-                {
-                    yield return new WaitForSeconds(5);
-                    button.enabled = true;
-                    GetComponent<Image>().enabled = true;
-                    transform.GetChild(0).GetComponent<TextMeshProUGUI>().enabled = true; 
-                }
+                yield return new WaitForSeconds(5);
+                button.enabled = true;
+                GetComponent<Image>().enabled = true;
+                transform.GetChild(0).GetComponent<TextMeshProUGUI>().enabled = true;
             }
         }
         public void EnterDungeon()
@@ -61,6 +52,11 @@ namespace Menu
         public void GoToSafeZone()
         {
             SceneManager.LoadScene("SafeZone");
+        }
+
+        public void GoToOpenLands()
+        {
+            SceneManager.LoadScene("OpenLand");
         }
     }
 }
