@@ -8,13 +8,11 @@ namespace Hud
     public class BloodOverlayUI : MonoBehaviour
     {
         public Image image;
-
-        private PlayerStats playerStats;
+        
         private PlayerHealthManager playerHealthManager;
         private bool hit;
         private void Start()
         {
-            playerStats = FindObjectOfType<PlayerStats>();
             playerHealthManager = FindObjectOfType<PlayerHealthManager>();
             playerHealthManager.OnHitReceived += DisplayOverlay;
             image.enabled = false;
@@ -24,8 +22,8 @@ namespace Hud
         {
             if (hit) return;
             
-            var alpha = .5f - playerStats.health / playerStats.maxHealth;
-            image.enabled = playerStats.health < playerStats.maxHealth;
+            var alpha = .5f - PlayerStats.instance.health / PlayerStats.instance.maxHealth;
+            image.enabled = PlayerStats.instance.health < PlayerStats.instance.maxHealth;
             image.color = new Color(image.color.r, image.color.g, image.color.b,
                 alpha > 0.5f ? 0.5f : alpha);
         }

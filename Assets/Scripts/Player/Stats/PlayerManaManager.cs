@@ -3,16 +3,14 @@
 public class PlayerManaManager : MonoBehaviour
 {
     public ManaBar manaBar;
-
-    private PlayerStats playerStats;
+    
     // Start is called before the first frame update
 
     private void Start()
     {
-        playerStats = GetComponent<PlayerStats>();
         if (manaBar != null)
         {
-            manaBar.SetMaxMana(playerStats.maxMana);
+            manaBar.SetMaxMana(PlayerStats.instance.maxMana);
         }
     }
 
@@ -27,32 +25,32 @@ public class PlayerManaManager : MonoBehaviour
 
     public void SetManaBar()
     {
-        manaBar.SetMana(playerStats.mana);
-        manaBar.SetMaxMana(playerStats.maxMana);
+        manaBar.SetMana(PlayerStats.instance.mana);
+        manaBar.SetMaxMana(PlayerStats.instance.maxMana);
     }
 
     public void OnManaReceived(float mana)
     {
-        if (playerStats.mana + mana >= playerStats.maxMana)
+        if (PlayerStats.instance.mana + mana >= PlayerStats.instance.maxMana)
         {
-            playerStats.mana = playerStats.maxMana;
+            PlayerStats.instance.mana = PlayerStats.instance.maxMana;
             return;
         }
-        playerStats.mana += mana;
+        PlayerStats.instance.mana += mana;
     }
 
     public void OnManaLost(float value)
     {
-        if (playerStats.mana - value <= 0)
+        if (PlayerStats.instance.mana - value <= 0)
         {
-            playerStats.mana = 0;
+            PlayerStats.instance.mana = 0;
             return;
         }
-        playerStats.mana -= value;
+        PlayerStats.instance.mana -= value;
     }
 
     public float GetCurrentMana()
     {
-        return playerStats.mana;
+        return PlayerStats.instance.mana;
     }
 }

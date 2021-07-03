@@ -7,22 +7,20 @@ public class PlayerInventory : MonoBehaviour
     public int maxSize;
     
     private List<Item> items;
-    private PlayerStats playerStats;
 
     private void Start()
     {
-        playerStats = GetComponent<PlayerStats>();
         items = new List<Item>() { new HealthPotion(), new HealthPotion() };
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q) && playerStats.health < playerStats.maxHealth)
+        if (Input.GetKeyDown(KeyCode.Q) && PlayerStats.instance.health < PlayerStats.instance.maxHealth)
         {
             var potion = FindItemByName(ItemEnum.HealthPotion);
             UseItem(potion);
         }
-        if (Input.GetKeyDown(KeyCode.E) && playerStats.mana < playerStats.maxMana)
+        if (Input.GetKeyDown(KeyCode.E) && PlayerStats.instance.mana < PlayerStats.instance.maxMana)
         {
             var potion = FindItemByName(ItemEnum.ManaPotion);
             UseItem(potion);
