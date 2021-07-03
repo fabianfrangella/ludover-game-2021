@@ -64,7 +64,6 @@ public class EnemyPathFinder : MonoBehaviour
     }
     private void Update()
     {
-        if (state == State.WANDERING && target == null) target = wanderer;
         if (state == State.STILL)
         {
             animator.SetBool("isIdle", rb.velocity == Vector2.zero);
