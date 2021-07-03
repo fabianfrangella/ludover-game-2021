@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -20,10 +21,23 @@ public class PlayerStats : MonoBehaviour
     public int level = 1;
     public int maxLevel = 100;
     private PlayerExperienceManager playerExperienceManager;
-
+    
+    private Dictionary<int, int> manaPerLevel;
+    private Dictionary<int, int> healthPerLevel;
+    private Dictionary<int, int> staminaPerLevel;
+    private Dictionary<int, int> spellDamagePerLevel;
+    private Dictionary<int, int> meleeDamagePerLevel;
+    
     private void Awake() {
-        if(!instance)
+        if (!instance)
+        {
             instance = this;
+            manaPerLevel = new Dictionary<int, int>() { {1, 40}, {2, 60}, {3, 70}, {4, 80}, {5, 90}, {6, 100} };
+            healthPerLevel = new Dictionary<int, int>() { {1, 40}, {2, 60}, {3, 70}, {4, 80}, {5, 90}, {6, 100} };
+            staminaPerLevel = new Dictionary<int, int>() { {1, 40}, {2, 60}, {3, 70}, {4, 80}, {5, 90}, {6, 100} };
+            spellDamagePerLevel = new Dictionary<int, int>() { {1, 5}, {2, 7}, {3, 10}, {4, 12}, {5, 14}, {6, 20} };
+            meleeDamagePerLevel = new Dictionary<int, int>() { {1, 10}, {2, 12}, {3, 15}, {4, 18}, {5, 20}, {6, 30} };
+        }
         else {
             Destroy(gameObject) ;
             return;
@@ -42,19 +56,38 @@ public class PlayerStats : MonoBehaviour
         mana = maxMana;
         stamina = maxStamina;
     }
-    void HandleLevelUp()
+    private void HandleLevelUp()
     {
-        maxHealth += maxHealth / 2;
+        if (level <= 6)
+        {
+            maxHealth += healthPerLevel[level];
+            health = maxHealth;
+            
+            maxMana += manaPerLevel[level];
+            mana = maxMana;
+            
+            maxStamina += staminaPerLevel[level];
+            stamina = maxStamina;
+            
+            spellDamage += spellDamagePerLevel[level];
+            
+            meleeDamage += meleeDamagePerLevel[level];
+            return;
+        }
+        
+        maxHealth += healthPerLevel[6];
         health = maxHealth;
 
-        maxStamina += maxStamina / 2;
+        maxStamina += staminaPerLevel[6];
         stamina = maxStamina;
 
-        maxMana += maxMana / 2;
+        maxMana += manaPerLevel[6];
         mana = maxMana;
 
-        meleeDamage += meleeDamage += meleeDamage / 2;
-        spellDamage += spellDamage += spellDamage / 2;
+        meleeDamage += meleeDamagePerLevel[6];
+        spellDamage += spellDamagePerLevel[6];
     }
+
+  
 
 }
