@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3647424025172196098}
   - component: {fileID: 8893364967503462595}
-  m_Layer: 0
+  - component: {fileID: 1266730350}
+  m_Layer: 11
   m_Name: Casa2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69,7 +70,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 100
   m_Sprite: {fileID: 21300000, guid: b73ac29e9b221e74d906071634477ede, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -81,3 +82,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!68 &1266730350
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2483050997233377447}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: -0.68228036, y: -0.31853485}
+  - {x: -0.6102543, y: -0.27534866}
+  - {x: 0.062321663, y: 0.055397034}
+  - {x: 0.6758919, y: -0.2179141}
+  - {x: -0.12774181, y: -0.6355133}
+  - {x: -0.6611062, y: -0.33238363}

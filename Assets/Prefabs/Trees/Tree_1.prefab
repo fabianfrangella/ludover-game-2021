@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 519539719}
   - component: {fileID: 519539720}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: Minimap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 6708603837328363971}
   - component: {fileID: 6708603837328363969}
   - component: {fileID: 7742992859618036735}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Tree_1
   m_TagString: Building
   m_Icon: {fileID: 0}
