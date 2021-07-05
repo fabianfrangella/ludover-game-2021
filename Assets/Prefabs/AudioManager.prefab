@@ -146,3 +146,15 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
+  - name: Potion
+    clip: {fileID: 8300000, guid: f8f0d9c145728de47a0276380732d706, type: 3}
+    volume: 0.409
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: SkeletonHit
+    clip: {fileID: 8300000, guid: 7079959e58e9d4c4285ea84fc7e52828, type: 3}
+    volume: 0.231
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
