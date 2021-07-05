@@ -158,3 +158,9 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
+  - name: Fire
+    clip: {fileID: 8300000, guid: f24ebd88eb239ba4baa3b1ae630a1039, type: 3}
+    volume: 0.155
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
