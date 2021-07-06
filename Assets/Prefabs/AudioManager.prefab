@@ -130,7 +130,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: ShieldSpell
     clip: {fileID: 8300000, guid: 7f4aa26d5b55226409cda231ffaf869b, type: 3}
-    volume: 0.386
+    volume: 0.118
     pitch: 1.5
     loop: 0
     distance: 10.5
@@ -151,7 +151,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: HealingSpell
     clip: {fileID: 8300000, guid: b66212d9829e1014c953e17775011cd1, type: 3}
-    volume: 0.486
+    volume: 0.156
     pitch: 1
     loop: 0
     distance: 10.5
