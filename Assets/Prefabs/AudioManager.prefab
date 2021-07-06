@@ -49,118 +49,138 @@ MonoBehaviour:
     volume: 1
     pitch: 3
     loop: 0
+    distance: 10.5
     source: {fileID: 0}
   - name: Footstep2
     clip: {fileID: 8300000, guid: 1d7e7e6569aab5a45a837f470eaddc8b, type: 3}
     volume: 1
     pitch: 3
     loop: 0
+    distance: 10.5
     source: {fileID: 0}
   - name: Footstep3
     clip: {fileID: 8300000, guid: 31be579b280d0bc459635877e8c45aee, type: 3}
     volume: 1
     pitch: 3
     loop: 0
+    distance: 10.5
     source: {fileID: 0}
   - name: Footstep4
     clip: {fileID: 8300000, guid: c3f3efc1106f84643a38bd21f6826aaf, type: 3}
     volume: 1
     pitch: 3
     loop: 0
+    distance: 10.5
     source: {fileID: 0}
   - name: Footstep5
     clip: {fileID: 8300000, guid: 2de8329adc6f9b944a5ab0875fb59924, type: 3}
     volume: 1
     pitch: 3
     loop: 0
+    distance: 10.5
     source: {fileID: 0}
   - name: BodyHit
     clip: {fileID: 8300000, guid: a37f44cbf8c2a7443a3c361efa2f233a, type: 3}
     volume: 0.678
     pitch: 2
     loop: 0
+    distance: 10.5
     source: {fileID: 0}
   - name: ShockSpell
     clip: {fileID: 8300000, guid: cc6699269b4c1d44ea1e860518b9bb73, type: 3}
     volume: 0.72
     pitch: 1.5
     loop: 0
+    distance: 10.5
     source: {fileID: 0}
   - name: FootstepSkeleton1
     clip: {fileID: 8300000, guid: 5e265270fb85126479eef52d8fce3b08, type: 3}
     volume: 1
     pitch: 1.5
     loop: 0
+    distance: 10.5
     source: {fileID: 0}
   - name: FootstepSkeleton2
     clip: {fileID: 8300000, guid: 3701a5fdf99882f40bc00eb9053eec92, type: 3}
     volume: 1
     pitch: 1.5
     loop: 0
+    distance: 10.5
     source: {fileID: 0}
   - name: FootstepSkeleton3
     clip: {fileID: 8300000, guid: 2f949b40b7283404099a802630fb2077, type: 3}
     volume: 1
     pitch: 1.5
     loop: 0
+    distance: 10.5
     source: {fileID: 0}
   - name: FootstepSkeleton4
     clip: {fileID: 8300000, guid: dfff2b3c7dfb43c419592789f0a6ab81, type: 3}
     volume: 1
     pitch: 1.5
     loop: 0
+    distance: 10.5
     source: {fileID: 0}
   - name: FootstepSkeleton5
     clip: {fileID: 8300000, guid: 812100e3982e56842adb6ba5be867b7a, type: 3}
     volume: 1
     pitch: 1.5
     loop: 0
+    distance: 10.5
     source: {fileID: 0}
   - name: ShieldSpell
     clip: {fileID: 8300000, guid: 7f4aa26d5b55226409cda231ffaf869b, type: 3}
     volume: 0.386
     pitch: 1.5
     loop: 0
+    distance: 10.5
     source: {fileID: 0}
   - name: Theme
     clip: {fileID: 8300000, guid: adab2e9f9f4338b48b1509104c8886b0, type: 3}
     volume: 0.289
     pitch: 1
     loop: 1
+    distance: 10.5
     source: {fileID: 0}
   - name: SwordSwing
     clip: {fileID: 8300000, guid: 13182107f288fdc47a11f9216c8f062b, type: 3}
     volume: 0.708
     pitch: 1
     loop: 0
+    distance: 10.5
     source: {fileID: 0}
   - name: HealingSpell
     clip: {fileID: 8300000, guid: b66212d9829e1014c953e17775011cd1, type: 3}
     volume: 0.486
     pitch: 1
     loop: 0
+    distance: 10.5
     source: {fileID: 0}
   - name: InvokeSkeletons
     clip: {fileID: 8300000, guid: 4b7e981dc0932db4597b7e218838db18, type: 3}
     volume: 0.504
     pitch: 1
     loop: 0
+    distance: 10.5
     source: {fileID: 0}
   - name: Potion
     clip: {fileID: 8300000, guid: f8f0d9c145728de47a0276380732d706, type: 3}
     volume: 0.409
     pitch: 1
     loop: 0
+    distance: 10.5
     source: {fileID: 0}
   - name: SkeletonHit
     clip: {fileID: 8300000, guid: 7079959e58e9d4c4285ea84fc7e52828, type: 3}
     volume: 0.231
     pitch: 1
     loop: 0
+    distance: 10.5
     source: {fileID: 0}
   - name: Fire
     clip: {fileID: 8300000, guid: f24ebd88eb239ba4baa3b1ae630a1039, type: 3}
     volume: 0.155
     pitch: 1
     loop: 1
+    distance: 10.5
     source: {fileID: 0}

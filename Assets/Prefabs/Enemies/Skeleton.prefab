@@ -213,6 +213,7 @@ GameObject:
   - component: {fileID: -3453064129817427868}
   - component: {fileID: -491420859083320059}
   - component: {fileID: -7258202589116104787}
+  - component: {fileID: 7676304288637792479}
   m_Layer: 10
   m_Name: Skeleton
   m_TagString: Enemy
@@ -478,6 +479,56 @@ MonoBehaviour:
   lineOfSight: 4
   currentWaypoint: 0
   target: {fileID: 0}
+  state: 1
+  wanderer: {fileID: 0}
+--- !u!114 &7676304288637792479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3112926715794206946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04d14fd28f3f4119aadaecf43521b286, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: FootstepSkeleton1
+    clip: {fileID: 8300000, guid: 5e265270fb85126479eef52d8fce3b08, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    distance: 30
+    source: {fileID: 0}
+  - name: FootstepSkeleton2
+    clip: {fileID: 8300000, guid: 3701a5fdf99882f40bc00eb9053eec92, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    distance: 30
+    source: {fileID: 0}
+  - name: FootstepSkeleton3
+    clip: {fileID: 8300000, guid: 2f949b40b7283404099a802630fb2077, type: 3}
+    volume: 1
+    pitch: 0.82
+    loop: 0
+    distance: 30
+    source: {fileID: 0}
+  - name: FootstepSkeleton4
+    clip: {fileID: 8300000, guid: dfff2b3c7dfb43c419592789f0a6ab81, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    distance: 30
+    source: {fileID: 0}
+  - name: FootstepSkeleton5
+    clip: {fileID: 8300000, guid: 812100e3982e56842adb6ba5be867b7a, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    distance: 30
+    source: {fileID: 0}
 --- !u!1 &3215534623181742900
 GameObject:
   m_ObjectHideFlags: 0
