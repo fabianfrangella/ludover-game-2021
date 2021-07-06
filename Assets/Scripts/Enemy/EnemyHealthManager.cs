@@ -27,7 +27,7 @@ public class EnemyHealthManager : MonoBehaviour
         cl = GetComponent<CircleCollider2D>();
         audioManager = FindObjectOfType<AudioManager>();
         // Workaround horrible para el audio, a futuro hay que manejar esto para cada tipo de enemigo en un script aparte
-        if (gameObject.name[0].Equals('S')) randomAudio = GetComponent<ObjectAudioArrayRandom>();
+        if (IsSkeleton()) randomAudio = GetComponent<ObjectAudioArrayRandom>();
     }
     
     private void Update()
@@ -73,16 +73,22 @@ public class EnemyHealthManager : MonoBehaviour
         {
             audioManager.Play("BodyHit");
             // Workaround horrible para el audio, a futuro hay que manejar esto para cada tipo de enemigo en un script aparte
-            if (gameObject.name[0].Equals('S')) randomAudio.Play();
+            if (IsSkeleton()) randomAudio.Play();
         }
         
         var finalDamage = absorption >= damage ? 0 : damage - absorption;
         health -= finalDamage;
         if (IsAlive()) return 0;
         OnDeath?.Invoke();
+        if (IsSkeleton()) randomAudio.Play();
         return experience;
     }
-
+    
+    //Workaround horrible
+    private bool IsSkeleton()
+    {
+        return gameObject.name[0].Equals('S');
+    }
     public void SetAbsorption(float val)
     {
         absorption = val;

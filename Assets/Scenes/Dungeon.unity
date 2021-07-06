@@ -16869,7 +16869,7 @@ PrefabInstance:
     - target: {fileID: 9043739527792473523, guid: de7cc719a6b51d549b6a384538c98b21,
         type: 3}
       propertyPath: sounds.Array.data[13].volume
-      value: 0.062
+      value: 0.042
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: de7cc719a6b51d549b6a384538c98b21, type: 3}
@@ -20366,7 +20366,7 @@ PrefabInstance:
     - target: {fileID: 7186012260419070665, guid: d907211e9d03f1d4fab4281ccf31e590,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d907211e9d03f1d4fab4281ccf31e590, type: 3}
@@ -20878,6 +20878,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fire (32)
       objectReference: {fileID: 0}
+    - target: {fileID: 7186012260419070665, guid: d907211e9d03f1d4fab4281ccf31e590,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d907211e9d03f1d4fab4281ccf31e590, type: 3}
 --- !u!4 &1098486909 stripped
@@ -21318,6 +21323,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Fire
+      objectReference: {fileID: 0}
+    - target: {fileID: 7186012260419070665, guid: d907211e9d03f1d4fab4281ccf31e590,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d907211e9d03f1d4fab4281ccf31e590, type: 3}
@@ -112338,6 +112348,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Fire (31)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7186012260419070665, guid: d907211e9d03f1d4fab4281ccf31e590,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d907211e9d03f1d4fab4281ccf31e590, type: 3}
