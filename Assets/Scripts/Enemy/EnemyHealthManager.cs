@@ -69,13 +69,16 @@ public class EnemyHealthManager : MonoBehaviour
     public float OnDamageReceived(float damage)
     {
         OnHit?.Invoke();
-        audioManager.Play("BodyHit");
-        // Workaround horrible para el audio, a futuro hay que manejar esto para cada tipo de enemigo en un script aparte
-        if (gameObject.name[0].Equals('S')) randomAudio.Play();
+        if (IsAlive())
+        {
+            audioManager.Play("BodyHit");
+            // Workaround horrible para el audio, a futuro hay que manejar esto para cada tipo de enemigo en un script aparte
+            if (gameObject.name[0].Equals('S')) randomAudio.Play();
+        }
+        
         var finalDamage = absorption >= damage ? 0 : damage - absorption;
         health -= finalDamage;
         if (IsAlive()) return 0;
-        Debug.Log("Skeleton died");
         OnDeath?.Invoke();
         return experience;
     }
