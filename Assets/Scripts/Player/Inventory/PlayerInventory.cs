@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Audio;
 using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
@@ -7,9 +8,11 @@ public class PlayerInventory : MonoBehaviour
     public int maxSize;
     
     private List<Item> items;
+    private AudioManager audioManager;
 
     private void Start()
     {
+        audioManager = FindObjectOfType<AudioManager>();
         items = new List<Item>() { new HealthPotion(), new HealthPotion() };
     }
 
@@ -50,6 +53,7 @@ public class PlayerInventory : MonoBehaviour
     {
         if (item != null)
         {
+            audioManager.Play("Potion");
             item.Use(transform);
             items.Remove(item);
         }
