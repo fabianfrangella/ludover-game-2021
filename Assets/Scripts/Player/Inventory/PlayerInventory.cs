@@ -13,7 +13,7 @@ public class PlayerInventory : MonoBehaviour
     private void Start()
     {
         audioManager = FindObjectOfType<AudioManager>();
-        items = new List<Item>() { new HealthPotion(), new HealthPotion() };
+        items = new List<Item>() { new HealthPotion(), new HealthPotion(), new ManaPotion(), new ManaPotion() };
     }
 
     private void Update()
