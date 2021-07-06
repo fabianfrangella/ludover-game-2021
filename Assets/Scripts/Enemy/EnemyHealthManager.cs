@@ -14,6 +14,7 @@ public class EnemyHealthManager : MonoBehaviour
     public HealthBar healthBar;
     
     private AudioManager audioManager;
+    private ObjectAudioArrayRandom randomAudio;
     private CircleCollider2D cl;
     private float absorption = 0;
     public event Action OnDeath;
@@ -25,6 +26,8 @@ public class EnemyHealthManager : MonoBehaviour
         health = maxHealth;
         cl = GetComponent<CircleCollider2D>();
         audioManager = FindObjectOfType<AudioManager>();
+        // Workaround horrible para el audio, a futuro hay que manejar esto para cada tipo de enemigo en un script aparte
+        if (gameObject.name[0].Equals('S')) randomAudio = GetComponent<ObjectAudioArrayRandom>();
     }
     
     private void Update()
@@ -68,7 +71,7 @@ public class EnemyHealthManager : MonoBehaviour
         OnHit?.Invoke();
         audioManager.Play("BodyHit");
         // Workaround horrible para el audio, a futuro hay que manejar esto para cada tipo de enemigo en un script aparte
-        if (gameObject.name[0].Equals('S')) audioManager.Play("SkeletonHit");
+        if (gameObject.name[0].Equals('S')) randomAudio.Play();
         var finalDamage = absorption >= damage ? 0 : damage - absorption;
         health -= finalDamage;
         if (IsAlive()) return 0;

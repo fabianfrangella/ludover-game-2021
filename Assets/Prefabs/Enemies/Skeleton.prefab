@@ -214,6 +214,8 @@ GameObject:
   - component: {fileID: -491420859083320059}
   - component: {fileID: -7258202589116104787}
   - component: {fileID: 7676304288637792479}
+  - component: {fileID: 4807039764352349812}
+  - component: {fileID: 1213560553859033855}
   m_Layer: 10
   m_Name: Skeleton
   m_TagString: Enemy
@@ -525,6 +527,60 @@ MonoBehaviour:
   - name: FootstepSkeleton5
     clip: {fileID: 8300000, guid: 812100e3982e56842adb6ba5be867b7a, type: 3}
     volume: 1
+    pitch: 1
+    loop: 0
+    distance: 30
+    source: {fileID: 0}
+--- !u!114 &4807039764352349812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3112926715794206946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04d14fd28f3f4119aadaecf43521b286, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds: []
+--- !u!114 &1213560553859033855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3112926715794206946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84888dbd0fa247ab9745bca342247c38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Hit
+    clip: {fileID: 8300000, guid: 7079959e58e9d4c4285ea84fc7e52828, type: 3}
+    volume: 0.473
+    pitch: 1
+    loop: 0
+    distance: 30
+    source: {fileID: 0}
+  - name: Hit
+    clip: {fileID: 8300000, guid: 115446ecd30291946bfccc2aaa8de55e, type: 3}
+    volume: 0.505
+    pitch: 1
+    loop: 0
+    distance: 30
+    source: {fileID: 0}
+  - name: Hit
+    clip: {fileID: 8300000, guid: 948b38118126fc646b656526a4bfe571, type: 3}
+    volume: 0.53
+    pitch: 0.99
+    loop: 0
+    distance: 30
+    source: {fileID: 0}
+  - name: Hit
+    clip: {fileID: 8300000, guid: 0807d27a7479fbd468547a633eee5791, type: 3}
+    volume: 0.537
     pitch: 1
     loop: 0
     distance: 30
