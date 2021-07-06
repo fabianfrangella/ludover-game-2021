@@ -15,6 +15,8 @@ namespace Audio
         public float pitch;
 
         public bool loop;
+
+        public float distance = 10.5f;
         
         [HideInInspector]
         public AudioSource source;

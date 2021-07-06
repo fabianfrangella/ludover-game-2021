@@ -19,7 +19,7 @@ public class EnemyPathFinder : MonoBehaviour
     private EnemyHealthManager healthManager;
     private bool hasReachedPlayer;
     
-    private AudioManager audioManager;
+    private ObjectAudioArray audioManager;
     private int currentFootstep = 1;
     public State state = State.STILL;
     public Transform wanderer;
@@ -34,7 +34,7 @@ public class EnemyPathFinder : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         healthManager = GetComponent<EnemyHealthManager>();
-        audioManager = FindObjectOfType<AudioManager>();
+        audioManager = GetComponent<ObjectAudioArray>();
         target = null;
         if (state == State.WANDERING) target = wanderer;
         InvokeRepeating(nameof(UpdatePath), 0f, 0.5f);
