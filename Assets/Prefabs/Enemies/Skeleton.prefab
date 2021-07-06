@@ -559,28 +559,28 @@ MonoBehaviour:
   sounds:
   - name: Hit
     clip: {fileID: 8300000, guid: 7079959e58e9d4c4285ea84fc7e52828, type: 3}
-    volume: 0.232
+    volume: 0.137
     pitch: 1
     loop: 0
     distance: 30
     source: {fileID: 0}
   - name: Hit
     clip: {fileID: 8300000, guid: 115446ecd30291946bfccc2aaa8de55e, type: 3}
-    volume: 0.238
+    volume: 0.13
     pitch: 1
     loop: 0
     distance: 30
     source: {fileID: 0}
   - name: Hit
     clip: {fileID: 8300000, guid: 948b38118126fc646b656526a4bfe571, type: 3}
-    volume: 0.238
+    volume: 0.13
     pitch: 0.99
     loop: 0
     distance: 30
     source: {fileID: 0}
   - name: Hit
     clip: {fileID: 8300000, guid: 0807d27a7479fbd468547a633eee5791, type: 3}
-    volume: 0.238
+    volume: 0.137
     pitch: 1
     loop: 0
     distance: 30

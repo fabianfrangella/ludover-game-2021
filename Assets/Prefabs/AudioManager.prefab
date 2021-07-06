@@ -81,7 +81,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: BodyHit
     clip: {fileID: 8300000, guid: a37f44cbf8c2a7443a3c361efa2f233a, type: 3}
-    volume: 0.678
+    volume: 0.359
     pitch: 2
     loop: 0
     distance: 10.5
