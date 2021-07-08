@@ -79,10 +79,10 @@ public class EnemyHealthManager : MonoBehaviour
             if (IsSkeleton()) randomAudio.Play();
             return 0;
         }
-        OnDeath?.Invoke();
-        if (IsSkeleton() && !isDead)
+        if (!isDead)
         {
-            audioManager.Play("SkeletonDeath");
+            OnDeath?.Invoke();
+            if (IsSkeleton()) audioManager.Play("SkeletonDeath");
             isDead = true;
             return experience;
         }
