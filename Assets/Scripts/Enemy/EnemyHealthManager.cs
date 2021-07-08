@@ -20,6 +20,8 @@ public class EnemyHealthManager : MonoBehaviour
     public event Action OnDeath;
 
     public event Action OnHit;
+
+    private bool isDead = false;
     
     private void Start()
     {
@@ -78,8 +80,13 @@ public class EnemyHealthManager : MonoBehaviour
             return 0;
         }
         OnDeath?.Invoke();
-        if (IsSkeleton()) audioManager.Play("SkeletonDeath");
-        return experience;
+        if (IsSkeleton() && !isDead)
+        {
+            audioManager.Play("SkeletonDeath");
+            isDead = true;
+            return experience;
+        }
+        return 0;
     }
     
     //Workaround horrible
