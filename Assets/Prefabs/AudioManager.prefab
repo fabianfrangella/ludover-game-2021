@@ -184,3 +184,17 @@ MonoBehaviour:
     loop: 1
     distance: 10.5
     source: {fileID: 0}
+  - name: SkeletonDeath
+    clip: {fileID: 8300000, guid: ca844978545f70347929ef7a4f31b3e9, type: 3}
+    volume: 0.201
+    pitch: 1
+    loop: 0
+    distance: 10.5
+    source: {fileID: 0}
+  - name: ChangeWeapon
+    clip: {fileID: 8300000, guid: ae802108b01f9834089a4d5dd9453f88, type: 3}
+    volume: 0.127
+    pitch: 1
+    loop: 0
+    distance: 10.5
+    source: {fileID: 0}

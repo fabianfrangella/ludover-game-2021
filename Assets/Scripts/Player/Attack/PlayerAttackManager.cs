@@ -1,4 +1,5 @@
 ﻿using System;
+using Audio;
 using Hud;
 using UnityEngine;
 
@@ -6,10 +7,12 @@ public class PlayerAttackManager : MonoBehaviour
 {
 
     private PlayerAttackState playerAttackState;
+    private AudioManager audioManager;
     
     private void Start()
     {
         playerAttackState = GetComponent<PlayerMeleeAttackManager>();
+        audioManager = FindObjectOfType<AudioManager>();
     }
     
     private void Update()
@@ -31,6 +34,7 @@ public class PlayerAttackManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             playerAttackState = playerAttackState.GetNextState();
+            audioManager.Play("ChangeWeapon");
         }
 
         var attackMode = FindObjectOfType<AttackMode>();
