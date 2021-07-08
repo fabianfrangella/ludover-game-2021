@@ -102,16 +102,19 @@ public class PlayerSpellManager : MonoBehaviour, PlayerAttackState
     {
         if (Input.GetKeyDown(KeyCode.Alpha1) && HasSpell(Spell.Shock))
         {
+            audioManager.Play("ChangeSpell");
             selectedSpell = Spell.Shock;
             ui.SetSelectedSpell(Spell.Shock.ToString());
         }
         if (Input.GetKeyDown(KeyCode.Alpha2) && HasSpell(Spell.Shield))
         {
+            audioManager.Play("ChangeSpell");
             selectedSpell = Spell.Shield;
             ui.SetSelectedSpell(Spell.Shield.ToString());
         }
         if (Input.GetKeyDown(KeyCode.Alpha3) && HasSpell(Spell.Healing))
         {
+            audioManager.Play("ChangeSpell");
             selectedSpell = Spell.Healing;
             ui.SetSelectedSpell(Spell.Healing.ToString());
         }
