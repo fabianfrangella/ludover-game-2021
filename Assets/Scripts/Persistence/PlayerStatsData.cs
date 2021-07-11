@@ -33,9 +33,11 @@ namespace Persistence
     {
         public float x;
         public float y;
+        public string scene;
 
-        public Position(float x, float y)
+        public Position(float x, float y, string scene)
         {
+            this.scene = scene;
             this.x = x;
             this.y = y;
         }

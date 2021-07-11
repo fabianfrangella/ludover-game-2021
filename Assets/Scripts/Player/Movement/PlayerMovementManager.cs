@@ -15,7 +15,7 @@ public class PlayerMovementManager : MonoBehaviour
 
     private void Start()
     {
-        if (PlayerStats.instance.initialPosition != null)
+        if (PlayerStats.instance.initialPosition != null && SceneLoader.instance.currentScene.Equals(PlayerStats.instance.initialPosition.scene))
         {
             rb.position = PlayerStats.instance.initialPosition.ToVector2();
         }
