@@ -22,7 +22,7 @@ public class PlayerStats : MonoBehaviour
     public int level = 1;
     public int maxLevel = 100;
 
-    public Vector2 initialPosition;
+    public Position initialPosition;
     
     private PlayerExperienceManager playerExperienceManager;
     
@@ -35,6 +35,7 @@ public class PlayerStats : MonoBehaviour
     private void Awake() {
         if (!instance)
         {
+            initialPosition = null;
             instance = this;
             manaPerLevel = new Dictionary<int, int>() { {1, 40}, {2, 60}, {3, 70}, {4, 80}, {5, 90}, {6, 100} };
             healthPerLevel = new Dictionary<int, int>() { {1, 40}, {2, 60}, {3, 70}, {4, 80}, {5, 90}, {6, 100} };
@@ -101,11 +102,12 @@ public class PlayerStats : MonoBehaviour
         maxMana = data.maxMana;
         maxStamina = data.maxStamina;
         level = data.level;
+        maxLevel = data.maxLevel;
         meleeDamage = data.meleeDamage;
         spellDamage = data.spellDamage;
         currentExperience = data.currentExperience;
         nextLevelExperience = data.nextLevelExperience;
-        initialPosition = new Vector2(data.position.x, data.position.y);
+        initialPosition = data.position;
     }
   
 

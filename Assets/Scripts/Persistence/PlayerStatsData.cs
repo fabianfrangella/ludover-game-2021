@@ -1,4 +1,6 @@
-﻿namespace Persistence
+﻿using UnityEngine;
+
+namespace Persistence
 {
     [System.Serializable]
     public class PlayerStatsData
@@ -36,6 +38,11 @@
         {
             this.x = x;
             this.y = y;
+        }
+
+        public Vector2 ToVector2()
+        {
+            return new Vector2(x, y);
         }
     }
 }
