@@ -23,6 +23,8 @@ namespace Persistence
             playerStatsData.currentExperience = PlayerStats.instance.currentExperience;
             playerStatsData.nextLevelExperience = PlayerStats.instance.nextLevelExperience;
             playerStatsData.scene = SceneLoader.instance.currentScene;
+            var playerPosition = FindObjectOfType<PlayerMovementManager>().rb.position;
+            playerStatsData.position = new Position(playerPosition.x, playerPosition.y);
             var stats = JsonUtility.ToJson(playerStatsData);
             System.IO.File.WriteAllText(Application.persistentDataPath + "/_PlayerStatsData.json", stats);
         }

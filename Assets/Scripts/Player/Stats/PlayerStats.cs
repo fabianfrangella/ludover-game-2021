@@ -21,6 +21,9 @@ public class PlayerStats : MonoBehaviour
     public float nextLevelExperience = 100;
     public int level = 1;
     public int maxLevel = 100;
+
+    public Vector2 initialPosition;
+    
     private PlayerExperienceManager playerExperienceManager;
     
     private Dictionary<int, int> manaPerLevel;
@@ -102,6 +105,7 @@ public class PlayerStats : MonoBehaviour
         spellDamage = data.spellDamage;
         currentExperience = data.currentExperience;
         nextLevelExperience = data.nextLevelExperience;
+        initialPosition = new Vector2(data.position.x, data.position.y);
     }
   
 

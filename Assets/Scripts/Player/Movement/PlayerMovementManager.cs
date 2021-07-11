@@ -15,6 +15,10 @@ public class PlayerMovementManager : MonoBehaviour
 
     private void Start()
     {
+        if (PlayerStats.instance.initialPosition != null)
+        {
+            rb.position = PlayerStats.instance.initialPosition;
+        }
         audioManager = FindObjectOfType<AudioManager>();
         InvokeRepeating(nameof(PlayFootstep), 0f, 0.25f);
     }

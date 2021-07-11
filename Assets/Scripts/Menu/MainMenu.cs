@@ -20,7 +20,6 @@ public class MainMenu : MonoBehaviour
         dao.LoadPlayerData();
         PlayerStats.instance.LoadStats(dao.playerStatsData);
         SceneLoader.instance.LoadScene(dao.playerStatsData.scene);
-        
     }
     
 }
