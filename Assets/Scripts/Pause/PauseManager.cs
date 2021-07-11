@@ -1,4 +1,5 @@
 ﻿using System;
+using Menu;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,6 +12,7 @@ namespace Pause
         public PauseManager instance;
         public TextMeshProUGUI tmp;
         public QuitGameButton button;
+        public SaveGameButton saveGameButton;
         private void Awake()
         {
             tmp.enabled = false;
@@ -30,6 +32,7 @@ namespace Pause
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
+                if (SceneLoader.instance.currentScene.Equals("LoadingScreen")) return;
                 _gameIsPaused = !_gameIsPaused;
                 PauseGame();
             }
@@ -43,6 +46,7 @@ namespace Pause
                 tmp.enabled = true;
                 AudioListener.pause = true;
                 button.EnableButton();
+                saveGameButton.EnableButton();
             }
             else 
             {
@@ -51,6 +55,7 @@ namespace Pause
                 AudioListener.pause = false;
                 button.enabled = false;
                 button.DisableButton();
+                saveGameButton.DisableButton();
             }
         }
 
