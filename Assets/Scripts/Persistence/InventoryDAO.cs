@@ -13,7 +13,6 @@ namespace Persistence
         {
             items = PlayerStats.instance.items.Select(i => new ItemData(i.name.ToString())).ToList();
             var data = JsonUtility.ToJson(new ItemArray(items));
-            Debug.Log(data);
             System.IO.File.WriteAllText(Application.persistentDataPath + "/_PlayerItemsData.json", data);
         }
 

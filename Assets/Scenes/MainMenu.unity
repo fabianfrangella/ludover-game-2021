@@ -258,7 +258,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 628c340655b64a96beb66df45d794427, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &196407242
+--- !u!114 &196407243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 196407240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66421edc95d049ac9deafbeb07aaf66a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  items: []
+--- !u!114 &196407246
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -272,18 +285,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statsDao: {fileID: 196407241}
   inventoryDao: {fileID: 196407243}
---- !u!114 &196407243
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 196407240}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66421edc95d049ac9deafbeb07aaf66a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &274570228
 GameObject:
   m_ObjectHideFlags: 0
@@ -771,6 +772,7 @@ MonoBehaviour:
   initialPosition:
     x: 0
     y: 0
+    scene: 
 --- !u!4 &860276342
 Transform:
   m_ObjectHideFlags: 0
@@ -961,6 +963,7 @@ MonoBehaviour:
     position:
       x: 0
       y: 0
+      scene: 
 --- !u!114 &1192888436
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -973,6 +976,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66421edc95d049ac9deafbeb07aaf66a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  items: []
 --- !u!1 &1215857388
 GameObject:
   m_ObjectHideFlags: 0
@@ -1510,11 +1514,18 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 196407242}
+      objectReference: {fileID: 196407246}
     - target: {fileID: 2697495593805359116, guid: bf37bf72d035c8843adb926ba73cae28,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: Save
+      objectReference: {fileID: 0}
+    - target: {fileID: 6880434062825325693, guid: bf37bf72d035c8843adb926ba73cae28,
+        type: 3}
+      propertyPath: m_text
+      value: 'SAVE GAME
+
+'
       objectReference: {fileID: 0}
     - target: {fileID: 8101288642907583217, guid: bf37bf72d035c8843adb926ba73cae28,
         type: 3}
