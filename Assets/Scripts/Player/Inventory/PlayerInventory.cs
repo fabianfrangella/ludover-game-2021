@@ -2,19 +2,18 @@
 using System.Collections.Generic;
 using Audio;
 using Pause;
+using Persistence;
 using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
     public int maxSize;
     
-    private List<Item> items;
     private AudioManager audioManager;
 
     private void Start()
     {
         audioManager = FindObjectOfType<AudioManager>();
-        items = new List<Item>() { new HealthPotion(), new HealthPotion(), new ManaPotion(), new ManaPotion() };
     }
 
     private void Update()
@@ -34,21 +33,21 @@ public class PlayerInventory : MonoBehaviour
 
     public int FindItemQuantity(ItemEnum i)
     {
-        return items.FindAll(item => item.name.Equals(i)).Count;
+        return PlayerStats.instance.items.FindAll(item => item.name.Equals(i)).Count;
     }
 
     private Item FindItemByName(ItemEnum i)
     {
-        return items.Find(item => item.GetName().Equals(i));
+        return PlayerStats.instance.items.Find(item => item.GetName().Equals(i));
     }
 
     public void AddItem(Item item)
     {
-        if (items.Count >= maxSize)
+        if (PlayerStats.instance.items.Count >= maxSize)
         {
             throw new InventoryFullException();
         }
-        items.Add(item);
+        PlayerStats.instance.items.Add(item);
     }
 
     private void UseItem(Item item)
@@ -57,9 +56,10 @@ public class PlayerInventory : MonoBehaviour
         {
             audioManager.Play("Potion");
             item.Use(transform);
-            items.Remove(item);
+            PlayerStats.instance.items.Remove(item);
         }
     }
+    
 }
 
 public class InventoryFullException : Exception
