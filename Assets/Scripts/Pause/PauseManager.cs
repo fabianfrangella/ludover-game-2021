@@ -1,6 +1,7 @@
 ﻿using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Pause
 {
@@ -9,6 +10,7 @@ namespace Pause
         private static bool _gameIsPaused = false;
         public PauseManager instance;
         public TextMeshProUGUI tmp;
+        public QuitGameButton button;
         private void Awake()
         {
             tmp.enabled = false;
@@ -40,12 +42,15 @@ namespace Pause
                 Time.timeScale = 0f;
                 tmp.enabled = true;
                 AudioListener.pause = true;
+                button.EnableButton();
             }
             else 
             {
                 Time.timeScale = 1;
                 tmp.enabled = false;
                 AudioListener.pause = false;
+                button.enabled = false;
+                button.DisableButton();
             }
         }
 
