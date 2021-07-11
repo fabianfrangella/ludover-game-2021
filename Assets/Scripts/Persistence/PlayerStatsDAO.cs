@@ -1,11 +1,12 @@
-﻿using UnityEngine;
+﻿using Menu;
+using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace Persistence
 {
     public class PlayerStatsDAO : MonoBehaviour
     {
-        [SerializeField] private PlayerStatsData playerStatsData = new PlayerStatsData();
+        [SerializeField] public PlayerStatsData playerStatsData = new PlayerStatsData();
         
         public void SaveIntoJson()
         {
@@ -21,8 +22,15 @@ namespace Persistence
             playerStatsData.spellDamage = PlayerStats.instance.spellDamage;
             playerStatsData.currentExperience = PlayerStats.instance.currentExperience;
             playerStatsData.nextLevelExperience = PlayerStats.instance.nextLevelExperience;
+            playerStatsData.scene = SceneLoader.instance.currentScene;
             var stats = JsonUtility.ToJson(playerStatsData);
             System.IO.File.WriteAllText(Application.persistentDataPath + "/_PlayerStatsData.json", stats);
         }
+
+        public void LoadPlayerData()
+        {
+            playerStatsData = JsonUtility.FromJson<PlayerStatsData> (System.IO.File.ReadAllText(Application.persistentDataPath + "/_PlayerStatsData.json"));
+        }
+        
     }
 }

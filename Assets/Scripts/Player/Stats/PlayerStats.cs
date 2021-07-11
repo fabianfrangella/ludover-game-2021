@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Persistence;
 using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
@@ -88,6 +89,20 @@ public class PlayerStats : MonoBehaviour
         spellDamage += spellDamagePerLevel[6];
     }
 
+    public void LoadStats(PlayerStatsData data)
+    {
+        health = data.health;
+        mana = data.mana;
+        stamina = data.stamina;
+        maxHealth = data.maxHealth;
+        maxMana = data.maxMana;
+        maxStamina = data.maxStamina;
+        level = data.level;
+        meleeDamage = data.meleeDamage;
+        spellDamage = data.spellDamage;
+        currentExperience = data.currentExperience;
+        nextLevelExperience = data.nextLevelExperience;
+    }
   
 
 }

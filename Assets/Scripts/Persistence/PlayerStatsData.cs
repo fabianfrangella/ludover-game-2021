@@ -16,7 +16,11 @@
 
         public float currentExperience;
         public float nextLevelExperience;
+        
         public int level;
         public int maxLevel;
+
+        public string scene;
+
     }
 }
