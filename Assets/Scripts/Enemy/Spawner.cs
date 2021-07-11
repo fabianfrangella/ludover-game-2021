@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Pause;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -21,6 +22,7 @@ namespace Enemy
         }
         private void Update()
         {
+            if (PauseManager.IsGamePaused()) return;
             if (alive < maxAlive)
             {
                 Spawn();

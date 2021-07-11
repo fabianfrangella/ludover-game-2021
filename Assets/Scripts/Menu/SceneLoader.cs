@@ -11,6 +11,7 @@ namespace Menu
         public static SceneLoader instance = null;
 
         public string currentScene = "MainMenu";
+        public string prevScene;
         
         public List<string> enabledButtons = new List<string>();
         
@@ -33,6 +34,7 @@ namespace Menu
 
         public void LoadScene(string scene)
         {
+            prevScene = currentScene;
             currentScene = scene;
             SceneManager.LoadScene(scene);
         }

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Pause;
 using UnityEngine;
 
 public class PlayerAnimationsManager : MonoBehaviour
@@ -17,7 +18,7 @@ public class PlayerAnimationsManager : MonoBehaviour
     }
     private void Update()
     {
-        if (!playerHealthManager.IsAlive()) return;
+        if (!playerHealthManager.IsAlive() || PauseManager.IsGamePaused()) return;
         SetLastDirection();
         SetIdleAnimation();
         PlayRunAnimation();

@@ -29,6 +29,11 @@ namespace Hud
         public void RestartGame()
         {
             PlayerStats.instance.health = PlayerStats.instance.maxHealth;
+            if (SceneLoader.instance.currentScene.Equals("Dungeon"))
+            {
+                SceneLoader.instance.LoadScene("SafeZone");
+                return;
+            }
             SceneLoader.instance.LoadScene(SceneLoader.instance.currentScene);
         }
     }

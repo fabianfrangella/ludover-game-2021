@@ -15,7 +15,7 @@ public class SkeletonAttackManager : MonoBehaviour
     private Vector2 direction;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         animationManager = GetComponent<SkeletonAnimationManager>();
         rb = GetComponent<Rigidbody2D>();

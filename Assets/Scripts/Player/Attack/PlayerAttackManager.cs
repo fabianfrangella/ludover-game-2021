@@ -1,6 +1,7 @@
 ﻿using System;
 using Audio;
 using Hud;
+using Pause;
 using UnityEngine;
 
 public class PlayerAttackManager : MonoBehaviour
@@ -17,6 +18,7 @@ public class PlayerAttackManager : MonoBehaviour
     
     private void Update()
     {
+        if (PauseManager.IsGamePaused()) return;
         HandleAttack();
         HandleChangeAttackMode();
     }
