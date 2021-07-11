@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Audio;
+using Pause;
 using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
@@ -18,6 +19,7 @@ public class PlayerInventory : MonoBehaviour
 
     private void Update()
     {
+        if (PauseManager.IsGamePaused()) return;
         if (Input.GetKeyDown(KeyCode.Q) && PlayerStats.instance.health < PlayerStats.instance.maxHealth)
         {
             var potion = FindItemByName(ItemEnum.HealthPotion);

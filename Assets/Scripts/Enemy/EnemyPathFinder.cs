@@ -1,6 +1,7 @@
 ﻿using Audio;
 using UnityEngine;
 using Pathfinding;
+using Pause;
 
 public class EnemyPathFinder : MonoBehaviour
 {
@@ -64,6 +65,7 @@ public class EnemyPathFinder : MonoBehaviour
     }
     private void Update()
     {
+        if (PauseManager.IsGamePaused()) return;
         if (state == State.STILL)
         {
             animator.SetBool("isIdle", rb.velocity == Vector2.zero);
