@@ -19,7 +19,7 @@ namespace Audio
                 sound.source.volume = sound.volume;
                 sound.source.pitch = sound.pitch;
                 sound.source.loop = sound.loop;
-                sound.source.ignoreListenerPause = sound.playOnPause;
+                if (sound.name.Equals("Theme") || sound.playOnPause) sound.source.ignoreListenerPause = true;
             }
 
         }

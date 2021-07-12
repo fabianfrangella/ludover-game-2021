@@ -53,7 +53,6 @@ namespace Pause
                 Time.timeScale = 1;
                 tmp.enabled = false;
                 AudioListener.pause = false;
-                button.enabled = false;
                 button.DisableButton();
                 saveGameButton.DisableButton();
             }
