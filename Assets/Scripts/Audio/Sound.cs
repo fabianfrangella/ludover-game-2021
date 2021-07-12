@@ -18,6 +18,8 @@ namespace Audio
 
         public float distance = 10.5f;
         
+        public bool playOnPause = false;
+        
         [HideInInspector]
         public AudioSource source;
 

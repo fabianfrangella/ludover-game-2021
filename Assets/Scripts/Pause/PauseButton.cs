@@ -1,4 +1,5 @@
 ﻿using System;
+using Audio;
 using Menu;
 using TMPro;
 using UnityEngine;
@@ -8,10 +9,19 @@ namespace Pause
 {
     [Serializable]
     public class PauseButton : MonoBehaviour
-    {
+    { 
         public Button button;
-
-       private void Start()
+        protected AudioManager audioManager;
+        
+        private void Update()
+        {
+            if (audioManager == null)
+            {
+                audioManager = FindObjectOfType<AudioManager>();
+            }
+        }
+        
+        private void Start()
         {
             button.enabled = false;
             GetComponent<Image>().enabled = false;

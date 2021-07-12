@@ -8,15 +8,7 @@ namespace Audio
     {
 
         public Sound[] sounds;
-
-        private readonly string[] skeletonSounds =
-        {
-            "FootstepSkeleton1", 
-            "FootstepSkeleton2", 
-            "FootstepSkeleton3", 
-            "FootstepSkeleton4", 
-            "FootstepSkeleton5"
-        };
+        
 
         private void Awake()
         {
@@ -27,7 +19,7 @@ namespace Audio
                 sound.source.volume = sound.volume;
                 sound.source.pitch = sound.pitch;
                 sound.source.loop = sound.loop;
-                sound.source.spatialBlend = Array.Exists(skeletonSounds, s => s.Equals(sound.name)) ? 1 : 0.5f;
+                sound.source.ignoreListenerPause = sound.playOnPause;
             }
 
         }

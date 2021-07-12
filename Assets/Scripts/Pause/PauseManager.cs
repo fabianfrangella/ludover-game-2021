@@ -1,8 +1,7 @@
-﻿using System;
-using Menu;
+﻿using Menu;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
+
 
 namespace Pause
 {
@@ -13,6 +12,7 @@ namespace Pause
         public TextMeshProUGUI tmp;
         public QuitGameButton button;
         public SaveGameButton saveGameButton;
+
         private void Awake()
         {
             tmp.enabled = false;
