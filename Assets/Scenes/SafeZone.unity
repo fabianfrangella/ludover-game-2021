@@ -74928,6 +74928,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1304796393706701464, guid: 54756b65c44749d45b1e9f7ea1729f79,
+        type: 3}
+      propertyPath: m_text
+      value: Good luck in there... You will need it
+      objectReference: {fileID: 0}
     - target: {fileID: 5727712580582538073, guid: 54756b65c44749d45b1e9f7ea1729f79,
         type: 3}
       propertyPath: m_SortingOrder
@@ -144479,7 +144484,7 @@ PrefabInstance:
     - target: {fileID: 1350290589199393531, guid: 775e04b12929e8b489e5dfcd46559631,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -99.044
+      value: -99.04401
       objectReference: {fileID: 0}
     - target: {fileID: 1350290589200694416, guid: 775e04b12929e8b489e5dfcd46559631,
         type: 3}
