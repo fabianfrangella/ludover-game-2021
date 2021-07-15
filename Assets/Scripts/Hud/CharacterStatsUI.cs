@@ -16,13 +16,13 @@ namespace Hud
         public Transform spell;
         public Transform experience;
 
-        public TextMeshProUGUI healthText;
-        public TextMeshProUGUI manaText;
-        public TextMeshProUGUI staminaText;
-        public TextMeshProUGUI levelText;
-        public TextMeshProUGUI experienceText;
-        public TextMeshProUGUI meleeDamageText;
-        public TextMeshProUGUI spellDamageText;
+        private TextMeshProUGUI healthText;
+        private TextMeshProUGUI manaText;
+        private TextMeshProUGUI staminaText;
+        private TextMeshProUGUI levelText;
+        private TextMeshProUGUI experienceText;
+        private TextMeshProUGUI meleeDamageText;
+        private TextMeshProUGUI spellDamageText;
         
         
         private bool isActive = false;
